@@ -62,7 +62,7 @@ public class UI_JudgeCombo : MonoBehaviour
 
     private void RateUpdate()
     {
-        rateText.text = rate.ToString();
+        rateText.text = rate.ToString("F2");
     }
 
     private void ComboUpdate(int count)

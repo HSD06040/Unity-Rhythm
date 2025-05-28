@@ -31,7 +31,7 @@ public class Note : MonoBehaviour
         }
         else if (data.isLongNoteStart || (data.longNoteData != null && data.longNoteData.isLongNoteEnd))
         {
-            sr.color = Color.clear;
+            //sr.color = Color.clear;
         }
     }
 

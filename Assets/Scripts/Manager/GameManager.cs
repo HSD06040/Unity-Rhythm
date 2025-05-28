@@ -87,8 +87,11 @@ public class GameManager : Manager<GameManager>
     {
         SetNote();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            GameStart(bgm);
+        if(!isEdit)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+                GameStart(bgm);
+        }        
     }
 
     public void GameStart(BGM _bgm)

@@ -11,7 +11,7 @@ public class JudgeManager : Manager<JudgeManager>
     [SerializeField] private float[] defaultJudgeMs;
     public NoteLane[] noteLanes;
     private float checkMs;
-    YieldInstruction delay;
+    private YieldInstruction delay;
 
     protected override void Awake()
     {
@@ -111,7 +111,6 @@ public class JudgeManager : Manager<JudgeManager>
 
                 if (judgeMaxTick == judgeTick)
                 {
-                    Debug.Log("judgeTick is Full");
                     break;                
                 }
             }
@@ -125,7 +124,7 @@ public class JudgeManager : Manager<JudgeManager>
         endNote.data.isJudgeDone = true;
         GameManager.Instance.ReleaseNote(noteLanes[note.data.keyPos].DequeueNote());
 
-        if (GameManager.Instance.time >= holdEndTime - 50)
+        if (GameManager.Instance.time >= holdEndTime - 160)
         {
             if (judgeMaxTick != judgeTick)
             {
@@ -138,11 +137,10 @@ public class JudgeManager : Manager<JudgeManager>
             ScoreManager.Instance.AddJudgeResult(Judge.Perfect);
         }
         else
-        {            
+        {
             ScoreManager.Instance.AddJudgeResult(Judge.Miss);
         }        
     }
-
 
     private void Judgement(Note note)
     {

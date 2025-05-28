@@ -15,6 +15,7 @@ public class MapEditor : MonoBehaviour
     [SerializeField] private BGM bgm;
     [SerializeField] private int BPM;
     [SerializeField] private string artist;
+    [SerializeField] private float resSpeed = .75f;
     public string keySound;
     private float currentTime => GameManager.Instance.time / 1000;
     [SerializeField] private TMP_Text currentTimeText;
@@ -79,6 +80,7 @@ public class MapEditor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             AudioManager.Instance.PlayBGM(bgm, 1);
+            AudioManager.Instance.musicChannel.setPitch(resSpeed);
             musicPlay = true;
         }
 
@@ -115,6 +117,26 @@ public class MapEditor : MonoBehaviour
                 }
 
                 CreateNote(line, idx);
+            }
+            else if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                GridLine line = hit.transform.GetComponent<GridLine>();
+
+                float minDist = float.MaxValue;
+                int idx = 0;
+
+                for (int i = 0; i < offset.Length; i++)
+                {
+                    float offsetX = line.transform.position.x + offset[i];
+                    float dist = Mathf.Abs(worldPos.x - offsetX);
+                    if (dist < minDist)
+                    {
+                        minDist = dist;
+                        idx = i;
+                    }
+                }
+
+                RemoveNote(line, idx);
             }
         }
     }
@@ -177,12 +199,15 @@ public class MapEditor : MonoBehaviour
                         keySoundVolume = 1,
                     }
                 );
+                gridLine.AddNoteObj(idx, Instantiate(notePrefab, spawnPos, Quaternion.identity));
             }
             else if (curNote == longPrefab)
             {
                 if (longCount == 0)
                 {
                     headLine = gridLine;
+                    headLine.longIdx = idx;
+                    headLine.AddNoteObj(idx, Instantiate(notePrefab, spawnPos, Quaternion.identity));
                     longCount++;
                 }
                 else if (longCount == 1)
@@ -190,6 +215,12 @@ public class MapEditor : MonoBehaviour
                     if(gridLine.idx - headLine.idx <= 0)
                     {
                         Debug.Log("롱 노트의 끝은 시작보다 높아야 합니다!");
+                        return;
+                    }
+
+                    if (headLine.longIdx != idx)
+                    {
+                        Debug.Log("롱 노트의 처음과 끝은 같은 자리여야 합니다.");
                         return;
                     }
 
@@ -210,7 +241,7 @@ public class MapEditor : MonoBehaviour
                         Instantiate(longPrefab, headLine.transform.position, Quaternion.identity).
                         GetComponent<SpriteRenderer>();
 
-                    longbody.transform.position += new Vector3(offset[idx], (gridLine.transform.position.y - headLine.transform.position.y) / 2);
+                    longbody.transform.position += new Vector3(offset[idx], gridLine.transform.position.y - headLine.transform.position.y);
 
                     float height = longbody.sprite.bounds.size.y;
 
@@ -218,17 +249,35 @@ public class MapEditor : MonoBehaviour
                     float result = distance / height;
 
                     longbody.transform.localScale = new Vector3(longbody.transform.localScale.x, -result, longbody.transform.localScale.z);
-
-                    // 롱 바디 생성 후 크기 지정
-
+                    
                     longCount = 0;
-                }
-            }
 
-            Instantiate(notePrefab, spawnPos, Quaternion.identity);
+                    GameObject end = Instantiate(notePrefab, spawnPos, Quaternion.identity);
+
+                    headLine.SetLongNote(idx, longbody.gameObject, end);
+                }
+            }  
         }
         else
             Debug.Log("노트가 설정되어 있지 않습니다! 노트를 먼저 설정해 주세요.");  
+    }
+
+    private void RemoveNote(GridLine gridLine, int idx)
+    {
+        NoteData data = gridLine.GetNoteData(idx);
+
+        if(data != null)
+        {
+            if(data.noteType == 0)
+            {
+                gridLine.RemoveNote(idx);
+            }
+            else
+            {
+                gridLine.RemoveNote(idx);
+                gridLine.RemoveLongNote(idx);
+            }
+        }
     }
 
     public void Save()
