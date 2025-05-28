@@ -95,7 +95,7 @@ public class GameManager : Manager<GameManager>
     {
         AudioManager.Instance.PlayBGM(_bgm, 1);
         onMusicStart = true;
-
+        MapParser.LoadMap(_bgm);
     }
 
     public uint GetMusicMs()
