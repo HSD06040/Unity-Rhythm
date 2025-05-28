@@ -9,7 +9,7 @@ public class ScoreManager : Manager<ScoreManager>
     public Property<int> comboCount = new();
     public int[] judgeResult;
 
-    public event Action<string> onJudged;
+    public event Action<Judge> onJudged;
 
     protected override void Awake()
     {
@@ -45,7 +45,7 @@ public class ScoreManager : Manager<ScoreManager>
             case Judge.Miss: ResetComboCount(); break;
         }
 
-        onJudged?.Invoke(judge.ToString());
+        onJudged?.Invoke(judge);
     }
 
     public void ResetComboCount() => comboCount.Value = 0;

@@ -93,9 +93,12 @@ public class GameManager : Manager<GameManager>
 
     public void GameStart(BGM _bgm)
     {
+        spawnLine = GameObject.Find("SpawnLine").transform;
+        judgeLine = GameObject.Find("JudgeLine").transform;
+
         AudioManager.Instance.PlayBGM(_bgm, 1);
         onMusicStart = true;
-        MapParser.LoadMap(_bgm);
+        noteSpawnList = MapParser.LoadMap(_bgm);
     }
 
     public uint GetMusicMs()

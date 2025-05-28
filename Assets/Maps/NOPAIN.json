@@ -1,0 +1,57 @@
+{
+    "musicData": {
+        "musicName": "NOPAIN",
+        "artistName": "",
+        "BPM": 0
+    },
+    "notes": [
+        {
+            "keyPos": 2,
+            "noteType": 1,
+            "startTime": 500.0,
+            "endTime": 800.0,
+            "keySound": "",
+            "keySoundVolume": 1.0,
+            "isJudgeDone": false,
+            "isLongNoteStart": false,
+            "isLongNoteBody": false,
+            "isLongNoteEnd": false
+        },
+        {
+            "keyPos": 1,
+            "noteType": 0,
+            "startTime": 1500.0,
+            "endTime": 0.0,
+            "keySound": "",
+            "keySoundVolume": 1.0,
+            "isJudgeDone": false,
+            "isLongNoteStart": false,
+            "isLongNoteBody": false,
+            "isLongNoteEnd": false
+        },
+        {
+            "keyPos": 3,
+            "noteType": 0,
+            "startTime": 1600.0,
+            "endTime": 0.0,
+            "keySound": "",
+            "keySoundVolume": 1.0,
+            "isJudgeDone": false,
+            "isLongNoteStart": false,
+            "isLongNoteBody": false,
+            "isLongNoteEnd": false
+        },
+        {
+            "keyPos": 0,
+            "noteType": 0,
+            "startTime": 1800.0,
+            "endTime": 0.0,
+            "keySound": "",
+            "keySoundVolume": 1.0,
+            "isJudgeDone": false,
+            "isLongNoteStart": false,
+            "isLongNoteBody": false,
+            "isLongNoteEnd": false
+        }
+    ]
+}

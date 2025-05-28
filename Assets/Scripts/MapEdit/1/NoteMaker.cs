@@ -130,14 +130,6 @@ public class NoteMaker : MonoBehaviour
             keySoundVolume = float.TryParse(keySoundVolume.text, out float volume) ? volume : 1f,            
         };
 
-        data.longNoteData = new NoteData
-        {
-            startTime = data.startTime + data.endTime,
-            keyPos = data.keyPos,
-        };
-
-        Debug.Log(data.longNoteData.startTime);
-
         mapData.notes.Add(data);
     }
 

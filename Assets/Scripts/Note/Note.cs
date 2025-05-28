@@ -49,18 +49,6 @@ public class Note : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x, -result, transform.localScale.z);
     }
 
-    //private Vector3 GetCurrentNotePos(NoteData data)
-    //{
-    //    double time = GameManager.Instance.time + GameManager.Instance.tickTime;
-    //    double speed = GameManager.Instance.endTime;
-    //    double yPos = (time - data.startTime) / speed;
-
-    //    double resSpeed = GameManager.Instance.resSpeed;
-    //    double scrollYAcc = GameManager.Instance.scrollPos[(int)((resSpeed * 10) - 1)] * GameManager.Instance.distnace;
-
-    //    return new Vector3(transform.position.x, GameManager.Instance.spawnLine.position.y - (GameManager.Instance.distnace * (float)yPos) + (float)scrollYAcc,0);
-    //}
-
     private Vector3 GetCurrentNotePos(NoteData data)
     {
         double currentTime = GameManager.Instance.time;
@@ -90,7 +78,6 @@ public class Note : MonoBehaviour
 
         if (data.startTime - GameManager.Instance.time < 0)
         {
-            Debug.Log($"RemoveNote{name} : {data.isLongNoteBody}");
             JudgeManager.Instance.Miss(this);
         }
     }
