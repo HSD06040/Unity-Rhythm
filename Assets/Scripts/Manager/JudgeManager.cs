@@ -124,7 +124,7 @@ public class JudgeManager : Manager<JudgeManager>
         endNote.data.isJudgeDone = true;
         GameManager.Instance.ReleaseNote(noteLanes[note.data.keyPos].DequeueNote());
 
-        if (GameManager.Instance.time >= holdEndTime - 160)
+        if (GameManager.Instance.time + 150 >= holdEndTime - 160)
         {
             if (judgeMaxTick != judgeTick)
             {

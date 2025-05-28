@@ -308,6 +308,59 @@ public class MapEditor : MonoBehaviour
 
     public void Load()
     {
+        List<NoteData> datas = MapParser.LoadMap(bgm);
 
+        for (int i = 0; i < lines.Count; i++)
+        {
+            foreach (var data in datas)
+            {
+                if (lines[i].startTime == data.startTime)
+                {                    
+                    lines[i].AddNoteData
+                    (
+                        new NoteData
+                        {
+                            noteType = data.noteType == 0 ? 0 : 1,
+                            keyPos = data.keyPos,
+                            startTime = data.startTime,
+                            endTime = data.endTime,
+                            keySound = keySound,
+                            keySoundVolume = 1,
+                        }
+                    );
+
+                    Vector3 spawnPos = new Vector3(lines[i].transform.position.x + offset[data.keyPos], lines[i].transform.position.y);
+
+                    if(data.noteType == 0)
+                    {
+                        lines[i].AddNoteObj(data.keyPos, Instantiate(notePrefab, spawnPos, Quaternion.identity));
+                    }
+                    else
+                    {
+                        GridLine gridline = lines[i + (int)(data.endTime / 100)];
+
+                        lines[i].AddNoteObj(data.keyPos, Instantiate(notePrefab, spawnPos, Quaternion.identity));
+
+                        SpriteRenderer longbody =
+                        Instantiate(longPrefab, lines[i].transform.position, Quaternion.identity).
+                        GetComponent<SpriteRenderer>();
+
+                        longbody.transform.position += new Vector3(offset[data.keyPos], gridline.transform.position.y - lines[i].transform.position.y);
+
+                        float height = longbody.sprite.bounds.size.y;
+
+                        float distance = endRatio * (gridline.idx - lines[i].idx);
+                        float result = distance / height;
+
+                        longbody.transform.localScale = new Vector3(longbody.transform.localScale.x, -result, longbody.transform.localScale.z);                        
+
+                        GameObject end = Instantiate(notePrefab, new Vector3(gridline.transform.position.x + offset[data.keyPos], gridline.transform.position.y), 
+                            Quaternion.identity);
+
+                        lines[i].SetLongNote(data.keyPos, longbody.gameObject, end);                                                
+                    }
+                }
+            }
+        }
     }
 }
