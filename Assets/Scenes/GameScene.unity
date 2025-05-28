@@ -744,7 +744,7 @@ Transform:
   m_GameObject: {fileID: 789980940}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.27, y: -1.51, z: 0}
+  m_LocalPosition: {x: -5.27, y: -2.47, z: 0}
   m_LocalScale: {x: 5.9781985, y: 0.2205605, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1153,12 +1153,12 @@ MonoBehaviour:
   speed: 0
   resSpeed: 0
   startDelay: 2000
-  endTime: 1000
+  endTime: 1500
   musicOffsetDistance: 0
   distnace: 10
   noteSpawnList: []
   scrollPos: []
-  scrollSpeed: 0.75
+  scrollSpeed: 1
   mapNoteParent: {fileID: 0}
   spawnLine: {fileID: 0}
   judgeLine: {fileID: 0}
@@ -2047,7 +2047,7 @@ Transform:
   m_GameObject: {fileID: 1921140004}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.27, y: -3.4561, z: 0}
+  m_LocalPosition: {x: -5.27, y: -4.74, z: 0}
   m_LocalScale: {x: 5.9781985, y: 3.755547, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

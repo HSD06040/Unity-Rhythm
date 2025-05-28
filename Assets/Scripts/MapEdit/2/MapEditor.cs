@@ -354,6 +354,7 @@ public class MapEditor : MonoBehaviour
 
                         longbody.transform.localScale = new Vector3(longbody.transform.localScale.x, -result, longbody.transform.localScale.z);                        
 
+
                         GameObject end = Instantiate(notePrefab, new Vector3(gridline.transform.position.x + offset[data.keyPos], gridline.transform.position.y), 
                             Quaternion.identity);
 

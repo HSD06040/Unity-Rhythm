@@ -54,7 +54,7 @@ public class JudgeManager : Manager<JudgeManager>
 
             checkMs = note.data.startTime - GameManager.Instance.time;
 
-            if (checkMs > 400)
+            if (checkMs > 200 / GameManager.Instance.scrollSpeed)
                 return;
 
             if (note.data.longNoteData != null)

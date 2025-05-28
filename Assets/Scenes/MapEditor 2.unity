@@ -1637,7 +1637,7 @@ Transform:
   m_GameObject: {fileID: 789980940}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2623, y: -1.26, z: 0}
+  m_LocalPosition: {x: -5.2623, y: -1.81, z: 0}
   m_LocalScale: {x: 5.9781985, y: 0.2205605, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3168,6 +3168,7 @@ MonoBehaviour:
   bgm: 0
   BPM: 0
   artist: 
+  resSpeed: 0.75
   keySound: 
   currentTimeText: {fileID: 1767584749}
   linePrefab: {fileID: 5618520380787201816, guid: d08d27d956df33046aed22c21058b4f7, type: 3}
@@ -3480,7 +3481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1623718362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4360,7 +4361,7 @@ Transform:
   m_GameObject: {fileID: 1921140004}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2623, y: -3.45, z: 0}
+  m_LocalPosition: {x: -5.2623, y: -4.09, z: 0}
   m_LocalScale: {x: 5.9781985, y: 3.2032983, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
