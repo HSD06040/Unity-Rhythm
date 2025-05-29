@@ -24,6 +24,8 @@ public class MusicPanel : MonoBehaviour
     private RectTransform contentRect;
 
     private int currentIdx;
+    private float timer;
+    private Coroutine changeMusicData;
 
     private void Awake()
     {
@@ -40,6 +42,12 @@ public class MusicPanel : MonoBehaviour
             currentIdx = 0;
             musicBars[currentIdx].SetSelected(true);
         }
+    }
+
+    private void OnEnable()
+    {
+        currentIdx = 0;
+        musicDataPanel.UpdatePlayDataUI(musicDatas[currentIdx]);
     }
 
     private void Update()
@@ -72,12 +80,23 @@ public class MusicPanel : MonoBehaviour
     {
         musicBars[currentIdx].SetSelected(false);
 
+        int temIdx = currentIdx;
         currentIdx += direction;
         currentIdx = Mathf.Clamp(currentIdx, 0, musicBars.Count - 1);
 
         musicBars[currentIdx].SetSelected(true);
 
         ScrollToSelected();
+
+        if (temIdx == currentIdx) return;
+
+        if(changeMusicData != null)
+        {
+            StopCoroutine(changeMusicData);        
+            changeMusicData = null;
+        }
+
+        changeMusicData = StartCoroutine(ChangeMusic());
     }
 
     private void ScrollToSelected()
@@ -96,5 +115,19 @@ public class MusicPanel : MonoBehaviour
 
         targetScrollPos = targetPos;
         isScrolling = true;
+    }
+
+    private IEnumerator ChangeMusic()
+    {
+        timer = .7f;
+
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+
+            yield return null;
+        }
+
+        musicDataPanel.UpdatePlayDataUI(musicDatas[currentIdx]);
     }
 }

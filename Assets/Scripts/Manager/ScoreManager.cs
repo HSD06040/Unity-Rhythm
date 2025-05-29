@@ -27,8 +27,7 @@ public class ScoreManager : Manager<ScoreManager>
 
     private void AddScore(int amount)
     {
-        comboCount.Value++;
-        rateCount++;
+        comboCount.Value++;      
         float multiplier = 1 + comboCount.Value * 0.01f;
         score.Value += Mathf.RoundToInt(amount * multiplier);
     }
@@ -50,6 +49,7 @@ public class ScoreManager : Manager<ScoreManager>
             case Judge.Miss: ResetComboCount(); break;
         }
 
+        rateCount++;
         onJudged?.Invoke(judge);
     }
 

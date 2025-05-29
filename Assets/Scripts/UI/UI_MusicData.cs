@@ -6,9 +6,8 @@ using UnityEngine.UI;
 
 public class UI_MusicData : BaseUI
 {
-    private Image musicIcon;
+    [SerializeField] private Image musicIcon;
     private PlayData musicPlayData;
-    [SerializeField] private Sprite rankNoneImage;
 
     [Header("PlayData_UI")]
     private Image rankImage;
@@ -18,6 +17,23 @@ public class UI_MusicData : BaseUI
     private TMP_Text resSpeed;
     private TMP_Text[] judgeText = new TMP_Text[4];
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        rankImage = GetUI<Image>("Rank");
+
+        comboText = GetUI<TextMeshProUGUI>("Combo");
+        scoreText = GetUI<TextMeshProUGUI>("Score");
+        rateText = GetUI<TextMeshProUGUI>("Rate");
+        resSpeed = GetUI<TextMeshProUGUI>("Speed");
+
+        judgeText[0] = GetUI<TextMeshProUGUI>("Perfect");
+        judgeText[1] = GetUI<TextMeshProUGUI>("Great");
+        judgeText[2] = GetUI<TextMeshProUGUI>("Good");
+        judgeText[3] = GetUI<TextMeshProUGUI>("Miss");
+    }
+
     public void UpdatePlayDataUI(MusicData data)
     {
         musicPlayData = Parser.LoadPlayData(data.bgm);
@@ -25,6 +41,7 @@ public class UI_MusicData : BaseUI
         if(musicPlayData != null)
         {
             musicIcon.sprite = data.icon;
+            rankImage.color = Color.white;
             rankImage.sprite = data.icon; // 랭크 이미지로 추후 교체
             comboText.text = musicPlayData.combo.ToString();
             scoreText.text = musicPlayData.score.ToString();
@@ -39,7 +56,7 @@ public class UI_MusicData : BaseUI
         else
         {
             musicIcon.sprite = data.icon;
-            rankImage.sprite = rankNoneImage;
+            rankImage.color = Color.clear;
             comboText.text = "0";
             scoreText.text = "0";
             rateText.text = "0";
@@ -47,8 +64,33 @@ public class UI_MusicData : BaseUI
 
             for (int i = 0; i < judgeText.Length; i++)
             {
-                judgeText[0].text = "0";
+                judgeText[i].text = "0";
             }
         }
+
+        StartCoroutine(RotateRoutine());
+    }
+
+    private IEnumerator RotateRoutine()
+    {
+        Quaternion startRot = musicIcon.transform.rotation;
+       
+        Quaternion targetRot = Quaternion.Euler(
+                musicIcon.transform.eulerAngles.x,
+                musicIcon.transform.eulerAngles.y,
+                musicIcon.transform.eulerAngles.z + 90
+            );
+
+        float duration = 0.4f;
+        float elapsed = 0;
+
+        while (elapsed < duration)
+        {
+            musicIcon.transform.rotation = Quaternion.Lerp(startRot, targetRot, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        musicIcon.transform.rotation = targetRot;
     }
 }
