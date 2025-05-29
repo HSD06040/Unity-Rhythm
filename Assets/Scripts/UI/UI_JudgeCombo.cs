@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UI_JudgeCombo : MonoBehaviour
+public class UI_JudgeCombo : BaseUI
 {
-    [SerializeField] private TMP_Text judgeText;
-    [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private TMP_Text comboText;
-    [SerializeField] private TMP_Text rateText;
+    private TMP_Text judgeText;
+    private TMP_Text scoreText;
+    private TMP_Text comboText;
+    private TMP_Text rateText;
+
     private float totalRate;
     private int rateCount;
     private float rate => totalRate / rateCount;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        judgeText = GetUI<TextMeshProUGUI>("Judge");
+        scoreText = GetUI<TextMeshProUGUI>("Score");
+        comboText = GetUI<TextMeshProUGUI>("Combo");
+        rateText = GetUI<TextMeshProUGUI>("Rate");
+    }    
 
     private void OnEnable()
     {
@@ -50,7 +61,7 @@ public class UI_JudgeCombo : MonoBehaviour
                 break;
 
             default:
-                judgeText.transform.localScale = new Vector3(.7f, .7f, .7f);                
+                judgeText.transform.localScale = new Vector3(.7f, .7f, .7f);
                 judgeText.text = "Miss";
                 break;
         }

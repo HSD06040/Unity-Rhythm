@@ -6371,6 +6371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1544578964}
   - component: {fileID: 1544578963}
+  - component: {fileID: 1544578965}
   m_Layer: 0
   m_Name: JudgeManager
   m_TagString: Untagged
@@ -6390,13 +6391,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0afebdd6d32c14459c2bad189913b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onKey: 
+  noteLanes: []
+  inputs: {fileID: 1544578965}
   judgeMs: []
   defaultJudgeMs:
   - 50
   - 100
   - 150
-  noteLanes: []
 --- !u!4 &1544578964
 Transform:
   m_ObjectHideFlags: 0
@@ -6412,6 +6413,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1544578965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544578962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 90d8a2b254468ee4cb9175e35938d855, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1557284360
 GameObject:
   m_ObjectHideFlags: 0
@@ -6931,8 +6962,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d3651f3d8b87a4aaf1bef2a8ccb739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  judge: {fileID: 1739935663}
-  combo: {fileID: 992700651}
 --- !u!1 &1682438936
 GameObject:
   m_ObjectHideFlags: 0
@@ -8193,6 +8222,7 @@ MonoBehaviour:
     musicData:
       musicName: 
       artistName: 
+      videoURL: 
       BPM: 0
     notes: []
 --- !u!4 &1850568412
@@ -9194,8 +9224,8 @@ SceneRoots:
   - {fileID: 52030042}
   - {fileID: 811094520}
   - {fileID: 257461225}
-  - {fileID: 1011802461}
   - {fileID: 208681449}
+  - {fileID: 1011802461}
   - {fileID: 590009741}
   - {fileID: 1557284362}
   - {fileID: 862620977}

@@ -26,3 +26,8 @@ public enum Judge
 {
     Perfect, Great, Good, Miss
 }
+
+public enum Rank
+{
+    S, A, B, C, D, E
+}

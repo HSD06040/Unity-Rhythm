@@ -5,7 +5,7 @@ using System.Dynamic;
 using System.IO;
 using UnityEngine;
 
-public class AudioManager : Manager<AudioManager>
+public class AudioManager : Manager<AudioManager>, ISavable
 {
     public FMOD.Channel musicChannel;
 
@@ -20,9 +20,9 @@ public class AudioManager : Manager<AudioManager>
     public FMOD.Channel[] sfxChannels;
 
     [Header("Volume")]
-    public float masterVolume;
-    public float sfxVolume;
-    public float bgmVolume;
+    public Property<float> masterVolume;
+    public Property<float> sfxVolume;
+    public Property<float> bgmVolume;
 
     protected override void Awake()
     {
@@ -85,7 +85,7 @@ public class AudioManager : Manager<AudioManager>
         FMODUnity.RuntimeManager.CoreSystem.playSound(sfxs[(int)_sfx], sfxChannelGroup, false, out sfxChannels[(int)_sfx]);
 
         sfxChannels[(int)_sfx].setPaused(true);
-        sfxChannels[(int)_sfx].setVolume((_volume * sfxVolume) * masterVolume);
+        sfxChannels[(int)_sfx].setVolume((_volume * sfxVolume.Value) * masterVolume.Value);
         sfxChannels[(int)_sfx].setPaused(false);
     }
 
@@ -96,7 +96,7 @@ public class AudioManager : Manager<AudioManager>
         FMODUnity.RuntimeManager.CoreSystem.playSound(bgms[(int)_bgm], bgmChannelGroup, false, out bgmChannels[(int)_bgm]);
 
         bgmChannels[(int)_bgm].setPaused(true);
-        bgmChannels[(int)_bgm].setVolume((_volume * bgmVolume) * masterVolume);
+        bgmChannels[(int)_bgm].setVolume((_volume * bgmVolume.Value) * masterVolume.Value);
         bgmChannels[(int)_bgm].setPaused(false);
         musicChannel = bgmChannels[(int)_bgm];
     }
@@ -122,5 +122,19 @@ public class AudioManager : Manager<AudioManager>
 
             musicChannel.setPosition(resindPosition, FMOD.TIMEUNIT.MS);
         }
+    }
+
+    public void Save(ref GameData data)
+    {
+        data.masterVolume = masterVolume.Value;
+        data.sfxVolume = sfxVolume.Value;
+        data.bgmVolume = bgmVolume.Value;
+    }
+
+    public void Load(GameData data)
+    {
+        masterVolume.Value = data.masterVolume;
+        sfxVolume.Value = data.sfxVolume;
+        bgmVolume.Value = data.bgmVolume;
     }
 }

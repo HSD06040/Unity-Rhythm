@@ -296,7 +296,7 @@ public class MapEditor : MonoBehaviour
 
         map.musicData = new MusicData
         {
-            musicName = bgm.ToString(),
+            bgm = bgm,
             BPM = BPM,
             artistName = artist
         };

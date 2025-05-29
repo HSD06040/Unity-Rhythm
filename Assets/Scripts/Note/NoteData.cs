@@ -6,8 +6,9 @@ using UnityEngine;
 [Serializable]
 public class MusicData
 {
-    public string musicName;
+    public BGM bgm;
     public string artistName;
+    public string videoURL;
     public int BPM;
 }
 

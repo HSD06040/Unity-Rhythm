@@ -15,15 +15,13 @@ public class GameManager : Manager<GameManager>
     public BGM bgm;
     public bool onMusicStart;
     public bool isEdit;
-    [SerializeField] private bool isLong;
     public int BPM;
     public float time => GetMusicMs(); // 테스트용
     public float tickTime => (60f / BPM) * 1000;
     public float speed;
     public float resSpeed;
     public float startDelay;
-    public float endTime;
-    public float musicOffsetDistance;
+    public float endTime;    
     public float distnace;
 
     private int currentTick;
@@ -44,43 +42,12 @@ public class GameManager : Manager<GameManager>
 
     public Transform spawnLine;
     public Transform judgeLine;
-    private GameObject currentBar;
 
     protected override void Awake()
     {
         base.Awake();
-        Init();
 
-        if(!isEdit)
-        {
-            if (isLong)
-            {
-                for (int i = 1; i < 50; i++)
-                {
-                    int pos = UnityEngine.Random.Range(0, 4);
-                    noteSpawnList.Add(new NoteData
-                    {
-                        startTime = 1000 * i,
-                        keyPos = pos,
-                        endTime = 1000,
-                        longNoteData = new NoteData { startTime = 1000 * i + 1000, keyPos = pos }
-                    });
-                }
-            }
-            else
-            {
-                for (int i = 1; i < 50; i++)
-                {
-                    int pos = UnityEngine.Random.Range(0, 4);
-                    noteSpawnList.Add(new NoteData
-                    {
-                        startTime = 1000 * i,
-                        keyPos = pos,
-                        endTime = 1000,
-                    });
-                }
-            }
-        }     
+        Init();  
     }
 
     private void Update()
