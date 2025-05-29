@@ -12,9 +12,15 @@ public class MapEditor : MonoBehaviour
     public float endRatio => (startY - endY) / gridCount; // ÇÑ Ä­ÀÇ Y
 
     [SerializeField] private bool musicPlay;
+
+    [Header("Music Data")]
+    [SerializeField] private Sprite icon;
     [SerializeField] private BGM bgm;
     [SerializeField] private int BPM;
     [SerializeField] private string artist;
+    [SerializeField] private string videoURL;
+    [Space]
+
     [SerializeField] private float resSpeed = .75f;
     public string keySound;
     private float currentTime => GameManager.Instance.time / 1000;
@@ -298,7 +304,9 @@ public class MapEditor : MonoBehaviour
         {
             bgm = bgm,
             BPM = BPM,
-            artistName = artist
+            artistName = artist,
+            videoURL = videoURL,
+            icon = icon
         };
 
         map.notes = noteDatas;

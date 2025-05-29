@@ -17,12 +17,16 @@ public class UI_MusicData : BaseUI
     private TMP_Text resSpeed;
     private TMP_Text[] judgeText = new TMP_Text[4];
 
+    [Header("Music Difficulty")]
+    private TMP_Text musicDifficultySpeedText;
+
     protected override void Awake()
     {
         base.Awake();
 
         rankImage = GetUI<Image>("Rank");
 
+        musicDifficultySpeedText = GetUI<TextMeshProUGUI>("MusicSpeed");
         comboText = GetUI<TextMeshProUGUI>("Combo");
         scoreText = GetUI<TextMeshProUGUI>("Score");
         rateText = GetUI<TextMeshProUGUI>("Rate");
@@ -32,6 +36,16 @@ public class UI_MusicData : BaseUI
         judgeText[1] = GetUI<TextMeshProUGUI>("Great");
         judgeText[2] = GetUI<TextMeshProUGUI>("Good");
         judgeText[3] = GetUI<TextMeshProUGUI>("Miss");
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.onScrollSpeedChanged += DifficultUpdate; 
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.onScrollSpeedChanged -= DifficultUpdate;
     }
 
     public void UpdatePlayDataUI(MusicData data)
@@ -68,6 +82,7 @@ public class UI_MusicData : BaseUI
             }
         }
 
+        GameManager.Instance.scrollSpeed = 1;
         StartCoroutine(RotateRoutine());
     }
 
@@ -93,4 +108,6 @@ public class UI_MusicData : BaseUI
 
         musicIcon.transform.rotation = targetRot;
     }
+
+    private void DifficultUpdate(float amount) => musicDifficultySpeedText.text = amount.ToString("F1");
 }

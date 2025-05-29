@@ -13,9 +13,6 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
     [SerializeField] private float[] judgeMs;
     [SerializeField] private float[] defaultJudgeMs;
 
-    private InputAction[] tileActions;
-
-    private bool[] isHolding = new bool[4];
     private float checkMs;
 
     private YieldInstruction delay;

@@ -11,7 +11,7 @@ public class ScoreManager : Manager<ScoreManager>
 
     public float rate => totalRate / rateCount;
     private int rateCount;
-    private int totalRate;
+    private float totalRate;
 
     public event Action<Judge> onJudged;
 
@@ -22,6 +22,15 @@ public class ScoreManager : Manager<ScoreManager>
 
     private void Start()
     {
+        InitPlayData();
+    }
+
+    public void InitPlayData()
+    {
+        rateCount = 0;
+        totalRate = 0;
+        score.Value = 0;
+        comboCount.Value = 0;
         judgeResult = new int[4];
     }
 
@@ -64,7 +73,7 @@ public class ScoreManager : Manager<ScoreManager>
             score = score.Value,
             rank = Rank.S,
             rate = rate,
-            resSpeed = GameManager.Instance.resSpeed,
+            resSpeed = GameManager.Instance.scrollSpeed,
 
             perfect = judgeResult[0],
             greate = judgeResult[1],

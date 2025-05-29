@@ -22,7 +22,6 @@ public class BaseUI : MonoBehaviour
         foreach (var child in components)
         {
             componentDic.TryAdd($"{child.gameObject.name}_{child.GetType().Name}", child);
-            Debug.Log($"[BaseUI] Registered: {child.gameObject.name}_{child.GetType().Name}");
         }
     }
 
@@ -38,7 +37,6 @@ public class BaseUI : MonoBehaviour
     {
         if(string.IsNullOrEmpty(name)) return null;
 
-        Debug.Log($"[BaseUI] Registered: {name}_{typeof(T).Name}");
         componentDic.TryGetValue($"{name}_{typeof(T).Name}", out var component);
         return component as T;
     }

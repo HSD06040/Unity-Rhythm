@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DataManager : Manager<DataManager>, ISavable
 {
-    public Property<int> Level = new();
-    public Property<int> Exp = new();
+    public Property<int> level = new();
+    public Property<int> exp = new();
     public string playerName;
 
     private SaveManager saveManager;
@@ -20,15 +20,15 @@ public class DataManager : Manager<DataManager>, ISavable
 
     public void Load(GameData data)
     {
-        Exp.Value = data.exp;
-        Level.Value = data.level;
+        exp.Value = data.exp;
+        level.Value = data.level;
         playerName = data.playerName;
     }
 
     public void Save(ref GameData data)
     {
-        data.exp = Exp.Value;
-        data.level = Level.Value;
+        data.exp = exp.Value;
+        data.level = level.Value;
         data.playerName = playerName;
     }
 

@@ -31,3 +31,8 @@ public enum Rank
 {
     S, A, B, C, D, E
 }
+
+public enum FadeType
+{
+    Defualt, Horizontal, Vertical
+}

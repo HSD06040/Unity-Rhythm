@@ -9,6 +9,9 @@ public class UI_Manager : Manager<UI_Manager>
     private InputAction settingAction;
     private InputAction menuAction;
 
+    private Canvas worldCanvas;
+    private Canvas rectCanvas;
+
     private SettingPanel settingPanel;
     public SettingPanel SettingPanel
     {
@@ -25,6 +28,42 @@ public class UI_Manager : Manager<UI_Manager>
 
             return settingPanel;
         }
+    }
+
+    private MusicPanel _musicPanel;
+    public MusicPanel musicPanel
+    {
+        get
+        {
+            if (_musicPanel != null)
+                return _musicPanel;
+
+            _musicPanel = FindObjectOfType<MusicPanel>(true);
+            if (_musicPanel != null)
+                return _musicPanel;
+
+            _musicPanel = Resources.Load<MusicPanel>("UI/MusicPanel");
+
+            return _musicPanel;
+        }
+    }
+
+    public MVPlayer mvPlayer;
+    public UI_FadeScreen fadeScreen;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        worldCanvas = Instantiate(Resources.Load<Canvas>("UI/WorldCanvas"));
+        DontDestroyOnLoad(worldCanvas);
+
+        mvPlayer    = Instantiate(Resources.Load<MVPlayer>("UI/MVPlayer"), worldCanvas.transform);
+
+        rectCanvas  = Instantiate(Resources.Load<Canvas>("UI/RectCanvas"));
+        DontDestroyOnLoad(rectCanvas);
+
+        fadeScreen  = Instantiate(Resources.Load<UI_FadeScreen>("UI/FadeScreen"), rectCanvas.transform);
     }
 
     private void Start()

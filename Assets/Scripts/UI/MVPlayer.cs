@@ -12,8 +12,28 @@ public class MVPlayer : MonoBehaviour
         videoPlayer = GetComponent<VideoPlayer>();    
     }
 
-    private void SetURL(MusicData musicData)
+    public void PlayMusicVideo(string url)
     {
-        videoPlayer.url = musicData.videoURL;
+        if(videoPlayer.isPlaying)
+            videoPlayer.Stop();
+
+        videoPlayer.url = url;
+        videoPlayer.Play();
+    }
+
+    public void PlayMusicVideo(string url, float delay)
+    {
+        StartCoroutine(DelayMusicVideoPlay(url, delay));
+    }
+
+    public void StopVideo() => videoPlayer.Pause();
+    public void ReplayVideo() => videoPlayer.Play();
+
+    IEnumerator DelayMusicVideoPlay(string url, float delay)
+    {
+        videoPlayer.Stop();
+        videoPlayer.url = url;
+        yield return new WaitForSeconds(delay);
+        videoPlayer.Play();
     }
 }

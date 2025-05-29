@@ -22,6 +22,7 @@ public class MusicPanel : MonoBehaviour
     [SerializeField] private RectTransform viewport;
     [SerializeField] private Transform content;
     private RectTransform contentRect;
+    [Space]
 
     private int currentIdx;
     private float timer;
@@ -52,14 +53,19 @@ public class MusicPanel : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
+        if (Input.GetKeyDown(KeyCode.DownArrow))        
             ChangeSelection(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
+
+        else if (Input.GetKeyDown(KeyCode.UpArrow))        
             ChangeSelection(-1);
-        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+            ChangeDiff(-0.1f);
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+            ChangeDiff(0.1f);
+
+        if (Input.GetKeyDown(KeyCode.Return))
+            GameManager.Instance.GameStart(musicDatas[currentIdx]);
 
         if (isScrolling)
         {
@@ -129,5 +135,12 @@ public class MusicPanel : MonoBehaviour
         }
 
         musicDataPanel.UpdatePlayDataUI(musicDatas[currentIdx]);
+    }
+
+    public void ChangeDiff(float amount)
+    {
+        if (GameManager.Instance.scrollSpeed + amount < 1) return;
+
+        GameManager.Instance.scrollSpeed += amount;
     }
 }

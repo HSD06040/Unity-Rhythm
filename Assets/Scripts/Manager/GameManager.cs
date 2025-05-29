@@ -1,10 +1,12 @@
 using FMOD;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Manager<GameManager>
 {
@@ -14,61 +16,113 @@ public class GameManager : Manager<GameManager>
 
     public BGM bgm;
     public bool onMusicStart;
+
     public bool isEdit;
     public int BPM;
-    public float time => GetMusicMs(); // 테스트용
+    public float time => GetMusicMs();
     public float tickTime => (60f / BPM) * 1000;
-    public float speed;
-    public float resSpeed;
+
     public float startDelay;
     public float endTime;    
     public float distnace;
 
-    private int currentTick;
-    private float fixedScrollSpeed;
-
-    private int idx;
     public List<NoteData> noteSpawnList = new List<NoteData>();
     public List<double> scrollPos = new();
-    public float scrollSpeed = 1;
+
+    private float _scrollSpeed;
+    public float scrollSpeed { get => _scrollSpeed; set { _scrollSpeed = value; onScrollSpeedChanged?.Invoke(_scrollSpeed); } }
 
     public ObjectPool<GameObject> barPool;
     public ObjectPool<GameObject> notePool;
     public ObjectPool<GameObject> longNotePool;
-
-    public Transform mapNoteParent;
+    
     private Transform noteParent;
     private Transform longNoteParent;
 
     public Transform spawnLine;
     public Transform judgeLine;
 
+    public event Action<float> onScrollSpeedChanged;
+
+    private int idx;
+
     protected override void Awake()
     {
         base.Awake();
-
+        DontDestroyOnLoad(this);
+        scrollSpeed = 1;
         Init();  
     }
 
     private void Update()
     {
-        SetNote();
-
-        if(!isEdit)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-                GameStart(bgm);
-        }        
+        SetNote();    
     }
 
-    public void GameStart(BGM _bgm)
+    private void InitPlayData()
     {
+        noteSpawnList.Clear();
+        JudgeManager.Instance.SetJudgeMs();
+        ScoreManager.Instance.InitPlayData();
+    }
+
+    public void GameStart(MusicData data)
+    {
+        bgm = data.bgm;
+        BPM = data.BPM;
+
+        StartCoroutine(GameStartRoutine(data));
+    }
+
+    public void GameClear()
+    {
+        StartCoroutine(GameClearRoutine());
+    }
+
+    private IEnumerator GameStartRoutine(MusicData data)
+    {        
+        UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(1, 3));
+
+        yield return new WaitForSeconds(1);
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
+        asyncLoad.allowSceneActivation = false;
+
+        InitPlayData();
+
+        while (asyncLoad.progress < 0.9f)
+            yield return null;
+
+        asyncLoad.allowSceneActivation = true;
+
+        yield return new WaitForSeconds(.5f);
+
         spawnLine = GameObject.Find("SpawnLine").transform;
         judgeLine = GameObject.Find("JudgeLine").transform;
 
-        AudioManager.Instance.PlayBGM(_bgm, 1);
+        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(1, 3));
+
+        yield return new WaitForSeconds(4);
+
+        noteSpawnList = Parser.LoadMap(bgm);
+        AudioManager.Instance.PlayBGM(bgm, 1);
+        UI_Manager.Instance.mvPlayer.PlayMusicVideo(data.videoURL);
         onMusicStart = true;
-        noteSpawnList = Parser.LoadMap(_bgm);
+    }
+
+    private IEnumerator GameClearRoutine()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Lobby");
+        asyncLoad.allowSceneActivation = false;
+
+        InitPlayData();
+
+        while (asyncLoad.progress < 0.9f)
+            yield return null;
+
+        asyncLoad.allowSceneActivation = true;
+
+        yield return null;
     }
 
     public uint GetMusicMs()
@@ -76,18 +130,6 @@ public class GameManager : Manager<GameManager>
         // 노래의 진행도를 반환
         AudioManager.Instance.musicChannel.getPosition(out uint pos, FMOD.TIMEUNIT.MS);
         return pos;
-    }
-
-    private void SetFixedSpeed()
-    {
-        float pivot = 2000f;
-        fixedScrollSpeed = pivot / tickTime;
-    }
-
-    private void SetSpeed()
-    {
-        speed = tickTime * fixedScrollSpeed / scrollSpeed;
-        resSpeed = fixedScrollSpeed / scrollSpeed;
     }
 
     private void ScrollPos()
@@ -106,10 +148,7 @@ public class GameManager : Manager<GameManager>
         BPM = 120;
         notePool = CreatePool(notePrefab, noteParent, 10);
         longNotePool = CreatePool(longPrefab, longNoteParent, 10);
-        SetFixedSpeed();
-        SetSpeed();
-        ScrollPos();
-        JudgeManager.Instance.SetJudgeMs();
+        ScrollPos();    
     }
 
     private void SetNote()
