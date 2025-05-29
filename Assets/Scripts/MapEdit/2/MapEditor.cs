@@ -373,7 +373,7 @@ public class MapEditor : MonoBehaviour
             { 
                 foreach(var note in line.noteList)
                 {
-                    note.startTime += 91900;
+                    note.startTime += 102100;
                 }
             }
         }

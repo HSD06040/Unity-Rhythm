@@ -7,8 +7,16 @@ public class MusicPanel : MonoBehaviour
 {
     [SerializeField] private List<MusicData> musicDatas;
     [SerializeField] private List<MusicBar> musicBars;
+    [SerializeField] private List<RectTransform> musicBarRects;
     [SerializeField] private GameObject musicBarPrefab;
+
+    [Header("Scroll")]
+    [SerializeField] private float scrollSpeed = 5f;
+    private float targetScrollPos;
+    private bool isScrolling;
+
     [SerializeField] private ScrollRect scrollRect;
+    [SerializeField] private RectTransform viewport;
     [SerializeField] private Transform content;
     private int currentIdx;
 
@@ -16,7 +24,9 @@ public class MusicPanel : MonoBehaviour
     {
         for (int i = 0; i < musicDatas.Count; i++)
         {
-            musicBars.Add(Instantiate(musicBarPrefab, content).GetComponent<MusicBar>());
+            MusicBar bar = Instantiate(musicBarPrefab, content).GetComponent<MusicBar>();
+            musicBars.Add(bar);
+            musicBarRects.Add(bar.GetComponent<RectTransform>());
             musicBars[i].SetMusicBar(musicDatas[i].icon, musicDatas[i].bgm.ToString());
         }
 
@@ -37,25 +47,77 @@ public class MusicPanel : MonoBehaviour
         {
             ChangeSelection(-1);
         }
+
+        if (isScrolling)
+        {
+            scrollRect.verticalNormalizedPosition = Mathf.Lerp(
+                scrollRect.verticalNormalizedPosition,
+                targetScrollPos,
+                Time.deltaTime * scrollSpeed
+            );
+
+            if (Mathf.Abs(scrollRect.verticalNormalizedPosition - targetScrollPos) < 0.001f)
+            {
+                scrollRect.verticalNormalizedPosition = targetScrollPos;
+                isScrolling = false;
+            }
+        }
     }
     private void ChangeSelection(int direction)
     {
-    // 이전 선택 해제
         musicBars[currentIdx].SetSelected(false);
 
-    // 인덱스 변경 (Clamp or Wrap 방식 중 택)
         currentIdx += direction;
         currentIdx = Mathf.Clamp(currentIdx, 0, musicBars.Count - 1);
 
-    // 새로운 선택 표시
         musicBars[currentIdx].SetSelected(true);
 
-    // TODO: ScrollRect로 자동 스크롤 맞추기 (필요 시)
+        ScrollToSelected();
     }
 
-    private void ScrollToCurrent()
+    //private void ScrollToSelected()
+    //{
+    //    RectTransform selectedRect = musicBarRects[currentIdx];
+
+    //    // 월드 -> 뷰포트 로컬 좌표로 변환
+    //    Vector3 worldPos = selectedRect.position;
+    //    Vector3 localPos = viewport.InverseTransformPoint(worldPos);
+
+    //    float viewportHeight = viewport.rect.height;
+
+    //    // '안전 영역' 범위 지정 (ex: 뷰포트 상하단 20%는 스크롤 트리거)
+    //    float upperThreshold = viewportHeight * 0.4f;
+    //    float lowerThreshold = -viewportHeight * 0.4f;
+
+    //    // localPos.y는 뷰포트 기준 y축 (위: 양수, 아래: 음수)
+    //    if (localPos.y > upperThreshold || localPos.y < lowerThreshold)
+    //    {
+    //        float itemPos = Mathf.Abs(selectedRect.anchoredPosition.y);
+    //        float contentHeight = content.GetComponent<RectTransform>().rect.height;
+
+    //        float targetPos = itemPos / (contentHeight - viewportHeight);
+    //        targetPos = Mathf.Clamp01(1f - targetPos);
+
+    //        targetScrollPos = targetPos;
+    //        isScrolling = true;
+    //    }
+    //}
+    private void ScrollToSelected()
     {
-        float itemCount = musicBars.Count;
-        float normalizePosition = 1f - (currentIdx / (itemCount - 1))
+        RectTransform selectedRect = musicBarRects[currentIdx];
+
+        float contentHeight = content.GetComponent<RectTransform>().rect.height;
+        float viewportHeight = viewport.rect.height;
+
+        // 아이템 중심 위치
+        float itemPos = Mathf.Abs(selectedRect.anchoredPosition.y) + (selectedRect.rect.height / 2f);
+
+        // 중앙에 오게 스크롤 위치 조정
+        float targetPos = (itemPos - (viewportHeight / 2f)) / (contentHeight - viewportHeight);
+        targetPos = Mathf.Clamp01(1f - targetPos);
+
+        targetScrollPos = targetPos;
+        isScrolling = true;
     }
+
 }
