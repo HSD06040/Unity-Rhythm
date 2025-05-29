@@ -10,10 +10,6 @@ public class UI_JudgeCombo : BaseUI
     private TMP_Text comboText;
     private TMP_Text rateText;
 
-    private float totalRate;
-    private int rateCount;
-    private float rate => totalRate / rateCount;
-
     protected override void Awake()
     {
         base.Awake();
@@ -43,20 +39,17 @@ public class UI_JudgeCombo : BaseUI
         switch (judge)
         {
             case Judge.Perfect:
-                judgeText.transform.localScale = Vector3.one;
-                totalRate += 100;                
+                judgeText.transform.localScale = Vector3.one;           
                 judgeText.text = "Max 100 %";
                 break;
 
             case Judge.Great:
                 judgeText.transform.localScale = new Vector3 (.9f, .9f, .9f);
-                totalRate += 90;
                 judgeText.text = "Max 90 %";
                 break;
 
             case Judge.Good:
                 judgeText.transform.localScale = new Vector3(.7f, .7f, .7f);
-                totalRate += 70;
                 judgeText.text = "Max 70 %";
                 break;
 
@@ -66,14 +59,12 @@ public class UI_JudgeCombo : BaseUI
                 break;
         }
 
-        rateCount++;
-
         RateUpdate();
     }
 
     private void RateUpdate()
     {
-        rateText.text = rate.ToString("F2");
+        rateText.text = ScoreManager.Instance.rate.ToString("F2");
     }
 
     private void ComboUpdate(int count)

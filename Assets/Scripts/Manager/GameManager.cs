@@ -68,7 +68,7 @@ public class GameManager : Manager<GameManager>
 
         AudioManager.Instance.PlayBGM(_bgm, 1);
         onMusicStart = true;
-        noteSpawnList = MapParser.LoadMap(_bgm);
+        noteSpawnList = Parser.LoadMap(_bgm);
     }
 
     public uint GetMusicMs()

@@ -7,6 +7,7 @@ public class DataManager : Manager<DataManager>, ISavable
     public Property<int> Level = new();
     public Property<int> Exp = new();
     public string playerName;
+
     private SaveManager saveManager;
 
     protected override void Awake()

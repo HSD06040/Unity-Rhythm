@@ -5,19 +5,24 @@ using UnityEngine.UI;
 
 public class MusicPanel : MonoBehaviour
 {
+    [Header("MusicDatas")]
     [SerializeField] private List<MusicData> musicDatas;
     [SerializeField] private List<MusicBar> musicBars;
     [SerializeField] private List<RectTransform> musicBarRects;
     [SerializeField] private GameObject musicBarPrefab;
+    [Space]
+    
+    [SerializeField] private UI_MusicData musicDataPanel;
 
     [Header("Scroll")]
     [SerializeField] private float scrollSpeed = 5f;
     private float targetScrollPos;
-    private bool isScrolling;
-
+    private bool isScrolling;   
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private RectTransform viewport;
     [SerializeField] private Transform content;
+    private RectTransform contentRect;
+
     private int currentIdx;
 
     private void Awake()
@@ -75,49 +80,21 @@ public class MusicPanel : MonoBehaviour
         ScrollToSelected();
     }
 
-    //private void ScrollToSelected()
-    //{
-    //    RectTransform selectedRect = musicBarRects[currentIdx];
-
-    //    // 월드 -> 뷰포트 로컬 좌표로 변환
-    //    Vector3 worldPos = selectedRect.position;
-    //    Vector3 localPos = viewport.InverseTransformPoint(worldPos);
-
-    //    float viewportHeight = viewport.rect.height;
-
-    //    // '안전 영역' 범위 지정 (ex: 뷰포트 상하단 20%는 스크롤 트리거)
-    //    float upperThreshold = viewportHeight * 0.4f;
-    //    float lowerThreshold = -viewportHeight * 0.4f;
-
-    //    // localPos.y는 뷰포트 기준 y축 (위: 양수, 아래: 음수)
-    //    if (localPos.y > upperThreshold || localPos.y < lowerThreshold)
-    //    {
-    //        float itemPos = Mathf.Abs(selectedRect.anchoredPosition.y);
-    //        float contentHeight = content.GetComponent<RectTransform>().rect.height;
-
-    //        float targetPos = itemPos / (contentHeight - viewportHeight);
-    //        targetPos = Mathf.Clamp01(1f - targetPos);
-
-    //        targetScrollPos = targetPos;
-    //        isScrolling = true;
-    //    }
-    //}
     private void ScrollToSelected()
     {
         RectTransform selectedRect = musicBarRects[currentIdx];
 
-        float contentHeight = content.GetComponent<RectTransform>().rect.height;
+        contentRect ??= content.GetComponent<RectTransform>();
+        
+        float contentHeight = contentRect.rect.height;
         float viewportHeight = viewport.rect.height;
 
-        // 아이템 중심 위치
         float itemPos = Mathf.Abs(selectedRect.anchoredPosition.y) + (selectedRect.rect.height / 2f);
 
-        // 중앙에 오게 스크롤 위치 조정
         float targetPos = (itemPos - (viewportHeight / 2f)) / (contentHeight - viewportHeight);
         targetPos = Mathf.Clamp01(1f - targetPos);
 
         targetScrollPos = targetPos;
         isScrolling = true;
     }
-
 }

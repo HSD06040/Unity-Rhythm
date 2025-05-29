@@ -4,13 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public abstract class Data
-{
-
-}
-
 [Serializable]
-public class GameData : Data
+public class GameData
 {
     public string keyBindingJson;
 
@@ -34,7 +29,7 @@ public class GameData : Data
 }
 
 [Serializable]
-public class PlayData : Data
+public class PlayData
 {
     public BGM bgm;
     public Rank rank;
@@ -42,4 +37,9 @@ public class PlayData : Data
     public float resSpeed;
     public int score;
     public int combo;
+
+    public int perfect;
+    public int greate;
+    public int good;
+    public int miss;
 }

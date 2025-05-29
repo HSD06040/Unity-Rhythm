@@ -97,12 +97,12 @@ public class NoteMaker : MonoBehaviour
 
     public void SaveMusic()
     {
-        MapParser.SaveMap(mapData, bgm);
+        Parser.SaveMap(mapData, bgm);
     }
 
     public void LoadMusic()
     {
-        mapData.notes = MapParser.LoadMap(BGM.NOPAIN);
+        mapData.notes = Parser.LoadMap(BGM.NOPAIN);
     }
 
     public void AddShortNote(int keyPos)

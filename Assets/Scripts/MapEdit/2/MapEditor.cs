@@ -303,12 +303,12 @@ public class MapEditor : MonoBehaviour
 
         map.notes = noteDatas;
 
-        MapParser.SaveMap(map, bgm);
+        Parser.SaveMap(map, bgm);
     }
 
     public void Load()
     {
-        List<NoteData> datas = MapParser.LoadMap(bgm);
+        List<NoteData> datas = Parser.LoadMap(bgm);
 
         for (int i = 0; i < lines.Count; i++)
         {

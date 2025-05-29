@@ -9,6 +9,10 @@ public class ScoreManager : Manager<ScoreManager>
     public Property<int> comboCount = new();
     public int[] judgeResult;
 
+    public float rate => totalRate / rateCount;
+    private int rateCount;
+    private int totalRate;
+
     public event Action<Judge> onJudged;
 
     protected override void Awake()
@@ -24,6 +28,7 @@ public class ScoreManager : Manager<ScoreManager>
     private void AddScore(int amount)
     {
         comboCount.Value++;
+        rateCount++;
         float multiplier = 1 + comboCount.Value * 0.01f;
         score.Value += Mathf.RoundToInt(amount * multiplier);
     }
@@ -39,9 +44,9 @@ public class ScoreManager : Manager<ScoreManager>
 
         switch (judge)
         {
-            case Judge.Perfect: AddScore(100); break;
-            case Judge.Great: AddScore(70); break;
-            case Judge.Good: AddScore(50); break;
+            case Judge.Perfect: AddScore(100); totalRate += 100; break;
+            case Judge.Great: AddScore(70); totalRate += 90;  break;
+            case Judge.Good: AddScore(50); totalRate += 70; break;
             case Judge.Miss: ResetComboCount(); break;
         }
 
@@ -49,4 +54,29 @@ public class ScoreManager : Manager<ScoreManager>
     }
 
     public void ResetComboCount() => comboCount.Value = 0;
+
+    public void SavePlayData(BGM bgm)
+    {
+        PlayData playData = new PlayData
+        {
+            bgm = bgm,
+            combo = comboCount.Value,
+            score = score.Value,
+            rank = Rank.S,
+            rate = rate,
+            resSpeed = GameManager.Instance.resSpeed,
+
+            perfect = judgeResult[0],
+            greate = judgeResult[1],
+            good = judgeResult[2],
+            miss = judgeResult[3],
+        };
+
+        Parser.SavePlayData(playData);
+    }
+
+    private void GetRank() // return Rank
+    {
+        // TODO :: ·©Å© ±âÁØÀ¸·Î ·©Å© ¹ÝÈ¯
+    }
 }
