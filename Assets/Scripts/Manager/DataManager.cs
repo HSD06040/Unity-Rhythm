@@ -30,4 +30,10 @@ public class DataManager : Manager<DataManager>, ISavable
         data.level = Level.Value;
         data.playerName = playerName;
     }
+
+    [ContextMenu("=== Delete Save Data ===")]
+    public void DeleteFile()
+    {
+        saveManager.DeleteFile();
+    }
 }

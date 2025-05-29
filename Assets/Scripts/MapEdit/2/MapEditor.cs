@@ -364,4 +364,18 @@ public class MapEditor : MonoBehaviour
             }
         }
     }
+
+    public void Copy()
+    {
+        foreach (var line in lines)
+        {
+            if(line.noteList.Count > 0)
+            { 
+                foreach(var note in line.noteList)
+                {
+                    note.startTime += 91900;
+                }
+            }
+        }
+    }
 }

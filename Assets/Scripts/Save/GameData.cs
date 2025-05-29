@@ -27,6 +27,9 @@ public class GameData : Data
         level = 1;
         exp = 0;
         playerName = string.Empty;
+        masterVolume = 1;
+        bgmVolume = 1;
+        sfxVolume = 1;
     }
 }
 

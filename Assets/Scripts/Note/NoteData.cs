@@ -7,6 +7,7 @@ using UnityEngine;
 public class MusicData
 {
     public BGM bgm;
+    public Sprite icon;
     public string artistName;
     public string videoURL;
     public int BPM;

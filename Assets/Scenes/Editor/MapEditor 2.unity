@@ -432,13 +432,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0afebdd6d32c14459c2bad189913b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onKey: 
+  inputActions: {fileID: 0}
+  noteLanes: []
   judgeMs: []
   defaultJudgeMs:
   - 50
   - 100
   - 150
-  noteLanes: []
 --- !u!1 &126686800
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,8 +562,8 @@ Transform:
   m_GameObject: {fileID: 208681447}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.7, y: 396.8789, z: 0}
-  m_LocalScale: {x: 1.0340476, y: 800.0304, z: 1}
+  m_LocalPosition: {x: -4.7, y: 606.5065, z: 0}
+  m_LocalScale: {x: 1.0340476, y: 1234.1484, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -646,8 +646,8 @@ Transform:
   m_GameObject: {fileID: 257461223}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.62, y: 396.8789, z: 0}
-  m_LocalScale: {x: 1.0340476, y: 800.0304, z: 1}
+  m_LocalPosition: {x: -3.62, y: 606.5065, z: 0}
+  m_LocalScale: {x: 1.0340476, y: 1234.1484, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1153,8 +1153,8 @@ Transform:
   m_GameObject: {fileID: 590009739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.86, y: 396.8789, z: 0}
-  m_LocalScale: {x: 1.0340476, y: 800.0304, z: 1}
+  m_LocalPosition: {x: -6.86, y: 606.5065, z: 0}
+  m_LocalScale: {x: 1.0340476, y: 1234.1484, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2094,8 +2094,8 @@ Transform:
   m_GameObject: {fileID: 1011802459}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.78, y: 396.8789, z: 0}
-  m_LocalScale: {x: 1.0340476, y: 800.0304, z: 1}
+  m_LocalPosition: {x: -5.78, y: 606.5065, z: 0}
+  m_LocalScale: {x: 1.0340476, y: 1234.1484, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2742,13 +2742,11 @@ MonoBehaviour:
   bgm: 0
   onMusicStart: 0
   isEdit: 0
-  isLong: 0
   BPM: 0
   speed: 0
   resSpeed: 0
   startDelay: 2000
   endTime: 1000
-  musicOffsetDistance: 0
   distnace: 10
   noteSpawnList: []
   scrollPos: []
@@ -2815,9 +2813,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ebb136cad6a2194ea3332d3f532d082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 0.5
-  sfxVolume: 1
-  bgmVolume: 0.5
+  masterVolume: 0
+  sfxVolume: 0
+  bgmVolume: 0
 --- !u!1 &1369704969
 GameObject:
   m_ObjectHideFlags: 0

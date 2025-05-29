@@ -394,6 +394,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &341558236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 341558238}
+  - component: {fileID: 341558237}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &341558237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341558236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a068f0374461f44a9e6aa56768e895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
+--- !u!4 &341558238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341558236}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 979.11127, y: 459.51758, z: -3.134027}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &477507160
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,13 +1193,11 @@ MonoBehaviour:
   bgm: 0
   onMusicStart: 0
   isEdit: 0
-  isLong: 0
   BPM: 0
   speed: 0
   resSpeed: 0
   startDelay: 2000
-  endTime: 1500
-  musicOffsetDistance: 0
+  endTime: 1000
   distnace: 10
   noteSpawnList: []
   scrollPos: []
@@ -1353,9 +1396,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ebb136cad6a2194ea3332d3f532d082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 0.5
-  sfxVolume: 1
-  bgmVolume: 0.5
+  masterVolume: 0
+  sfxVolume: 0
+  bgmVolume: 0
 --- !u!4 &1511927438
 Transform:
   m_ObjectHideFlags: 0
@@ -1557,10 +1600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1aa2a22d4abf1046834a69ea8592b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  judgeText: {fileID: 1739935663}
-  scoreText: {fileID: 1697948033}
-  comboText: {fileID: 992700651}
-  rateText: {fileID: 1650687821}
 --- !u!1 &1650687820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2146,6 +2185,7 @@ SceneRoots:
   - {fileID: 1041984708}
   - {fileID: 736395319}
   - {fileID: 477507162}
+  - {fileID: 341558238}
   - {fileID: 1969461363}
   - {fileID: 789980942}
   - {fileID: 1921140006}
