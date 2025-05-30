@@ -13,36 +13,34 @@ public class UI_Pause : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        Init();
+        gameObject.SetActive(false);
     }
 
     public void Init()
     {
-        currentCount = 4;
+        currentCount = 3;
         Next();
     }
 
     public void Next()
     {
-        currentCount--;
-        anim.SetTrigger(nextHash);
-
         if (currentCount > 0)
         {
+            anim.SetTrigger(nextHash);
             countText.text = currentCount.ToString();
+            currentCount--;
         }
         else
         {
-            countText.text = "GO!";
             UI_Manager.Instance.mvPlayer.ReplayVideo();
-            AudioManager.Instance.RestartBGM();
-        }
+            AudioManager.Instance.RestartBGM();            
+        }                
     }
 
     public void StartPauseAnim()
     {
         gameObject.SetActive(true);
-        anim.SetTrigger(nextHash);
+        Init();
     }
 
     public void SetActiveFalse() => gameObject.SetActive(false);

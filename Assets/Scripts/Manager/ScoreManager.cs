@@ -14,6 +14,7 @@ public class ScoreManager : Manager<ScoreManager>
     private float totalRate;
 
     public event Action<Judge> onJudged;
+    private List<int> comboList = new();
 
     protected override void Awake()
     {
@@ -62,14 +63,18 @@ public class ScoreManager : Manager<ScoreManager>
         onJudged?.Invoke(judge);
     }
 
-    public void ResetComboCount() => comboCount.Value = 0;
+    public void ResetComboCount()
+    {
+        comboList.Add(comboCount.Value);
+        comboCount.Value = 0;
+    }
 
     public void SavePlayData(BGM bgm)
     {
         PlayData playData = new PlayData
         {
             bgm = bgm,
-            combo = comboCount.Value,
+            combo = GetBestComboCount(),
             score = score.Value,
             rank = Rank.S,
             rate = rate,
@@ -87,5 +92,20 @@ public class ScoreManager : Manager<ScoreManager>
     private void GetRank() // return Rank
     {
         // TODO :: ·©Å© ±âÁØÀ¸·Î ·©Å© ¹ÝÈ¯
+    }
+
+    private int GetBestComboCount()
+    {
+        int max = 0;
+
+        foreach (var combo in comboList)
+        {
+            if(combo > max)
+            {
+                max = combo;
+            }
+        }
+
+        return max;
     }
 }

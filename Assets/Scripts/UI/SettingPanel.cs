@@ -53,6 +53,9 @@ public class SettingPanel : MonoBehaviour
     {
         if (!canChanged) return;
 
+        if(GameManager.Instance.onMusicPlaying)
+            UI_Manager.Instance.pause.StartPauseAnim();
+
         anim.ResetTrigger(inHash);
         anim.SetTrigger(outHash);        
     }

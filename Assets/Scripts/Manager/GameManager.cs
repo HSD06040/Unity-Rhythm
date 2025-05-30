@@ -55,7 +55,10 @@ public class GameManager : Manager<GameManager>
 
     private void Update()
     {
-        SetNote();    
+        SetNote();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            GameClear();
     }
 
     private void InitPlayData()
@@ -80,7 +83,8 @@ public class GameManager : Manager<GameManager>
 
     private IEnumerator GameStartRoutine(MusicData data)
     {        
-        UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(1, 3));
+        
+        UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(0, 3));
 
         yield return new WaitForSeconds(1);
         UI_Manager.Instance.mvPlayer.StopVideo();
@@ -101,7 +105,7 @@ public class GameManager : Manager<GameManager>
         spawnLine = GameObject.Find("SpawnLine").transform;
         judgeLine = GameObject.Find("JudgeLine").transform;
 
-        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(1, 3));
+        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(0, 3));
 
         yield return new WaitForSeconds(4);
 
@@ -113,8 +117,16 @@ public class GameManager : Manager<GameManager>
 
     private IEnumerator GameClearRoutine()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Lobby");
+        UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(0, 3));
+
+        yield return new WaitForSeconds(1);
+        UI_Manager.Instance.mvPlayer.StopVideo();
+        AudioManager.Instance.StopBGM();
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("ResultScene");
         asyncLoad.allowSceneActivation = false;
+
+        ScoreManager.Instance.SavePlayData(bgm);
 
         InitPlayData();
 
@@ -123,7 +135,9 @@ public class GameManager : Manager<GameManager>
 
         asyncLoad.allowSceneActivation = true;
 
-        yield return null;
+        yield return new WaitForSeconds(.5f);
+
+        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(0, 3));
     }
 
     public uint GetMusicMs()

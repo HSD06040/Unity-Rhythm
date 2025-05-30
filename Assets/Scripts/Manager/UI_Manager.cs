@@ -34,6 +34,7 @@ public class UI_Manager : Manager<UI_Manager>
 
     public MVPlayer mvPlayer;
     public UI_FadeScreen fadeScreen;
+    public UI_Pause pause;
 
     protected override void Awake()
     {
@@ -49,6 +50,7 @@ public class UI_Manager : Manager<UI_Manager>
 
         settingPanel = Instantiate(Resources.Load<SettingPanel>("UI/SettingPanel"), rectCanvas.transform);
         fadeScreen  = Instantiate(Resources.Load<UI_FadeScreen>("UI/FadeScreen"), rectCanvas.transform);
+        pause = Instantiate(Resources.Load<UI_Pause>("UI/Pause"), rectCanvas.transform);
     }
 
     private void Start()
