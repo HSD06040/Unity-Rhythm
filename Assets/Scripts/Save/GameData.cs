@@ -36,7 +36,7 @@ public class PlayData
     public float rate;  
     public float resSpeed;
     public int score;
-    public int combo;
+    public int maxCombo;
 
     public int perfect;
     public int greate;

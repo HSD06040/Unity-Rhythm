@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class ScoreManager : Manager<ScoreManager>
 {
@@ -70,11 +71,11 @@ public class ScoreManager : Manager<ScoreManager>
     }
 
     public void SavePlayData(BGM bgm)
-    {
+    {        
         PlayData playData = new PlayData
         {
             bgm = bgm,
-            combo = GetBestComboCount(),
+            maxCombo = GetBestComboCount(),
             score = score.Value,
             rank = Rank.S,
             rate = rate,
@@ -86,7 +87,17 @@ public class ScoreManager : Manager<ScoreManager>
             miss = judgeResult[3],
         };
 
-        Parser.SavePlayData(playData);
+        PlayData oldMostPlayData = Parser.LoadPlayData(bgm);
+
+        if (oldMostPlayData == null || oldMostPlayData.score > score.Value)
+        {
+            GameManager.Instance.currnetPlayData = playData;
+        }
+        else
+        {
+            Parser.SavePlayData(playData);
+            GameManager.Instance.currnetPlayData = playData;
+        }            
     }
 
     private void GetRank() // return Rank

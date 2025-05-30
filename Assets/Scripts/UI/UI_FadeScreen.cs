@@ -55,6 +55,7 @@ public class UI_FadeScreen : MonoBehaviour
                 anim.SetTrigger(horizontalFadeInHash);
                 break;
         }
+
     }
 
     public void ExitFade(FadeType fadeType)

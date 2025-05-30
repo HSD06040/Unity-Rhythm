@@ -16,6 +16,7 @@ public class GameManager : Manager<GameManager>
 
     public BGM bgm;
     public bool onMusicPlaying;
+    public PlayData currnetPlayData;
 
     public bool isEdit;
     public int BPM;
@@ -43,6 +44,7 @@ public class GameManager : Manager<GameManager>
 
     public event Action<float> onScrollSpeedChanged;
 
+    private Coroutine gameClearRoutine;
     private int idx;
 
     protected override void Awake()
@@ -82,8 +84,7 @@ public class GameManager : Manager<GameManager>
     }
 
     private IEnumerator GameStartRoutine(MusicData data)
-    {        
-        
+    {             
         UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(0, 3));
 
         yield return new WaitForSeconds(1);
@@ -117,6 +118,7 @@ public class GameManager : Manager<GameManager>
 
     private IEnumerator GameClearRoutine()
     {
+        onMusicPlaying = false;
         UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(0, 3));
 
         yield return new WaitForSeconds(1);
@@ -137,7 +139,7 @@ public class GameManager : Manager<GameManager>
 
         yield return new WaitForSeconds(.5f);
 
-        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(0, 3));
+        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(0, 3));        
     }
 
     public uint GetMusicMs()
@@ -213,6 +215,11 @@ public class GameManager : Manager<GameManager>
                     JudgeManager.Instance.AddNoteList(data.keyPos, note);
                 }
                 idx++;
+            }
+            else if (idx >= noteSpawnList.Count)
+            {
+                if(gameClearRoutine == null)
+                    gameClearRoutine = StartCoroutine(GameClearRoutine());
             }
         }        
     }

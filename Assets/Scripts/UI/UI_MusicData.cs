@@ -57,7 +57,7 @@ public class UI_MusicData : BaseUI
             musicIcon.sprite = data.icon;
             rankImage.color = Color.white;
             rankImage.sprite = data.icon; // 랭크 이미지로 추후 교체
-            comboText.text = musicPlayData.combo.ToString();
+            comboText.text = musicPlayData.maxCombo.ToString();
             scoreText.text = musicPlayData.score.ToString();
             rateText.text = musicPlayData.rate.ToString();
             resSpeed.text = musicPlayData.resSpeed.ToString();
