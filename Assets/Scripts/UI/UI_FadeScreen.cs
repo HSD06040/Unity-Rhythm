@@ -7,6 +7,7 @@ public class UI_FadeScreen : MonoBehaviour
 {
     private Image fadeImage;
     private Animator anim;
+    private RectTransform rectTransform;
 
     #region AnimHash
 
@@ -23,8 +24,9 @@ public class UI_FadeScreen : MonoBehaviour
 
     private void Awake()
     {
-        fadeImage = GetComponentInChildren<Image>();
-        anim = fadeImage.GetComponent<Animator>();
+        fadeImage = GetComponent<Image>();
+        rectTransform = GetComponent<RectTransform>();
+        anim = GetComponent<Animator>();
     }
 
     public void ChangeFade(FadeType fadeType)
@@ -45,9 +47,11 @@ public class UI_FadeScreen : MonoBehaviour
                 anim.SetTrigger(fadeInHash);
                 break;
             case FadeType.Vertical:
+                FadeInVertical();
                 anim.SetTrigger(verticalFadeInHash);
                 break;
             case FadeType.Horizontal:
+                FadeInHorizontal();
                 anim.SetTrigger(horizontalFadeInHash);
                 break;
         }
@@ -67,5 +71,17 @@ public class UI_FadeScreen : MonoBehaviour
                 anim.SetTrigger(horizontalFadeOutHash);
                 break;
         }
+    }
+
+    public void FadeInVertical()
+    {
+        rectTransform.anchoredPosition = new Vector2(0, 540f);
+        rectTransform.sizeDelta = new Vector2(1920, 5f);
+    }
+
+    public void FadeInHorizontal()
+    {
+        rectTransform.anchoredPosition = new Vector2(-960, 0);
+        rectTransform.sizeDelta = new Vector2(0, 1080f);
     }
 }
