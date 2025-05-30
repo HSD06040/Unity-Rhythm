@@ -16,7 +16,8 @@ public enum SFX
 public enum BGM
 {
     NOPAIN,
-    R
+    R,
+    Length
 }
 public enum NoteType
 {

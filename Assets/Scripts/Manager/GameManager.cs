@@ -15,7 +15,7 @@ public class GameManager : Manager<GameManager>
     [SerializeField] private GameObject longPrefab;
 
     public BGM bgm;
-    public bool onMusicStart;
+    public bool onMusicPlaying;
 
     public bool isEdit;
     public int BPM;
@@ -27,7 +27,6 @@ public class GameManager : Manager<GameManager>
     public float distnace;
 
     public List<NoteData> noteSpawnList = new List<NoteData>();
-    public List<double> scrollPos = new();
 
     private float _scrollSpeed;
     public float scrollSpeed { get => _scrollSpeed; set { _scrollSpeed = value; onScrollSpeedChanged?.Invoke(_scrollSpeed); } }
@@ -84,6 +83,8 @@ public class GameManager : Manager<GameManager>
         UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(1, 3));
 
         yield return new WaitForSeconds(1);
+        UI_Manager.Instance.mvPlayer.StopVideo();
+        AudioManager.Instance.StopBGM();
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
         asyncLoad.allowSceneActivation = false;
@@ -107,7 +108,7 @@ public class GameManager : Manager<GameManager>
         noteSpawnList = Parser.LoadMap(bgm);
         AudioManager.Instance.PlayBGM(bgm, 1);
         UI_Manager.Instance.mvPlayer.PlayMusicVideo(data.videoURL);
-        onMusicStart = true;
+        onMusicPlaying = true;
     }
 
     private IEnumerator GameClearRoutine()
@@ -132,28 +133,16 @@ public class GameManager : Manager<GameManager>
         return pos;
     }
 
-    private void ScrollPos()
-    {
-        float noteStartTime = 1000f;
-        for (float i = 0.1f; i < 100f; i += 0.1f)
-        {
-            double _time = noteStartTime - (tickTime * i) + tickTime;
-            double yPos = (_time - noteStartTime) / (tickTime * i);
-            scrollPos.Add(yPos);
-        }
-    }
-
     private void Init()
     {
         BPM = 120;
         notePool = CreatePool(notePrefab, noteParent, 10);
         longNotePool = CreatePool(longPrefab, longNoteParent, 10);
-        ScrollPos();    
     }
 
     private void SetNote()
     {
-        if(onMusicStart)
+        if(onMusicPlaying)
         {
             if (noteSpawnList.Count > idx && time >= (noteSpawnList[idx].startTime - endTime))
             {

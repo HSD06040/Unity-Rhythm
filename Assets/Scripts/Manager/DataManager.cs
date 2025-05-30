@@ -8,11 +8,15 @@ public class DataManager : Manager<DataManager>, ISavable
     public Property<int> exp = new();
     public string playerName;
 
+    public Dictionary<BGM, MusicData> musicDataDic = new();
+
     private SaveManager saveManager;
 
     protected override void Awake()
     {
         base.Awake();
+
+        LoadAllMusicData();
 
         saveManager = new GameObject("SaveManager").AddComponent<SaveManager>();
         saveManager.transform.SetParent(transform, false);
@@ -36,5 +40,23 @@ public class DataManager : Manager<DataManager>, ISavable
     public void DeleteFile()
     {
         saveManager.DeleteFile();
+    }
+
+    private void LoadAllMusicData()
+    {
+        MusicData[] musicDatas = Resources.LoadAll<MusicData>("MusicDatas");
+
+        foreach (var data in musicDatas)
+        {
+            if(!musicDataDic.ContainsKey(data.bgm))
+            {
+                Debug.Log("추가");
+                musicDataDic.Add(data.bgm, data);
+            }
+            else
+            {
+                Debug.Log("이미 추가된 노래 데이터 입니다.");
+            }
+        }
     }
 }

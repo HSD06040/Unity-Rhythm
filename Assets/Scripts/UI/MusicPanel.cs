@@ -28,8 +28,13 @@ public class MusicPanel : MonoBehaviour
     private float timer;
     private Coroutine changeMusicData;
 
-    private void Awake()
+    private void Start()
     {
+        for (int i = 0; i < DataManager.Instance.musicDataDic.Count; i++)
+        {
+            musicDatas.Add(Parser.LoadMusicData((BGM)i));
+        }
+
         for (int i = 0; i < musicDatas.Count; i++)
         {
             MusicBar bar = Instantiate(musicBarPrefab, content).GetComponent<MusicBar>();
@@ -43,11 +48,24 @@ public class MusicPanel : MonoBehaviour
             currentIdx = 0;
             musicBars[currentIdx].SetSelected(true);
         }
+
+        currentIdx = 0;
+        StartCoroutine(SetupRoutine());
     }
 
     private void OnEnable()
     {
+        if (musicDatas.Count < 1) return;
+
         currentIdx = 0;
+        StartCoroutine(SetupRoutine());
+    }
+
+    private IEnumerator SetupRoutine()
+    {
+        yield return new WaitForSeconds(0.01f);
+
+        PlaySelectMusicVideo();
         musicDataPanel.UpdatePlayDataUI(musicDatas[currentIdx]);
     }
 
@@ -134,7 +152,15 @@ public class MusicPanel : MonoBehaviour
             yield return null;
         }
 
+        PlaySelectMusicVideo();
+
         musicDataPanel.UpdatePlayDataUI(musicDatas[currentIdx]);
+    }
+
+    private void PlaySelectMusicVideo()
+    {
+        UI_Manager.Instance.mvPlayer.PlayMusicVideo(musicDatas[currentIdx].videoURL);
+        AudioManager.Instance.PlayBGM(musicDatas[currentIdx].bgm);
     }
 
     public void ChangeDiff(float amount)

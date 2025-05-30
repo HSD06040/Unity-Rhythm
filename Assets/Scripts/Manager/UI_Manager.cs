@@ -12,23 +12,7 @@ public class UI_Manager : Manager<UI_Manager>
     private Canvas worldCanvas;
     private Canvas rectCanvas;
 
-    private SettingPanel settingPanel;
-    public SettingPanel SettingPanel
-    {
-        get
-        {
-            if(settingPanel != null)
-                return settingPanel;
-
-            settingPanel = FindObjectOfType<SettingPanel>(true);
-            if (settingPanel != null)
-                return settingPanel;
-
-            settingPanel = Resources.Load<SettingPanel>("UI/SettingPanel");
-
-            return settingPanel;
-        }
-    }
+    public SettingPanel settingPanel;
 
     private MusicPanel _musicPanel;
     public MusicPanel musicPanel
@@ -63,6 +47,7 @@ public class UI_Manager : Manager<UI_Manager>
         rectCanvas  = Instantiate(Resources.Load<Canvas>("UI/RectCanvas"));
         DontDestroyOnLoad(rectCanvas);
 
+        settingPanel = Instantiate(Resources.Load<SettingPanel>("UI/SettingPanel"), rectCanvas.transform);
         fadeScreen  = Instantiate(Resources.Load<UI_FadeScreen>("UI/FadeScreen"), rectCanvas.transform);
     }
 
@@ -80,10 +65,10 @@ public class UI_Manager : Manager<UI_Manager>
 
         settingAction.started += (ctx) =>
         {
-            if (!SettingPanel.gameObject.activeSelf)
-                SettingPanel.OpenPanel();
+            if (!settingPanel.gameObject.activeSelf)
+                settingPanel.OpenPanel();
             else
-                SettingPanel.ClosePanel();
+                settingPanel.ClosePanel();
         };
     }    
 }

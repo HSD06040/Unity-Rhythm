@@ -14,16 +14,22 @@ public static class Parser
         return map.notes;
     }
 
-    public static void SaveMap(MapData mapData, BGM bgm)
+    public static void SaveMap(MapData mapData)
     {
         string json = JsonUtility.ToJson(mapData, true);
-        File.WriteAllText($"Assets/Maps/{bgm.ToString()}.json", json);
+        File.WriteAllText($"Assets/Maps/{mapData.bgm.ToString()}.json", json);
 
 #if UNITY_EDITOR
         UnityEditor.AssetDatabase.Refresh();
 #endif
 
-        Debug.Log($"{bgm.ToString()} 맵 저장 완료!");
+        Debug.Log($"{mapData.bgm.ToString()} 맵 저장 완료!");
+    }
+
+    public static MusicData LoadMusicData(BGM bgm)
+    {
+        DataManager.Instance.musicDataDic.TryGetValue(bgm, out MusicData musicData);
+        return musicData;
     }
 
     public static PlayData LoadPlayData(BGM bgm)

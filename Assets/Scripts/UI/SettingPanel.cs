@@ -38,6 +38,12 @@ public class SettingPanel : MonoBehaviour
     {
         if (!canChanged) return;
 
+        if(GameManager.Instance.onMusicPlaying)
+        {
+            UI_Manager.Instance.mvPlayer.PauseVideo();
+            AudioManager.Instance.StopBGM();
+        }
+
         gameObject.SetActive(true);
         anim.ResetTrigger(outHash);
         anim.SetTrigger(inHash);

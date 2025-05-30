@@ -97,7 +97,7 @@ public class NoteMaker : MonoBehaviour
 
     public void SaveMusic()
     {
-        Parser.SaveMap(mapData, bgm);
+        Parser.SaveMap(mapData);
     }
 
     public void LoadMusic()

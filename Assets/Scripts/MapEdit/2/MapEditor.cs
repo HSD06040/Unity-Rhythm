@@ -300,18 +300,11 @@ public class MapEditor : MonoBehaviour
 
         MapData map = new MapData();
 
-        map.musicData = new MusicData
-        {
-            bgm = bgm,
-            BPM = BPM,
-            artistName = artist,
-            videoURL = videoURL,
-            icon = icon
-        };
+        map.bgm = bgm;
 
         map.notes = noteDatas;
 
-        Parser.SaveMap(map, bgm);
+        Parser.SaveMap(map);
     }
 
     public void Load()

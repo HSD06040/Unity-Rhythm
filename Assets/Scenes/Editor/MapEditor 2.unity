@@ -432,7 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0afebdd6d32c14459c2bad189913b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputActions: {fileID: 0}
+  inputActions: {fileID: -944628639613478452, guid: 90d8a2b254468ee4cb9175e35938d855, type: 3}
   noteLanes: []
   judgeMs: []
   defaultJudgeMs:

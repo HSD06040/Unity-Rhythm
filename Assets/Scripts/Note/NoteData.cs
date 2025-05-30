@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class MusicData
+[CreateAssetMenu(fileName = "MusicData", menuName = "MusicData")]
+public class MusicData : ScriptableObject
 {
     public BGM bgm;
     public Sprite icon;
@@ -16,7 +16,7 @@ public class MusicData
 [Serializable]
 public class MapData
 {
-    public MusicData musicData;
+    public BGM bgm;
     public List<NoteData> notes;
 }
 
