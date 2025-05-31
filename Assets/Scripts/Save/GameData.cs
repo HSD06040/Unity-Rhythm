@@ -17,6 +17,10 @@ public class GameData
     public float bgmVolume;
     public float sfxVolume;
 
+    [Header("Setting Data")]
+    public int fpsIdx;
+    public int resIdx;
+
     public GameData()
     {
         level = 1;

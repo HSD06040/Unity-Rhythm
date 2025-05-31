@@ -29,6 +29,7 @@ public class ScoreManager : Manager<ScoreManager>
 
     public void InitPlayData()
     {
+        comboList.Clear();
         rateCount = 0;
         totalRate = 0;
         score.Value = 0;

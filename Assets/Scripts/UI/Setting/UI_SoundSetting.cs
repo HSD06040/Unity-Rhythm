@@ -29,6 +29,8 @@ public class UI_SoundSetting : BaseUI
 
     private void OnEnable()
     {
+        UpdateAllText();
+
         masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
         bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
         sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
@@ -61,5 +63,12 @@ public class UI_SoundSetting : BaseUI
     {
         AudioManager.Instance.sfxVolume = value;
         sfxVolumeText.text = ((int)(value * 100)).ToString();
+    }
+
+    private void UpdateAllText()
+    {
+        masterVolumeText.text = ((int)(masterVolumeSlider.value * 100)).ToString();
+        sfxVolumeText.text = ((int)(sfxVolumeSlider.value * 100)).ToString();
+        bgmVolumeText.text = ((int)(bgmVolumeSlider.value * 100)).ToString();
     }
 }
