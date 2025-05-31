@@ -133,6 +133,8 @@ public class AudioManager : Manager<AudioManager>, ISavable
 
     public void Load(GameData data)
     {
+        Debug.Log(data.masterVolume);
+        Debug.Log(data.bgmVolume);
         masterVolume = data.masterVolume;
         sfxVolume = data.sfxVolume;
         bgmVolume = data.bgmVolume;

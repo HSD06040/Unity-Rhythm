@@ -17,6 +17,7 @@ public class GameManager : Manager<GameManager>
     public BGM bgm;
     public bool onMusicPlaying;
     public PlayData currnetPlayData;
+    public MusicData currentMusicData;
 
     public bool isEdit;
     public int BPM;
@@ -41,6 +42,7 @@ public class GameManager : Manager<GameManager>
 
     public Transform spawnLine;
     public Transform judgeLine;
+    private EffectManager effectGenerator;
 
     public event Action<float> onScrollSpeedChanged;
 
@@ -74,8 +76,9 @@ public class GameManager : Manager<GameManager>
     {
         bgm = data.bgm;
         BPM = data.BPM;
+        currentMusicData = data;
 
-        StartCoroutine(GameStartRoutine(data));
+        StartCoroutine(GameStartRoutine());
     }
 
     public void GameClear()
@@ -83,7 +86,7 @@ public class GameManager : Manager<GameManager>
         StartCoroutine(GameClearRoutine());
     }
 
-    private IEnumerator GameStartRoutine(MusicData data)
+    private IEnumerator GameStartRoutine()
     {             
         UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(0, 3));
 
@@ -110,14 +113,15 @@ public class GameManager : Manager<GameManager>
 
         yield return new WaitForSeconds(4);
 
+        onMusicPlaying = true;
         noteSpawnList = Parser.LoadMap(bgm);
         AudioManager.Instance.PlayBGM(bgm, 1);
-        UI_Manager.Instance.mvPlayer.PlayMusicVideo(data.videoURL);
-        onMusicPlaying = true;
+        UI_Manager.Instance.mvPlayer.PlayMusicVideo(currentMusicData.videoURL);
     }
 
     private IEnumerator GameClearRoutine()
     {
+        yield return new WaitForSeconds(5);
         onMusicPlaying = false;
         UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(0, 3));
 
@@ -139,7 +143,11 @@ public class GameManager : Manager<GameManager>
 
         yield return new WaitForSeconds(.5f);
 
-        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(0, 3));        
+        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(0, 3));
+
+        AudioManager.Instance.PlayBGM(bgm, 1);
+        UI_Manager.Instance.mvPlayer.PlayMusicVideo(currentMusicData.videoURL, false);
+        gameClearRoutine = null;
     }
 
     public uint GetMusicMs()

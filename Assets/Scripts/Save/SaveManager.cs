@@ -8,7 +8,7 @@ using UnityEngine;
 public class SaveManager : MonoBehaviour
 {
     private FileHandler handler;
-    private GameData gameData;
+    [SerializeField] private GameData gameData;
     private List<ISavable> savables;
 
     [SerializeField] private string fileName = "HSD.json";
@@ -38,6 +38,7 @@ public class SaveManager : MonoBehaviour
         if(gameData == null)
         {
             gameData = new GameData();
+            Debug.Log("new GameData");
             return;
         }
 

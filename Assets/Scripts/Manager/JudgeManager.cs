@@ -6,7 +6,7 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
 {
     [Header("Inputs")]
     public InputActionAsset inputActions;
-    private InputAction[] lanes;
+    public InputAction[] lanes;
     [Space]
 
     public NoteLane[] noteLanes;

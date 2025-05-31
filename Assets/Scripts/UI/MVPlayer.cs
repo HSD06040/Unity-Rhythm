@@ -8,7 +8,7 @@ public class MVPlayer : MonoBehaviour
 {
     private VideoPlayer videoPlayer;
     private RawImage rawImage;
-    [SerializeField] private Texture video;
+    [SerializeField] private GameObject[] lines;
 
     private void Awake()
     {
@@ -16,19 +16,32 @@ public class MVPlayer : MonoBehaviour
         rawImage = GetComponent<RawImage>();
     }
 
-    public void PlayMusicVideo(string url)
+    public void PlayMusicVideo(string url, bool isLine = true)
     {
-        if (rawImage.texture == null)
+        if(isLine)
         {
-            rawImage.color = Color.white;
-            rawImage.texture = video;
+            foreach(var line in lines)
+            {
+                line.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var line in lines)
+            {
+                line.SetActive(false);
+            }
         }
 
         if(videoPlayer.isPlaying)
             videoPlayer.Stop();
 
+        videoPlayer.targetTexture.Release();
+
         videoPlayer.url = url;
         videoPlayer.Play();
+
+        rawImage.color = Color.white;        
     }
 
     public void PlayMusicVideo(string url, float delay)
@@ -42,16 +55,10 @@ public class MVPlayer : MonoBehaviour
     {
         videoPlayer.Stop();
         rawImage.color = Color.black;
-        rawImage.texture = null;
     }
 
     IEnumerator DelayMusicVideoPlay(string url, float delay)
-    {
-        if (rawImage.texture == null)
-        {
-            rawImage.color = Color.white;
-            rawImage.texture = video;
-        }
+    {        
 
         if (videoPlayer.isPlaying)
             videoPlayer.Stop();
@@ -59,5 +66,6 @@ public class MVPlayer : MonoBehaviour
         videoPlayer.url = url;
         yield return new WaitForSeconds(delay);
         videoPlayer.Play();
+        rawImage.color = Color.white;         
     }
 }

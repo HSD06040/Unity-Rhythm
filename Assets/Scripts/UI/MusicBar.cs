@@ -7,17 +7,19 @@ using UnityEngine.UI;
 public class MusicBar : MonoBehaviour
 {
     [SerializeField] private TMP_Text musicName;
-    [SerializeField] private Image musicIcon;
-    [SerializeField] private Image background;
-    [SerializeField] private Color selectColor;
-    public void SetMusicBar(Sprite icon, string _name)
+    [SerializeField] private TMP_Text artistName;
+    [SerializeField] private Image barImage;
+    [SerializeField] private Image musicIcon;    
+
+    public void SetMusicBar(MusicData data)
     {
-        musicName.text = _name;
-        musicIcon.sprite = icon;
+        musicName.text = data.bgm.ToString();
+        artistName.text = data.artistName;
+        musicIcon.sprite = data.icon;
     }
 
     public void SetSelected(bool isSelected)
     {
-        background.color = isSelected ? selectColor : Color.clear;
+        barImage.color = isSelected ? Color.white : Color.clear;
     }
 }

@@ -40,7 +40,7 @@ public class MusicPanel : MonoBehaviour
             MusicBar bar = Instantiate(musicBarPrefab, content).GetComponent<MusicBar>();
             musicBars.Add(bar);
             musicBarRects.Add(bar.GetComponent<RectTransform>());
-            musicBars[i].SetMusicBar(musicDatas[i].icon, musicDatas[i].bgm.ToString());
+            musicBars[i].SetMusicBar(musicDatas[i]);
         }
 
         if(musicBars.Count > 0)

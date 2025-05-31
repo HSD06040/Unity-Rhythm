@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   video: {fileID: 8400000, guid: c90b2ad2ad508c240b2bc7b191bc8a9a, type: 2}
+  lines:
+  - {fileID: 4566807132350098062}
+  - {fileID: 6358023313210121618}
 --- !u!328 &4267094342560631669
 VideoPlayer:
   m_ObjectHideFlags: 0
