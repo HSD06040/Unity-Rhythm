@@ -232,6 +232,7 @@ public class GameManager : Manager<GameManager>
         }        
     }
 
+    
     private ObjectPool<GameObject> CreatePool(GameObject prefab, Transform parent, int maxSize)
     {
         parent = new GameObject($"{prefab.name} parent").transform;

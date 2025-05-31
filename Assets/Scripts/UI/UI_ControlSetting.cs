@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class UI_KeySetting : BaseUI
+public class UI_ControlSetting : BaseUI
 {
     private InputActionAsset inputActions;
 
