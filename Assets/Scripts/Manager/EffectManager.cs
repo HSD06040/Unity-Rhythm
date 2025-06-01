@@ -6,18 +6,32 @@ using UnityEngine.Pool;
 public class EffectManager : Manager<EffectManager>
 {
     private Dictionary<string, GameObject> effectDic = new Dictionary<string, GameObject>();
-    private Dictionary<string, ObjectPool<GameObject>> effectPoolDic;    
+    private Dictionary<string, ObjectPool<GameObject>> effectPoolDic = new Dictionary<string, ObjectPool<GameObject>>();
+
+    private YieldInstruction delay = new WaitForSeconds(1);
 
     public void CreateEffect(string name, Vector3 posision, Transform parent)
     {
         GameObject go = null;
 
-        if (!effectPoolDic.TryGetValue(name, out var pool))
+        if (effectPoolDic.TryGetValue(name, out var pool))
             go = pool.Get();
         else
             go = CreatePool(GetEffect(name), name, parent).Get();
 
-        Instantiate(go, posision, Quaternion.identity, parent);
+        go.transform.position = posision;
+
+        StartCoroutine(ReleaseRoutine(name,go));
+    }
+
+    private IEnumerator ReleaseRoutine(string name, GameObject go)
+    {
+        yield return delay;
+
+        if (effectPoolDic.TryGetValue(name, out var pool))
+            pool.Release(go);
+        else
+            Destroy(go);
     }
 
     public GameObject GetEffect(string name)

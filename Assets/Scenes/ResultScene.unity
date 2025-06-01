@@ -3470,6 +3470,7 @@ MonoBehaviour:
     greate: 53
     good: 23
     miss: 13
+  rateSlider: {fileID: 106014040}
   bestComboTextEndTransform: {fileID: 1169071050}
   perfectTextEndTransform: {fileID: 483101378}
   greatTextEndTransform: {fileID: 1562520523}

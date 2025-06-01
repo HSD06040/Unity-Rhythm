@@ -44,26 +44,45 @@ public class ScoreManager : Manager<ScoreManager>
         score.Value += Mathf.RoundToInt(amount * multiplier);
     }
 
-    public int GetJudgeResult(Judge judge)
+    public int GetJudgeResult(Judge judge, int idx)
     {
         return judgeResult[(int)judge];
     }
 
-    public void AddJudgeResult(Judge judge)
+    public void AddJudgeResult(Judge judge, int idx)
     {
         judgeResult[(int)judge]++;
 
-        switch (judge)
+        if (judge != Judge.Miss)
         {
-            case Judge.Perfect: AddScore(100); totalRate += 100; break;
-            case Judge.Great: AddScore(70); totalRate += 90;  break;
-            case Judge.Good: AddScore(50); totalRate += 70; break;
-            case Judge.Miss: ResetComboCount(); break;
+            AddScore(judge switch
+            {
+                Judge.Perfect => 100,
+                Judge.Great => 70,
+                Judge.Good => 50,
+                _ => 0
+            });
+
+            totalRate += judge switch
+            {
+                Judge.Perfect => 100,
+                Judge.Great => 90,
+                Judge.Good => 70,
+                _ => 0
+            };
+
+            Vector3 effectPos = GameManager.Instance.judgeLine.position + new Vector3(JudgeManager.Instance.offset[idx], 0, 0);
+            EffectManager.Instance.CreateEffect("Judge", effectPos, null);
+        }
+        else
+        {
+            ResetComboCount();
         }
 
         rateCount++;
         onJudged?.Invoke(judge);
     }
+
 
     public void ResetComboCount()
     {

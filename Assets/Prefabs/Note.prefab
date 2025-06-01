@@ -109,15 +109,15 @@ MonoBehaviour:
     isLongNoteBody: 0
     isLongNoteEnd: 0
   noteSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: b8dfb5278a6656b4887d369a7212d717, type: 3}
+  - {fileID: 21300000, guid: 8ecd832bedd7fae4c94e2a312e6c7566, type: 3}
+  - {fileID: 21300000, guid: 8ecd832bedd7fae4c94e2a312e6c7566, type: 3}
+  - {fileID: 21300000, guid: b8dfb5278a6656b4887d369a7212d717, type: 3}
   longSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 5c6def8fd174b5f47ba90c08ee6a1ec5, type: 3}
+  - {fileID: 21300000, guid: 9a78fb4f3e7e7fb438b818086105c5a0, type: 3}
+  - {fileID: 21300000, guid: 9a78fb4f3e7e7fb438b818086105c5a0, type: 3}
+  - {fileID: 21300000, guid: 5c6def8fd174b5f47ba90c08ee6a1ec5, type: 3}
   offset:
   - -1.8
   - -0.6

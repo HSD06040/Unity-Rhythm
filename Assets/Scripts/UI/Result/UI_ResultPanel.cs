@@ -18,7 +18,7 @@ public class UI_ResultPanel : BaseUI
 
     [SerializeField] private PlayData playData;
 
-    private Slider rateSlider;
+    [SerializeField] private Slider rateSlider;
 
     private TMP_Text bestComboText;
     private TMP_Text perfectText;
@@ -51,6 +51,9 @@ public class UI_ResultPanel : BaseUI
     [SerializeField] private Transform missEndTransform;
     [SerializeField] private Transform scoreEndTransform;
 
+    private Coroutine lobbyRoutine;
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -69,8 +72,6 @@ public class UI_ResultPanel : BaseUI
         goodObj = GetUI("GoodCount");
         missObj = GetUI("MissCount");
         scoreObj = GetUI("ScoreCount");
-
-        rateSlider = GetUI<Slider>("RateSlider");
     }
 
     private void Start()
@@ -82,12 +83,15 @@ public class UI_ResultPanel : BaseUI
     private void Update()
     {
         if(Input.GetKeyUp(KeyCode.Return))
-            StartCoroutine(LoadLobby());
+        {
+            if(lobbyRoutine == null)
+                lobbyRoutine = StartCoroutine(LoadLobby());
+        }
     }
 
     private IEnumerator LoadLobby()
     {
-        UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(0, 3));
+        UI_Manager.Instance.fadeScreen.EnterFade(FadeType.Defualt);
 
         yield return new WaitForSeconds(1);
         UI_Manager.Instance.mvPlayer.StopVideo();
@@ -101,7 +105,8 @@ public class UI_ResultPanel : BaseUI
 
         asyncLoad.allowSceneActivation = true;
 
-        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(0, 3));
+        UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
+        lobbyRoutine = null;
     }
 
     private IEnumerator UpdateTextRoutine(TMP_Text text, int targetIdx)

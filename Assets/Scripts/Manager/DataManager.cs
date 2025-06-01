@@ -36,10 +36,7 @@ public class DataManager : Manager<DataManager>, ISavable
     }
 
     public void Load(GameData data)
-    {
-        Debug.Log(data.exp);
-        Debug.Log(data.level);
-        
+    {      
         exp.Value = data.exp;
         level.Value = data.level;
         playerName = data.playerName;
@@ -47,9 +44,6 @@ public class DataManager : Manager<DataManager>, ISavable
 
     public void Save(ref GameData data)
     {
-        Debug.Log(data.exp);
-        Debug.Log(data.level);
-
         data.exp = exp.Value;
         data.level = level.Value;
         data.playerName = playerName;

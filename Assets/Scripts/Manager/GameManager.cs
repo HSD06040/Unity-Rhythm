@@ -125,7 +125,7 @@ public class GameManager : Manager<GameManager>
         onMusicPlaying = false;
         UI_Manager.Instance.fadeScreen.EnterFade(FadeType.Defualt);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         UI_Manager.Instance.mvPlayer.StopVideo();
         AudioManager.Instance.StopBGM();
 
@@ -144,7 +144,7 @@ public class GameManager : Manager<GameManager>
         AudioManager.Instance.PlayBGM(bgm, 1);
         UI_Manager.Instance.mvPlayer.PlayMusicVideo(currentMusicData.videoURL, false);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(.5f);
 
         UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
 
