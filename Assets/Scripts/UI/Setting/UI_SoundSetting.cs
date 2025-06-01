@@ -50,12 +50,14 @@ public class UI_SoundSetting : BaseUI
     private void SetMasterVolume(float value)
     {
         AudioManager.Instance.masterVolume = value;
+        AudioManager.Instance.UpdateVolume();
         masterVolumeText.text = ((int)(value * 100)).ToString();
     }
 
     private void SetBGMVolume(float value)
     {
         AudioManager.Instance.bgmVolume = value;
+        AudioManager.Instance.UpdateVolume();
         bgmVolumeText.text = ((int)(value * 100)).ToString();
     }
 

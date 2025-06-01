@@ -6,6 +6,8 @@ public class Note : MonoBehaviour
 {
     public NoteData data = new();
     private SpriteRenderer sr;
+    [SerializeField] private Sprite[] noteSprites;
+    [SerializeField] private Sprite[] longSprites;
 
     [SerializeField] private float[] offset;
 
@@ -20,6 +22,15 @@ public class Note : MonoBehaviour
 
         if(data.isJudgeDone)
             data.isJudgeDone = false;
+
+        if(data.isLongNoteBody)
+        {
+            sr.sprite = longSprites[data.keyPos];
+        }
+        else
+        {
+            sr.sprite = noteSprites[data.keyPos];
+        }
 
         transform.position = new Vector3(transform.position.x + offset[data.keyPos], transform.position.y, 0);
 

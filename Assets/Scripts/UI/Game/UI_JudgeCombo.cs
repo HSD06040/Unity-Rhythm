@@ -9,6 +9,12 @@ public class UI_JudgeCombo : BaseUI
     private TMP_Text scoreText;
     private TMP_Text comboText;
     private TMP_Text rateText;
+    private TMP_Text speedText;
+
+    private Animator judgeAnim;
+    private Animator comboAnim;
+
+    private static readonly int inHash = Animator.StringToHash("In");
 
     protected override void Awake()
     {
@@ -18,6 +24,12 @@ public class UI_JudgeCombo : BaseUI
         scoreText = GetUI<TextMeshProUGUI>("Score");
         comboText = GetUI<TextMeshProUGUI>("Combo");
         rateText = GetUI<TextMeshProUGUI>("Rate");
+        speedText = GetUI<TextMeshProUGUI>("SpeedText");
+
+        judgeAnim = GetUI<Animator>("Judge");
+        comboAnim = GetUI<Animator>("Combo");
+
+        speedText.text = GameManager.Instance.scrollSpeed.ToString();
     }    
 
     private void OnEnable()
@@ -39,22 +51,22 @@ public class UI_JudgeCombo : BaseUI
         switch (judge)
         {
             case Judge.Perfect:
-                judgeText.transform.localScale = Vector3.one;           
-                judgeText.text = "Max 100 %";
+                judgeAnim.SetTrigger(inHash);
+                judgeText.text = "Max100%";
                 break;
 
             case Judge.Great:
-                judgeText.transform.localScale = new Vector3 (.9f, .9f, .9f);
-                judgeText.text = "Max 90 %";
+                judgeAnim.SetTrigger(inHash);
+                judgeText.text = "Max90%";
                 break;
 
             case Judge.Good:
-                judgeText.transform.localScale = new Vector3(.7f, .7f, .7f);
-                judgeText.text = "Max 70 %";
+                judgeAnim.SetTrigger(inHash);
+                judgeText.text = "Max70%";
                 break;
 
             default:
-                judgeText.transform.localScale = new Vector3(.7f, .7f, .7f);
+                judgeAnim.SetTrigger(inHash);
                 judgeText.text = "Miss";
                 break;
         }
@@ -69,6 +81,7 @@ public class UI_JudgeCombo : BaseUI
 
     private void ComboUpdate(int count)
     {
+        comboAnim.SetTrigger(inHash);
         comboText.text = count.ToString();
     }
 

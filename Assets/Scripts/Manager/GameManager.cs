@@ -88,7 +88,7 @@ public class GameManager : Manager<GameManager>
 
     private IEnumerator GameStartRoutine()
     {             
-        UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(0, 3));
+        UI_Manager.Instance.fadeScreen.EnterFade(FadeType.Defualt);
 
         yield return new WaitForSeconds(1);
         UI_Manager.Instance.mvPlayer.StopVideo();
@@ -109,7 +109,7 @@ public class GameManager : Manager<GameManager>
         spawnLine = GameObject.Find("SpawnLine").transform;
         judgeLine = GameObject.Find("JudgeLine").transform;
 
-        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(0, 3));
+        UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
 
         yield return new WaitForSeconds(4);
 
@@ -123,7 +123,7 @@ public class GameManager : Manager<GameManager>
     {
         yield return new WaitForSeconds(5);
         onMusicPlaying = false;
-        UI_Manager.Instance.fadeScreen.EnterFade((FadeType)UnityEngine.Random.Range(0, 3));
+        UI_Manager.Instance.fadeScreen.EnterFade(FadeType.Defualt);
 
         yield return new WaitForSeconds(1);
         UI_Manager.Instance.mvPlayer.StopVideo();
@@ -141,12 +141,13 @@ public class GameManager : Manager<GameManager>
 
         asyncLoad.allowSceneActivation = true;
 
-        yield return new WaitForSeconds(.5f);
-
-        UI_Manager.Instance.fadeScreen.ExitFade((FadeType)UnityEngine.Random.Range(0, 3));
-
         AudioManager.Instance.PlayBGM(bgm, 1);
         UI_Manager.Instance.mvPlayer.PlayMusicVideo(currentMusicData.videoURL, false);
+
+        yield return new WaitForSeconds(2f);
+
+        UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
+
         gameClearRoutine = null;
     }
 

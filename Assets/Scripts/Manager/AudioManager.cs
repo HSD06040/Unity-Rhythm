@@ -124,6 +124,9 @@ public class AudioManager : Manager<AudioManager>, ISavable
         }
     }
 
+    public void UpdateVolume() => musicChannel.setVolume(bgmVolume * masterVolume);
+
+
     public void Save(ref GameData data)
     {
         data.masterVolume = masterVolume;
@@ -138,5 +141,17 @@ public class AudioManager : Manager<AudioManager>, ISavable
         masterVolume = data.masterVolume;
         sfxVolume = data.sfxVolume;
         bgmVolume = data.bgmVolume;
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+            StopBGM();
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus)
+            RestartBGM();
     }
 }
