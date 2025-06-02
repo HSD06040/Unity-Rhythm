@@ -87,7 +87,7 @@ public class Note : MonoBehaviour
         if (data.isLongNoteBody)
             return;
 
-        if (data.startTime - GameManager.Instance.time < -100 / GameManager.Instance.scrollSpeed)
+        if (data.startTime - GameManager.Instance.time < -200 / GameManager.Instance.scrollSpeed)
         {
             JudgeManager.Instance.Miss(this);
         }

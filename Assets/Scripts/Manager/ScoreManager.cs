@@ -34,19 +34,14 @@ public class ScoreManager : Manager<ScoreManager>
         totalRate = 0;
         score.Value = 0;
         comboCount.Value = 0;
-        judgeResult = new int[4];
+        judgeResult = new int[(int)Judge.Miss + 1];
     }
 
     private void AddScore(int amount)
     {
         comboCount.Value++;      
-        float multiplier = 1 + comboCount.Value * 0.01f;
+        float multiplier = 1 + comboCount.Value / 100;
         score.Value += Mathf.RoundToInt(amount * multiplier);
-    }
-
-    public int GetJudgeResult(Judge judge, int idx)
-    {
-        return judgeResult[(int)judge];
     }
 
     public void AddJudgeResult(Judge judge, int idx)
@@ -58,16 +53,32 @@ public class ScoreManager : Manager<ScoreManager>
             AddScore(judge switch
             {
                 Judge.M100 => 100,
-                Judge.M90 => 70,
-                Judge.M80 => 50,
+                Judge.M90 => 80,
+                Judge.M80 => 63,
+                Judge.M70 => 50,
+                Judge.M60 => 40,
+                Judge.M50 => 33,
+                Judge.M40 => 30,
+                Judge.M30 => 29,
+                Judge.M20 => 28,
+                Judge.M10 => 25,
+                Judge.M1 => 1,
                 _ => 0
             });
 
             totalRate += judge switch
             {
                 Judge.M100 => 100,
-                Judge.M90 => 90,
-                Judge.M80 => 70,
+                Judge.M90 => 80,
+                Judge.M80 => 63,
+                Judge.M70 => 50,
+                Judge.M60 => 40,
+                Judge.M50 => 33,
+                Judge.M40 => 30,
+                Judge.M30 => 29,
+                Judge.M20 => 28,
+                Judge.M10 => 25,
+                Judge.M1 => 1,
                 _ => 0
             };
 
@@ -101,10 +112,18 @@ public class ScoreManager : Manager<ScoreManager>
             rate = rate,
             resSpeed = GameManager.Instance.scrollSpeed,
 
-            perfect = judgeResult[0],
-            greate = judgeResult[1],
-            good = judgeResult[2],
-            miss = judgeResult[3],
+            m100 = judgeResult[0],
+            m90 = judgeResult[1],
+            m80 = judgeResult[2],
+            m70 = judgeResult[3],
+            m60 = judgeResult[4],
+            m50 = judgeResult[5],
+            m40 = judgeResult[6],
+            m30 = judgeResult[7],
+            m20 = judgeResult[8],
+            m10 = judgeResult[9],
+            m1 = judgeResult[10],
+            miss = judgeResult[11],
         };
 
         PlayData oldMostPlayData = Parser.LoadPlayData(bgm);

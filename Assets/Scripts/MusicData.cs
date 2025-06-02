@@ -11,4 +11,5 @@ public class MusicData : ScriptableObject
     public string artistName;
     public string videoURL;
     public int BPM;
+    public int difficulty;
 }

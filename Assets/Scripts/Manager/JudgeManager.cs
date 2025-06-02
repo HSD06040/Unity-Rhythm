@@ -12,7 +12,7 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
     public NoteLane[] noteLanes;
     [SerializeField] private float[] judgeMs;
     [SerializeField] private float[] defaultJudgeMs;
-    public float[] offset = new float[] { -1.8f, -.6f, .6f, 1.8f }; 
+    public float[] offset = new float[] { -1.8f, -.6f, .6f, 1.8f };
 
     private float checkMs;
 
@@ -21,6 +21,7 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
     protected override void Awake()
     {
         base.Awake();
+        judgeMs = new float[12];
 
         var playerMap = inputActions.FindActionMap("Player");
 
@@ -56,12 +57,10 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
 
     public void SetJudgeMs()
     {
-        judgeMs = new float[]
+        for (int i = 0; i < defaultJudgeMs.Length; i++)
         {
-            defaultJudgeMs[0] / GameManager.Instance.scrollSpeed,
-            defaultJudgeMs[1] / GameManager.Instance.scrollSpeed,
-            defaultJudgeMs[2] / GameManager.Instance.scrollSpeed,
-        };
+            judgeMs[i] = defaultJudgeMs[i] / GameManager.Instance.scrollSpeed;
+        }
     }
 
     private void Judgement(int idx)
@@ -81,20 +80,22 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
             {
                 if (note.data.isLongNoteStart)
                 {
-                    if (checkMs <= judgeMs[(int)Judge.M80] && checkMs >= -judgeMs[(int)Judge.M80])
-                    {
-                        ScoreManager.Instance.AddJudgeResult(Judge.M100, note.data.keyPos);
+                    Judge judge = GetJudgement(note);
 
-                        GameManager.Instance.ReleaseNote(noteLanes[idx].DequeueNote()); // Start 力芭
-                        StartCoroutine(LongBodyJudge(noteLanes[idx].GetNextLongBody()));
-                    }
-                    else
+                    if (judge == Judge.Miss)
                     {
-                        ScoreManager.Instance.AddJudgeResult(Judge.Miss, note.data.keyPos);
+                        ScoreManager.Instance.AddJudgeResult(judge, note.data.keyPos);
                         GameManager.Instance.ReleaseNote(noteLanes[idx].DequeueNote()); // Start 力芭
                         GameManager.Instance.ReleaseNote(noteLanes[idx].DequeueNote()); // Body 力芭
                         GameManager.Instance.ReleaseNote(noteLanes[idx].DequeueNote()); // End 力芭
+                        return;
                     }
+
+                    ScoreManager.Instance.AddJudgeResult(judge, note.data.keyPos);
+
+                    GameManager.Instance.ReleaseNote(noteLanes[idx].DequeueNote()); // Start 力芭
+                    StartCoroutine(LongBodyJudge(noteLanes[idx].GetNextLongBody(), judge));
+
 
                     note.data.isJudgeDone = true;
                 }
@@ -106,7 +107,7 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
         }
     }
 
-    private IEnumerator LongBodyJudge(Note note)
+    private IEnumerator LongBodyJudge(Note note, Judge judge)
     {
         float interval = 100f; // ms
 
@@ -125,7 +126,7 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
         {
             if (GameManager.Instance.time >= nextJudgeTime)
             {
-                ScoreManager.Instance.AddJudgeResult(Judge.M100, note.data.keyPos);
+                ScoreManager.Instance.AddJudgeResult(judge, note.data.keyPos);
                 nextJudgeTime += interval;
                 judgeTick++;
 
@@ -144,17 +145,17 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
         endNote.data.isJudgeDone = true;
         GameManager.Instance.ReleaseNote(noteLanes[note.data.keyPos].DequeueNote());
 
-        if (GameManager.Instance.time + 150 >= holdEndTime - 160)
+        if (GameManager.Instance.time + 150 >= holdEndTime - 150)
         {
             if (judgeMaxTick != judgeTick)
             {
                 for (int i = 0; i < judgeMaxTick - judgeTick; i++)
                 {
-                    ScoreManager.Instance.AddJudgeResult(Judge.M100, note.data.keyPos);
+                    ScoreManager.Instance.AddJudgeResult(judge, note.data.keyPos);
                 }
             }
 
-            ScoreManager.Instance.AddJudgeResult(Judge.M100, note.data.keyPos);
+            ScoreManager.Instance.AddJudgeResult(judge, note.data.keyPos);
         }
         else
         {
@@ -168,24 +169,32 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
 
         note.data.isJudgeDone = true;
 
-        if (checkMs < judgeMs[(int)Judge.M100] && checkMs >= -judgeMs[(int)Judge.M100])
+        for (int i = 0; i < judgeMs.Length; i++)
         {
-            ScoreManager.Instance.AddJudgeResult(Judge.M100, note.data.keyPos);
-        }
-        else if (checkMs <= judgeMs[(int)Judge.M90] && checkMs >= -judgeMs[(int)Judge.M90])
+            if (checkMs <= judgeMs[i] && checkMs >= -judgeMs[i])
+            {
+                ScoreManager.Instance.AddJudgeResult((Judge)i, note.data.keyPos);
+                GameManager.Instance.ReleaseNote(noteLanes[note.data.keyPos].DequeueNote());
+                return;
+            }
+        }        
+    }
+
+    private Judge GetJudgement(Note note)
+    {
+        checkMs = note.data.startTime - GameManager.Instance.time;
+
+        note.data.isJudgeDone = true;
+
+        for (int i = 0; i < judgeMs.Length; i++)
         {
-            ScoreManager.Instance.AddJudgeResult(Judge.M90, note.data.keyPos);
-        }
-        else if (checkMs <= judgeMs[(int)Judge.M80] && checkMs >= -judgeMs[(int)Judge.M80])
-        {
-            ScoreManager.Instance.AddJudgeResult(Judge.M80, note.data.keyPos);
-        }
-        else
-        {
-            ScoreManager.Instance.AddJudgeResult(Judge.Miss, note.data.keyPos);
+            if (checkMs <= judgeMs[i] && checkMs >= -judgeMs[i])
+            {                
+                return (Judge)i;
+            }
         }
 
-        GameManager.Instance.ReleaseNote(noteLanes[note.data.keyPos].DequeueNote());
+        return Judge.Miss;
     }
 
     public void AddNoteList(int idx, Note note)

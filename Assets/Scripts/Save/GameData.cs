@@ -44,8 +44,16 @@ public class PlayData
     public int score;
     public int maxCombo;
 
-    public int perfect;
-    public int greate;
-    public int good;
+    public int m100;
+    public int m90;
+    public int m80;
+    public int m70;
+    public int m60;
+    public int m50;
+    public int m40;
+    public int m30;
+    public int m20;
+    public int m10;
+    public int m1;
     public int miss;
 }

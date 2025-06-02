@@ -207,8 +207,7 @@ public class UI_GameMenu : BaseUI
             AudioManager.Instance.StopBGM();
         }
 
-        textAnimators[currentIdx].SetTrigger(outHash);
-        imageAnimators[currentIdx].SetTrigger(outHash);
+        
 
         gameObject.SetActive(true);
     }
@@ -217,6 +216,9 @@ public class UI_GameMenu : BaseUI
     {
         if (GameManager.Instance.onMusicPlaying && restartRoutine == null)
             UI_Manager.Instance.pause.StartPauseAnim();
+
+        textAnimators[currentIdx].SetTrigger(outHash);
+        imageAnimators[currentIdx].SetTrigger(outHash);
 
         restartRoutine ??= null;
 

@@ -54,7 +54,6 @@ public class UI_ResultPanel : BaseUI
 
     private Coroutine lobbyRoutine;
 
-
     protected override void Awake()
     {
         base.Awake();
@@ -176,25 +175,25 @@ public class UI_ResultPanel : BaseUI
 
         StartCoroutine(MoveRoutine(missText.gameObject, missTextEndTransform));
         StartCoroutine(MoveRoutine(goodObj, goodEndTransform));
-        StartCoroutine(UpdateTextRoutine(missText, playData.miss));
+        StartCoroutine(UpdateTextRoutine(missText, playData.m70));
 
         yield return _delay;
 
         StartCoroutine(MoveRoutine(goodText.gameObject, goodTextEndTransform));
         StartCoroutine(MoveRoutine(greatObj, greatEndTransform));
-        StartCoroutine(UpdateTextRoutine(goodText, playData.good));
+        StartCoroutine(UpdateTextRoutine(goodText, playData.m80));
 
         yield return _delay;
 
         StartCoroutine(MoveRoutine(greatText.gameObject, greatTextEndTransform));
         StartCoroutine(MoveRoutine(perfectObj, perfectEndTransform));
-        StartCoroutine(UpdateTextRoutine(greatText, playData.greate));
+        StartCoroutine(UpdateTextRoutine(greatText, playData.m90));
 
         yield return _delay;
 
         StartCoroutine(MoveRoutine(perfectText.gameObject, perfectTextEndTransform));
         StartCoroutine(MoveRoutine(bestComboObj, bestComboEndTransform));
-        StartCoroutine(UpdateTextRoutine(perfectText, playData.perfect));
+        StartCoroutine(UpdateTextRoutine(perfectText, playData.m100));
 
         yield return _delay;
 

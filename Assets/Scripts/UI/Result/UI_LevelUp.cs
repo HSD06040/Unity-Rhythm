@@ -23,7 +23,7 @@ public class UI_LevelUp : BaseUI
     private void Start()
     {
         currentLevel.text = DataManager.Instance.level.Value.ToString();
-        nextLevel.text = DataManager.Instance.level.Value+1.ToString();
+        nextLevel.text = (DataManager.Instance.level.Value + 1).ToString();
     }
 
     private void Update()

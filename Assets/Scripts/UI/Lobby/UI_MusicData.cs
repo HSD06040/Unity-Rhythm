@@ -68,10 +68,10 @@ public class UI_MusicData : BaseUI
             rateText.text = musicPlayData.rate.ToString();
             resSpeed.text = musicPlayData.resSpeed.ToString();
 
-            judgeText[0].text = musicPlayData.perfect.ToString();
-            judgeText[1].text = musicPlayData.greate.ToString();
-            judgeText[2].text = musicPlayData.good.ToString();
-            judgeText[3].text = musicPlayData.miss.ToString();
+            judgeText[0].text = musicPlayData.m100.ToString();
+            judgeText[1].text = musicPlayData.m90.ToString();
+            judgeText[2].text = musicPlayData.m80.ToString();
+            judgeText[3].text = musicPlayData.m70.ToString();
         }
         else
         {

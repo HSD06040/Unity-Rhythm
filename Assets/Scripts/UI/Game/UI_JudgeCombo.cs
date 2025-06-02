@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,6 +18,12 @@ public class UI_JudgeCombo : BaseUI
 
     private static readonly int inHash = Animator.StringToHash("In");
 
+    private readonly string[] judgeTexts = new string[]
+    {
+        "Max100%", "Max90%", "Max80%", "Max70%", "Max60%",
+        "Max50%", "Max40%", "Max30%", "Max20%", "Max10%",
+        "Max1%", "Miss"
+    };
     protected override void Awake()
     {
         base.Awake();
@@ -49,32 +56,11 @@ public class UI_JudgeCombo : BaseUI
 
     private void JudgeUpdate(Judge judge)
     {
-        switch (judge)
-        {
-            case Judge.M100:
-                judgeAnim.SetTrigger(inHash);
-                judgeText.colorGradient = gradients[0];
-                judgeText.text = "Max100%";
-                break;
+        int idx = (int)judge;
 
-            case Judge.M90:
-                judgeAnim.SetTrigger(inHash);
-                judgeText.colorGradient = gradients[1];
-                judgeText.text = "Max90%";
-                break;
-
-            case Judge.M80:
-                judgeAnim.SetTrigger(inHash);
-                judgeText.colorGradient = gradients[2];
-                judgeText.text = "Max70%";
-                break;
-
-            default:
-                judgeAnim.SetTrigger(inHash);
-                judgeText.colorGradient = gradients[3];
-                judgeText.text = "Miss";
-                break;
-        }
+        judgeAnim.SetTrigger(inHash);
+        judgeText.colorGradient = gradients[idx];
+        judgeText.text = judgeTexts[idx];
 
         RateUpdate();
     }

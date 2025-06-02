@@ -230,9 +230,17 @@ MonoBehaviour:
     resSpeed: 0
     score: 0
     maxCombo: 0
-    perfect: 0
-    greate: 0
-    good: 0
+    m100: 0
+    m90: 0
+    m80: 0
+    m70: 0
+    m60: 0
+    m50: 0
+    m40: 0
+    m30: 0
+    m20: 0
+    m10: 0
+    m1: 0
     miss: 0
   currentMusicData: {fileID: 0}
   isEdit: 0
