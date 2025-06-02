@@ -48,6 +48,8 @@ public class UI_ResultLevel : BaseUI
         textString = (expSlider1.value * 100).ToString("F0");
         expText.text = $"{textString}%";
 
+        DataManager.Instance.AddExp(GameManager.Instance.currnetPlayData.score / 300);
+
         StartCoroutine(ExpSliderNextRoutine());
     }
 
@@ -56,7 +58,6 @@ public class UI_ResultLevel : BaseUI
         float oldLevelProportion = DataManager.Instance.GetLevelProportion();
         int oldLevel = DataManager.Instance.level.Value;
 
-        DataManager.Instance.AddExp(GameManager.Instance.currnetPlayData.score / 300);
 
         float newLevelProportion = DataManager.Instance.GetLevelProportion();
         int newLevel = DataManager.Instance.level.Value;

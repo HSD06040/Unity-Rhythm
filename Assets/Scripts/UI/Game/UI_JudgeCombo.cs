@@ -20,9 +20,9 @@ public class UI_JudgeCombo : BaseUI
 
     private readonly string[] judgeTexts = new string[]
     {
-        "Max100%", "Max90%", "Max80%", "Max70%", "Max60%",
-        "Max50%", "Max40%", "Max30%", "Max20%", "Max10%",
-        "Max1%", "Miss"
+        "MAX100%", "MAX90%", "MAX80%", "MAX70%", "MAX60%",
+        "MAX50%", "MAX40%", "MAX30%", "MAX20%", "MAX10%",
+        "MAX1%", "Miss"
     };
     protected override void Awake()
     {

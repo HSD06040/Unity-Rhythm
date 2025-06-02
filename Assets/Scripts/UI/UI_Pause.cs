@@ -24,7 +24,6 @@ public class UI_Pause : MonoBehaviour
 
     public void Next()
     {
-        Debug.Log(currentCount);
         if (currentCount > 0)
         {
             anim.SetTrigger(nextHash);

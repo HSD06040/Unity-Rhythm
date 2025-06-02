@@ -50,7 +50,7 @@ public class UI_Manager : Manager<UI_Manager>
 
         menuAction.started += (ctx) =>
         {
-            if (GameManager.Instance.isBusy) return;
+            if (GameManager.Instance.isBusy || pause.gameObject.activeSelf) return;
 
             if (settingPanel.gameObject.activeSelf)
             {

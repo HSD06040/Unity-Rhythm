@@ -55,7 +55,6 @@ public class GameManager : Manager<GameManager>, ISavable
         base.Awake();
         DontDestroyOnLoad(this);
         scrollSpeed = 1;
-        Init();  
     }
 
     private void Update()
@@ -113,6 +112,8 @@ public class GameManager : Manager<GameManager>, ISavable
 
         spawnLine = GameObject.Find("SpawnLine").transform;
         judgeLine = GameObject.Find("JudgeLine").transform;
+
+        Init();
 
         UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
 
@@ -174,7 +175,6 @@ public class GameManager : Manager<GameManager>, ISavable
 
     private void Init()
     {
-        BPM = 120;
         notePool = CreatePool(notePrefab, noteParent, 10);
         longNotePool = CreatePool(longPrefab, longNoteParent, 10);
     }

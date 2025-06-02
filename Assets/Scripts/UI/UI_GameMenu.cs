@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class UI_GameMenu : BaseUI
     private static readonly int outHash = Animator.StringToHash("Out");
 
     private int currentIdx;
+    private bool isRestart;
     private Coroutine lobbyRoutine;
     private Coroutine restartRoutine;
 
@@ -50,12 +52,13 @@ public class UI_GameMenu : BaseUI
         {
             buttons[1].gameObject.SetActive(true);
             buttons[2].gameObject.SetActive(true);
-            buttons[3].gameObject.SetActive(false);
+            buttons[3].gameObject.SetActive(true);
             buttons[4].gameObject.SetActive(false);
 
             buttons[0].onClick.AddListener(() => Continue());
             buttons[1].onClick.AddListener(() => Restart());
             buttons[2].onClick.AddListener(() => MusicSelect());
+            buttons[3].onClick.AddListener(() => Setting());
         }
         else
         {
@@ -79,12 +82,27 @@ public class UI_GameMenu : BaseUI
             buttons[0].onClick.RemoveListener(() => Continue());
             buttons[1].onClick.RemoveListener(() => Restart());
             buttons[2].onClick.RemoveListener(() => MusicSelect());
+            buttons[3].onClick.RemoveListener(() => Setting());
         }
         else
         {
             buttons[0].onClick.RemoveListener(() => Continue());
             buttons[3].onClick.RemoveListener(() => Setting());
             buttons[4].onClick.RemoveListener(() => Exit());
+        }
+
+        for (int i = 0; i < textAnimators.Length; i++)
+        {
+            if (i == currentIdx)
+            {
+                imageAnimators[i].SetTrigger(inHash);
+                textAnimators[i].SetTrigger(inHash);             
+            }
+            else
+            {
+                imageAnimators[i].SetTrigger(outHash);
+                textAnimators[i].SetTrigger(outHash);
+            }            
         }
     }
 
@@ -103,7 +121,7 @@ public class UI_GameMenu : BaseUI
     {
         if (currentIdx + amount < 0 || currentIdx + amount > buttons.Length - 1) return;
 
-        if (GameManager.Instance.onMusicPlaying && (currentIdx + amount == 3 || currentIdx + amount == 4))                    
+        if (GameManager.Instance.onMusicPlaying && currentIdx + amount == 4)                    
             return;        
 
         imageAnimators[currentIdx].SetTrigger(outHash);
@@ -118,7 +136,7 @@ public class UI_GameMenu : BaseUI
             else
                 currentIdx = 0;
         }
-        
+
 
         UpdateCurrent();
     }
@@ -126,7 +144,7 @@ public class UI_GameMenu : BaseUI
     private void UpdateCurrent()
     {
         imageAnimators[currentIdx].SetTrigger(inHash);
-        textAnimators[currentIdx].SetTrigger(inHash);
+        textAnimators[currentIdx].SetTrigger(inHash); 
     }
 
     public void Setting()
@@ -148,7 +166,7 @@ public class UI_GameMenu : BaseUI
 
     public void MusicSelect()
     {
-        if (lobbyRoutine == null)
+        if (!isRestart)
             lobbyRoutine = StartCoroutine(LoadLobby());
     }
 
@@ -161,7 +179,10 @@ public class UI_GameMenu : BaseUI
     {
         UI_Manager.Instance.fadeScreen.EnterFade(FadeType.Defualt);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
+
+        GameManager.Instance.onMusicPlaying = false;
+
         UI_Manager.Instance.mvPlayer.StopVideo();
         AudioManager.Instance.StopBGM();
 
@@ -172,18 +193,23 @@ public class UI_GameMenu : BaseUI
             yield return null;
 
         asyncLoad.allowSceneActivation = true;
+
+        yield return new WaitForSeconds(2f);
+
         UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
 
-        yield return new WaitForSeconds(1f);
+        ClosePanel();
 
         lobbyRoutine = null;
     }
 
     private IEnumerator RestartRoutine()
     {
+        isRestart = true;
+
         UI_Manager.Instance.fadeScreen.EnterFade(FadeType.Defualt);
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1f);
 
         GameManager.Instance.onMusicPlaying = false;
 
@@ -197,6 +223,8 @@ public class UI_GameMenu : BaseUI
         UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
 
         ClosePanel();
+
+        restartRoutine = null;
     }
 
     public void OpenPanel()
@@ -207,20 +235,15 @@ public class UI_GameMenu : BaseUI
             AudioManager.Instance.StopBGM();
         }
 
-        
-
         gameObject.SetActive(true);
     }
 
     public void ClosePanel()
     {
-        if (GameManager.Instance.onMusicPlaying && restartRoutine == null)
+        if (GameManager.Instance.onMusicPlaying && !isRestart)
             UI_Manager.Instance.pause.StartPauseAnim();
 
-        textAnimators[currentIdx].SetTrigger(outHash);
-        imageAnimators[currentIdx].SetTrigger(outHash);
-
-        restartRoutine ??= null;
+        isRestart = false;
 
         gameObject.SetActive(false);
         UI_Manager.Instance.isMenu = false;

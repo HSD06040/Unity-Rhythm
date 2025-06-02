@@ -20,12 +20,6 @@ public class SettingPanel : MonoBehaviour
     {
         if (!canChanged) return;
 
-        if(GameManager.Instance.onMusicPlaying)
-        {
-            UI_Manager.Instance.mvPlayer.PauseVideo();
-            AudioManager.Instance.StopBGM();
-        }
-
         gameObject.SetActive(true);
         anim.ResetTrigger(outHash);
         anim.SetTrigger(inHash);
@@ -34,9 +28,6 @@ public class SettingPanel : MonoBehaviour
     public void ClosePanel()
     {
         if (!canChanged) return;
-
-        if(GameManager.Instance.onMusicPlaying)
-            UI_Manager.Instance.pause.StartPauseAnim();
 
         anim.ResetTrigger(inHash);
         anim.SetTrigger(outHash);        
