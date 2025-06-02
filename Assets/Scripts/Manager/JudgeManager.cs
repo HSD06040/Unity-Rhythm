@@ -81,9 +81,9 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
             {
                 if (note.data.isLongNoteStart)
                 {
-                    if (checkMs <= judgeMs[(int)Judge.Good] && checkMs >= -judgeMs[(int)Judge.Good])
+                    if (checkMs <= judgeMs[(int)Judge.M80] && checkMs >= -judgeMs[(int)Judge.M80])
                     {
-                        ScoreManager.Instance.AddJudgeResult(Judge.Perfect, note.data.keyPos);
+                        ScoreManager.Instance.AddJudgeResult(Judge.M100, note.data.keyPos);
 
                         GameManager.Instance.ReleaseNote(noteLanes[idx].DequeueNote()); // Start Á¦°Å
                         StartCoroutine(LongBodyJudge(noteLanes[idx].GetNextLongBody()));
@@ -125,7 +125,7 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
         {
             if (GameManager.Instance.time >= nextJudgeTime)
             {
-                ScoreManager.Instance.AddJudgeResult(Judge.Perfect, note.data.keyPos);
+                ScoreManager.Instance.AddJudgeResult(Judge.M100, note.data.keyPos);
                 nextJudgeTime += interval;
                 judgeTick++;
 
@@ -150,11 +150,11 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
             {
                 for (int i = 0; i < judgeMaxTick - judgeTick; i++)
                 {
-                    ScoreManager.Instance.AddJudgeResult(Judge.Perfect, note.data.keyPos);
+                    ScoreManager.Instance.AddJudgeResult(Judge.M100, note.data.keyPos);
                 }
             }
 
-            ScoreManager.Instance.AddJudgeResult(Judge.Perfect, note.data.keyPos);
+            ScoreManager.Instance.AddJudgeResult(Judge.M100, note.data.keyPos);
         }
         else
         {
@@ -168,17 +168,17 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
 
         note.data.isJudgeDone = true;
 
-        if (checkMs < judgeMs[(int)Judge.Perfect] && checkMs >= -judgeMs[(int)Judge.Perfect])
+        if (checkMs < judgeMs[(int)Judge.M100] && checkMs >= -judgeMs[(int)Judge.M100])
         {
-            ScoreManager.Instance.AddJudgeResult(Judge.Perfect, note.data.keyPos);
+            ScoreManager.Instance.AddJudgeResult(Judge.M100, note.data.keyPos);
         }
-        else if (checkMs <= judgeMs[(int)Judge.Great] && checkMs >= -judgeMs[(int)Judge.Great])
+        else if (checkMs <= judgeMs[(int)Judge.M90] && checkMs >= -judgeMs[(int)Judge.M90])
         {
-            ScoreManager.Instance.AddJudgeResult(Judge.Great, note.data.keyPos);
+            ScoreManager.Instance.AddJudgeResult(Judge.M90, note.data.keyPos);
         }
-        else if (checkMs <= judgeMs[(int)Judge.Good] && checkMs >= -judgeMs[(int)Judge.Good])
+        else if (checkMs <= judgeMs[(int)Judge.M80] && checkMs >= -judgeMs[(int)Judge.M80])
         {
-            ScoreManager.Instance.AddJudgeResult(Judge.Good, note.data.keyPos);
+            ScoreManager.Instance.AddJudgeResult(Judge.M80, note.data.keyPos);
         }
         else
         {

@@ -51,19 +51,19 @@ public class UI_JudgeCombo : BaseUI
     {
         switch (judge)
         {
-            case Judge.Perfect:
+            case Judge.M100:
                 judgeAnim.SetTrigger(inHash);
                 judgeText.colorGradient = gradients[0];
                 judgeText.text = "Max100%";
                 break;
 
-            case Judge.Great:
+            case Judge.M90:
                 judgeAnim.SetTrigger(inHash);
                 judgeText.colorGradient = gradients[1];
                 judgeText.text = "Max90%";
                 break;
 
-            case Judge.Good:
+            case Judge.M80:
                 judgeAnim.SetTrigger(inHash);
                 judgeText.colorGradient = gradients[2];
                 judgeText.text = "Max70%";

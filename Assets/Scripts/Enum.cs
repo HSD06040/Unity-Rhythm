@@ -26,7 +26,7 @@ public enum NoteType
 }
 public enum Judge
 {
-    Perfect, Great, Good, Miss
+    M100, M90, M80, M70, M60, M50, M40, M30, M20, M10, M1, Miss
 }
 
 public enum Rank

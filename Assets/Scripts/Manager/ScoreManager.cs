@@ -57,17 +57,17 @@ public class ScoreManager : Manager<ScoreManager>
         {
             AddScore(judge switch
             {
-                Judge.Perfect => 100,
-                Judge.Great => 70,
-                Judge.Good => 50,
+                Judge.M100 => 100,
+                Judge.M90 => 70,
+                Judge.M80 => 50,
                 _ => 0
             });
 
             totalRate += judge switch
             {
-                Judge.Perfect => 100,
-                Judge.Great => 90,
-                Judge.Good => 70,
+                Judge.M100 => 100,
+                Judge.M90 => 90,
+                Judge.M80 => 70,
                 _ => 0
             };
 

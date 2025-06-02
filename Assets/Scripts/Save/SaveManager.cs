@@ -36,11 +36,7 @@ public class SaveManager : MonoBehaviour
         gameData = handler.LoadData();
 
         if(gameData == null)
-        {
             gameData = new GameData();
-            Debug.Log("new GameData");
-            return;
-        }
 
         foreach (var savable in savables)
         {

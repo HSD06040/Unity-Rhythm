@@ -181,25 +181,22 @@ public class UI_GameMenu : BaseUI
 
     private IEnumerator RestartRoutine()
     {
-        GameManager.Instance.onMusicPlaying = false;
-
         UI_Manager.Instance.fadeScreen.EnterFade(FadeType.Defualt);
 
         yield return new WaitForSeconds(.5f);
 
+        GameManager.Instance.onMusicPlaying = false;
+
         UI_Manager.Instance.mvPlayer.StopVideo();
         AudioManager.Instance.StopBGM();
-
-        yield return new WaitForSeconds(.5f);
-
-        ClosePanel();
 
         yield return new WaitForSeconds(2f);
 
         GameManager.Instance.SetGameStart();
+
         UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
 
-        restartRoutine = null;
+        ClosePanel();
     }
 
     public void OpenPanel()
@@ -210,13 +207,18 @@ public class UI_GameMenu : BaseUI
             AudioManager.Instance.StopBGM();
         }
 
+        textAnimators[currentIdx].SetTrigger(outHash);
+        imageAnimators[currentIdx].SetTrigger(outHash);
+
         gameObject.SetActive(true);
     }
 
     public void ClosePanel()
     {
-        if (GameManager.Instance.onMusicPlaying)
+        if (GameManager.Instance.onMusicPlaying && restartRoutine == null)
             UI_Manager.Instance.pause.StartPauseAnim();
+
+        restartRoutine ??= null;
 
         gameObject.SetActive(false);
         UI_Manager.Instance.isMenu = false;

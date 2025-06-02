@@ -17,6 +17,7 @@ public class GameManager : Manager<GameManager>, ISavable
     public BGM bgm;
     public bool onMusicPlaying;
     public bool isFirstPlaying;
+    public bool isBusy;
     public PlayData currnetPlayData;
     public MusicData currentMusicData;
 
@@ -95,7 +96,7 @@ public class GameManager : Manager<GameManager>, ISavable
     private IEnumerator GameStartRoutine()
     {
         UI_Manager.Instance.fadeScreen.EnterFade(FadeType.Defualt);
-
+        isBusy = true;
         yield return new WaitForSeconds(2);
         UI_Manager.Instance.mvPlayer.StopVideo();
         AudioManager.Instance.StopBGM();
@@ -115,9 +116,10 @@ public class GameManager : Manager<GameManager>, ISavable
 
         UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
 
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(2);
 
         SetGameStart();
+        isBusy = false;
     }
 
     public void SetGameStart()
@@ -131,6 +133,7 @@ public class GameManager : Manager<GameManager>, ISavable
 
     private IEnumerator GameClearRoutine()
     {
+        isBusy = true;
         yield return new WaitForSeconds(5);
         onMusicPlaying = false;
         UI_Manager.Instance.fadeScreen.EnterFade(FadeType.Defualt);
@@ -158,6 +161,7 @@ public class GameManager : Manager<GameManager>, ISavable
 
         UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
 
+        isBusy = false;
         gameClearRoutine = null;
     }
 

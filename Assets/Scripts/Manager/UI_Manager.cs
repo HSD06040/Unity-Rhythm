@@ -50,6 +50,8 @@ public class UI_Manager : Manager<UI_Manager>
 
         menuAction.started += (ctx) =>
         {
+            if (GameManager.Instance.isBusy) return;
+
             if (settingPanel.gameObject.activeSelf)
             {
                 settingPanel.ClosePanel();

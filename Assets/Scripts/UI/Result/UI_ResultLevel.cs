@@ -8,7 +8,9 @@ public class UI_ResultLevel : BaseUI
 {
     private TMP_Text level;
     private TMP_Text expText;
-    private Slider expSlider;
+    private Slider expSlider1;
+    private Slider expSlider2;
+    [SerializeField] private GameObject levelUp;
 
     protected override void Awake()
     {
@@ -16,7 +18,8 @@ public class UI_ResultLevel : BaseUI
 
         level = GetUI<TextMeshProUGUI>("Level");
         expText = GetUI<TextMeshProUGUI>("Progress");
-        expSlider = GetUI<Slider>("Slider");
+        expSlider1 = GetUI<Slider>("Slider1");
+        expSlider2 = GetUI<Slider>("Slider");
     }
 
     private void Start()
@@ -30,16 +33,77 @@ public class UI_ResultLevel : BaseUI
         float levelProprtion = DataManager.Instance.GetLevelProportion();
         string textString;
 
-        while (expSlider.value != levelProprtion - 0.1f)
+        while (Mathf.Abs(expSlider1.value - levelProprtion) > 0.01f)
         {
-            expSlider.value = Mathf.Lerp(expSlider.value, levelProprtion, 3 * Time.deltaTime);
-            textString = (expSlider.value * 100).ToString("F0");
+            expSlider1.value = Mathf.Lerp(expSlider1.value, levelProprtion, 3 * Time.deltaTime);
+
+            textString = (expSlider1.value * 100).ToString("F0");
             expText.text = $"{textString}%";
+
             yield return null;
         }
 
-        expSlider.value = levelProprtion;
-        textString = (expSlider.value * 100).ToString("F0");
+        expSlider1.value = levelProprtion;
+
+        textString = (expSlider1.value * 100).ToString("F0");
         expText.text = $"{textString}%";
+
+        StartCoroutine(ExpSliderNextRoutine());
     }
+
+    private IEnumerator ExpSliderNextRoutine()
+    {
+        float oldLevelProportion = DataManager.Instance.GetLevelProportion();
+        int oldLevel = DataManager.Instance.level.Value;
+
+        DataManager.Instance.AddExp(GameManager.Instance.currnetPlayData.score / 300);
+
+        float newLevelProportion = DataManager.Instance.GetLevelProportion();
+        int newLevel = DataManager.Instance.level.Value;
+
+        expSlider2.value = oldLevelProportion;
+
+        float t = 0f;
+        string textString;
+
+        while (true)
+        {
+            t += Time.deltaTime * 2.5f;
+            expSlider2.value = Mathf.Lerp(expSlider2.value, newLevelProportion, t);
+
+            textString = (expSlider2.value * 100).ToString("F0");
+            expText.text = $"{textString}%";
+
+            if (DataManager.Instance.isLevelUp)
+            {
+                levelUp.SetActive(true);
+                DataManager.Instance.isLevelUp = false;
+
+                expSlider2.value = 1f;
+
+                yield return new WaitForSeconds(0.2f);
+
+                level.text = DataManager.Instance.level.Value.ToString();
+
+                expSlider1.value = 0f;
+                expSlider2.value = 0f;
+
+                yield return new WaitForSeconds(0.2f);
+
+                StartCoroutine(ExpSliderNextRoutine());
+                yield break;
+            }
+
+            if (Mathf.Abs(expSlider2.value - newLevelProportion) < 0.01f)
+            {
+                expSlider2.value = newLevelProportion;
+                break;
+            }
+
+            yield return null;
+        }
+
+        expText.text = $"{(newLevelProportion * 100).ToString("F0")}%";
+    }
+
 }

@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Title : MonoBehaviour
 {
     [SerializeField] private GameObject inputName;
-    private Coroutine lobbyRoutine;
+    [SerializeField] private GameObject mask;
+    [SerializeField] private float speed;
+    [SerializeField] private TMP_InputField nameField;
+    private Coroutine lobbyRoutine;    
 
     private void Start()
     {
@@ -15,18 +20,49 @@ public class Title : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.isFirstPlaying)
-            InputName();
-        else
+        if (UI_Manager.Instance.isMenu) return;
+
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (lobbyRoutine == null)
-                lobbyRoutine = StartCoroutine(LoadLobby());
-        }
+            if (GameManager.Instance.isFirstPlaying)
+            {
+                if (!inputName.activeSelf)
+                    InputName();
+                else
+                    SelectName();
+            }
+            else
+            {
+                if (lobbyRoutine == null)
+                    lobbyRoutine = StartCoroutine(LoadLobby());
+            }
+        }        
     }
 
     private void InputName()
     {
         inputName.SetActive(true);
+        StartCoroutine(MaskWidthExpandRoutine());
+    }
+
+    private IEnumerator MaskWidthExpandRoutine()
+    {
+        float elapsed = 0f;
+        float duration = 1f / speed;
+
+        RectTransform rect = mask.GetComponent<RectTransform>();
+        Vector2 startSize = new Vector2(0f, rect.sizeDelta.y);
+        Vector2 endSize = new Vector2(1920f, rect.sizeDelta.y);
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            rect.sizeDelta = Vector2.Lerp(startSize, endSize, t);
+            yield return null;
+        }
+
+        rect.sizeDelta = endSize;
     }
 
     private IEnumerator LoadLobby()
@@ -49,5 +85,16 @@ public class Title : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         lobbyRoutine = null;
+    }
+
+    private void SelectName()
+    {
+        if (string.IsNullOrEmpty(nameField.text)) return;
+
+        DataManager.Instance.playerName = nameField.text;
+        GameManager.Instance.isFirstPlaying = false;
+
+        if (lobbyRoutine == null)
+            lobbyRoutine = StartCoroutine(LoadLobby());
     }
 }

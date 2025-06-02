@@ -30,6 +30,7 @@ public class GameData
         masterVolume = 1;
         bgmVolume = 1;
         sfxVolume = 1;
+        isFirstPlaying = true;
     }
 }
 

@@ -19,6 +19,7 @@ public class UI_ResultPanel : BaseUI
     [SerializeField] private PlayData playData;
 
     [SerializeField] private Slider rateSlider;
+    [SerializeField] private GameObject levelUp;
 
     private TMP_Text bestComboText;
     private TMP_Text perfectText;
@@ -82,6 +83,8 @@ public class UI_ResultPanel : BaseUI
 
     private void Update()
     {
+        if (levelUp.activeSelf) return;
+
         if(Input.GetKeyUp(KeyCode.Return))
         {
             if(lobbyRoutine == null)
