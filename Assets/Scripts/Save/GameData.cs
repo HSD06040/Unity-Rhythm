@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class GameData
 {
     public string keyBindingJson;
+    public bool isFirstPlaying;
 
     public int level;
     public int exp;

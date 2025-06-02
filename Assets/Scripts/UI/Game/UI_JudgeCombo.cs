@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UI_JudgeCombo : BaseUI
 {
+    [SerializeField] private VertexGradient[] gradients;
     private TMP_Text judgeText;
     private TMP_Text scoreText;
     private TMP_Text comboText;
@@ -52,21 +53,25 @@ public class UI_JudgeCombo : BaseUI
         {
             case Judge.Perfect:
                 judgeAnim.SetTrigger(inHash);
+                judgeText.colorGradient = gradients[0];
                 judgeText.text = "Max100%";
                 break;
 
             case Judge.Great:
                 judgeAnim.SetTrigger(inHash);
+                judgeText.colorGradient = gradients[1];
                 judgeText.text = "Max90%";
                 break;
 
             case Judge.Good:
                 judgeAnim.SetTrigger(inHash);
+                judgeText.colorGradient = gradients[2];
                 judgeText.text = "Max70%";
                 break;
 
             default:
                 judgeAnim.SetTrigger(inHash);
+                judgeText.colorGradient = gradients[3];
                 judgeText.text = "Miss";
                 break;
         }

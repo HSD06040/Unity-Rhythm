@@ -34,7 +34,8 @@ public class UI_Pause : MonoBehaviour
         else
         {
             UI_Manager.Instance.mvPlayer.ReplayVideo();
-            AudioManager.Instance.RestartBGM();            
+            AudioManager.Instance.RestartBGM();
+            UI_Manager.Instance.isPause = false;
         }                
     }
 

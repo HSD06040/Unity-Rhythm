@@ -174,6 +174,11 @@ MonoBehaviour:
   - 70
   - 110
   - 180
+  offset:
+  - -1.8
+  - -0.6
+  - 0.6
+  - 1.8
 --- !u!1 &58024074
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +590,7 @@ MonoBehaviour:
   longPrefab: {fileID: 4502575923243878444, guid: 0d425d0123d124d4db04cf87007732b6, type: 3}
   bgm: 0
   onMusicPlaying: 0
+  isFirstPlaying: 0
   currnetPlayData:
     bgm: 0
     rank: 0
@@ -665,9 +671,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingPanel: {fileID: 0}
+  menu: {fileID: 0}
   mvPlayer: {fileID: 0}
   fadeScreen: {fileID: 0}
   pause: {fileID: 0}
+  isMenu: 0
+  isPause: 0
 --- !u!1 &1937938373
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,6 +937,22 @@ PrefabInstance:
     - target: {fileID: 4592456045502514028, guid: 65a1baa2206c1a741826e7be772eb417, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984588591376210868, guid: 65a1baa2206c1a741826e7be772eb417, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984588591376210868, guid: 65a1baa2206c1a741826e7be772eb417, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984588591376210868, guid: 65a1baa2206c1a741826e7be772eb417, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508427524540474382, guid: 65a1baa2206c1a741826e7be772eb417, type: 3}
+      propertyPath: musicIconSpeed
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7164774828822808351, guid: 65a1baa2206c1a741826e7be772eb417, type: 3}
       propertyPath: m_Pivot.x

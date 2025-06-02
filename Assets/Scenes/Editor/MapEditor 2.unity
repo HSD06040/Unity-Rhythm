@@ -433,12 +433,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputActions: {fileID: -944628639613478452, guid: 90d8a2b254468ee4cb9175e35938d855, type: 3}
+  lanes: []
   noteLanes: []
   judgeMs: []
   defaultJudgeMs:
   - 50
   - 100
   - 150
+  offset:
+  - -1.8
+  - -0.6
+  - 0.6
+  - 1.8
 --- !u!1 &126686800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2739,15 +2745,26 @@ MonoBehaviour:
   notePrefab: {fileID: 538745851356205650, guid: e3223a0d11d02934bb5ad8a4693885b5, type: 3}
   barPrefab: {fileID: 3292193896408309245, guid: f82f1bee650b6a7469e5bf762a143cf9, type: 3}
   longPrefab: {fileID: 4502575923243878444, guid: 0d425d0123d124d4db04cf87007732b6, type: 3}
-  bgm: 0
-  onMusicStart: 0
-  isEdit: 0
+  bgm: 1
+  onMusicPlaying: 0
+  currnetPlayData:
+    bgm: 0
+    rank: 0
+    rate: 0
+    resSpeed: 0
+    score: 0
+    maxCombo: 0
+    perfect: 0
+    greate: 0
+    good: 0
+    miss: 0
+  currentMusicData: {fileID: 0}
+  isEdit: 1
   BPM: 0
   startDelay: 2000
   endTime: 1000
   distnace: 10
   noteSpawnList: []
-  scrollPos: []
   spawnLine: {fileID: 1969461363}
   judgeLine: {fileID: 789980942}
 --- !u!4 &1347888511
@@ -2809,9 +2826,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ebb136cad6a2194ea3332d3f532d082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 0
-  sfxVolume: 0
-  bgmVolume: 0
+  masterVolume: 0.5
+  sfxVolume: 0.5
+  bgmVolume: 0.5
 --- !u!1 &1369704969
 GameObject:
   m_ObjectHideFlags: 0
@@ -3157,10 +3174,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ecb856acff69c24a920c5c79b9c4402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridCount: 10
+  gridCount: 20
   musicPlay: 0
   icon: {fileID: 21300000, guid: 49aeb8b1d08ffe34f952dbbef3de5992, type: 3}
-  bgm: 0
+  bgm: 1
   BPM: 94
   artist: "\uC2E4\uB9AC\uCE74\uAC94"
   videoURL: https://pub-ca6b4e75ac2e4666bcf9ecd89c5d49d5.r2.dev/%EC%8B%A4%EB%A6%AC%EC%B9%B4%EA%B2%94%20(Silica%20Gel)%20-%20NO%20PAIN%20%5BMV%5D%20-%201080.mp4

@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 
-public class GameManager : Manager<GameManager>
+public class GameManager : Manager<GameManager>, ISavable
 {
     [SerializeField] private GameObject notePrefab;
     [SerializeField] private GameObject barPrefab;
@@ -16,6 +16,7 @@ public class GameManager : Manager<GameManager>
 
     public BGM bgm;
     public bool onMusicPlaying;
+    public bool isFirstPlaying;
     public PlayData currnetPlayData;
     public MusicData currentMusicData;
 
@@ -42,7 +43,6 @@ public class GameManager : Manager<GameManager>
 
     public Transform spawnLine;
     public Transform judgeLine;
-    private EffectManager effectGenerator;
 
     public event Action<float> onScrollSpeedChanged;
 
@@ -61,13 +61,19 @@ public class GameManager : Manager<GameManager>
     {
         SetNote();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            GameClear();
+        if(!isEdit)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+                GameClear();
+        }        
     }
 
     private void InitPlayData()
     {
-        noteSpawnList.Clear();
+        idx = 0;
+        notePool.Clear();
+        longNotePool.Clear();
+        EffectManager.Instance.Init();
         JudgeManager.Instance.SetJudgeMs();
         ScoreManager.Instance.InitPlayData();
     }
@@ -87,17 +93,15 @@ public class GameManager : Manager<GameManager>
     }
 
     private IEnumerator GameStartRoutine()
-    {             
+    {
         UI_Manager.Instance.fadeScreen.EnterFade(FadeType.Defualt);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         UI_Manager.Instance.mvPlayer.StopVideo();
         AudioManager.Instance.StopBGM();
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
         asyncLoad.allowSceneActivation = false;
-
-        InitPlayData();
 
         while (asyncLoad.progress < 0.9f)
             yield return null;
@@ -113,6 +117,12 @@ public class GameManager : Manager<GameManager>
 
         yield return new WaitForSeconds(4);
 
+        SetGameStart();
+    }
+
+    public void SetGameStart()
+    {
+        InitPlayData();
         onMusicPlaying = true;
         noteSpawnList = Parser.LoadMap(bgm);
         AudioManager.Instance.PlayBGM(bgm, 1);
@@ -277,5 +287,15 @@ public class GameManager : Manager<GameManager>
         {
             notePool.Release(note.gameObject);
         }
+    }
+
+    public void Save(ref GameData data)
+    {
+        data.isFirstPlaying = isFirstPlaying;
+    }
+
+    public void Load(GameData data)
+    {
+        isFirstPlaying = data.isFirstPlaying;
     }
 }

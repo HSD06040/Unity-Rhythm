@@ -13,7 +13,7 @@ public class MusicBar : MonoBehaviour
 
     public void SetMusicBar(MusicData data)
     {
-        musicName.text = data.bgm.ToString();
+        musicName.text = data.musicName;
         artistName.text = data.artistName;
         musicIcon.sprite = data.icon;
     }

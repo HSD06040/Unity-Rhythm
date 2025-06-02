@@ -7,6 +7,7 @@ public class MusicData : ScriptableObject
 {
     public BGM bgm;
     public Sprite icon;
+    public string musicName;
     public string artistName;
     public string videoURL;
     public int BPM;

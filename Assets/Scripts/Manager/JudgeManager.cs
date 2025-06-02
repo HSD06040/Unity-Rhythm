@@ -46,15 +46,12 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
 
     private void Update()
     {
+        if (UI_Manager.Instance.isPause) return;
+
         Judgement(0);
         Judgement(1);
         Judgement(2);
         Judgement(3);
-    }
-
-    private void OnDisable()
-    {
-        inputActions.FindActionMap("Player").Disable();
     }
 
     public void SetJudgeMs()

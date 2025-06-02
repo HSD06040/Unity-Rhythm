@@ -91,7 +91,7 @@ public class AudioManager : Manager<AudioManager>, ISavable
 
     public void PlayBGM(BGM _bgm, float _volume = 1)
     {
-        bgmChannels[(int)_bgm].stop();
+        musicChannel.stop();
         
         FMODUnity.RuntimeManager.CoreSystem.playSound(bgms[(int)_bgm], bgmChannelGroup, false, out bgmChannels[(int)_bgm]);
 
@@ -149,7 +149,7 @@ public class AudioManager : Manager<AudioManager>, ISavable
 
     private void OnApplicationFocus(bool focus)
     {
-        if (focus)
-            RestartBGM();
+        if (focus && !GameManager.Instance.onMusicPlaying)
+           RestartBGM();
     }
 }

@@ -10,6 +10,11 @@ public class EffectManager : Manager<EffectManager>
 
     private YieldInstruction delay = new WaitForSeconds(1);
 
+    public void Init()
+    {
+        effectPoolDic.Clear();
+    }
+
     public void CreateEffect(string name, Vector3 posision, Transform parent)
     {
         GameObject go = null;

@@ -16,7 +16,7 @@ public class GridLine : MonoBehaviour
     public void Init(int _idx)
     {
         idx = _idx;
-        startTime = 100 * idx;
+        startTime = 50 * idx;
     }
 
     public void AddNoteData(NoteData data)

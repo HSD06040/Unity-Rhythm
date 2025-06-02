@@ -26,6 +26,7 @@ public class MusicPanel : MonoBehaviour
 
     private int currentIdx;
     private float timer;
+    private bool isEnter;
     private Coroutine changeMusicData;
 
     private void Start()
@@ -59,6 +60,14 @@ public class MusicPanel : MonoBehaviour
 
         currentIdx = 0;
         StartCoroutine(SetupRoutine());
+
+        for (int i = 0; i < musicBars.Count; i++)
+        {
+            if(i == currentIdx)
+                musicBars[i].SetSelected(true);
+            else
+                musicBars[i].SetSelected(false);
+        }
     }
 
     private IEnumerator SetupRoutine()
@@ -71,6 +80,8 @@ public class MusicPanel : MonoBehaviour
 
     private void Update()
     {
+        if (UI_Manager.Instance.isMenu) return;
+
         if (Input.GetKeyDown(KeyCode.DownArrow))        
             ChangeSelection(1);
 
@@ -83,7 +94,11 @@ public class MusicPanel : MonoBehaviour
             ChangeDiff(0.1f);
 
         if (Input.GetKeyDown(KeyCode.Return))
+        {
+            isEnter = true;
             GameManager.Instance.GameStart(musicDatas[currentIdx]);
+
+        }
 
         if (isScrolling)
         {
@@ -152,6 +167,8 @@ public class MusicPanel : MonoBehaviour
             yield return null;
         }
 
+        if (isEnter) yield break;
+
         PlaySelectMusicVideo();
 
         musicDataPanel.UpdatePlayDataUI(musicDatas[currentIdx]);
@@ -159,6 +176,7 @@ public class MusicPanel : MonoBehaviour
 
     private void PlaySelectMusicVideo()
     {
+
         UI_Manager.Instance.mvPlayer.PlayMusicVideo(musicDatas[currentIdx].videoURL);
         AudioManager.Instance.PlayBGM(musicDatas[currentIdx].bgm);
     }

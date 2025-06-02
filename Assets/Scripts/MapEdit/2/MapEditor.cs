@@ -338,7 +338,7 @@ public class MapEditor : MonoBehaviour
                     }
                     else
                     {
-                        GridLine gridline = lines[i + (int)(data.endTime / 100)];
+                        GridLine gridline = lines[i + (int)(data.endTime / 50)];
 
                         lines[i].AddNoteObj(data.keyPos, Instantiate(notePrefab, spawnPos, Quaternion.identity));
 

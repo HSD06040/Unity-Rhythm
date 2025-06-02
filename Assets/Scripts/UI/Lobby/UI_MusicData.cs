@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UI_MusicData : BaseUI
 {
     [SerializeField] private Image musicIcon;
+    [SerializeField] private float musicIconSpeed;
     private PlayData musicPlayData;
 
     [Header("PlayData_UI")]
@@ -36,6 +37,11 @@ public class UI_MusicData : BaseUI
         judgeText[1] = GetUI<TextMeshProUGUI>("Great");
         judgeText[2] = GetUI<TextMeshProUGUI>("Good");
         judgeText[3] = GetUI<TextMeshProUGUI>("Miss");
+    }
+
+    private void Update()
+    {
+        musicIcon.transform.Rotate(0, 0, musicIconSpeed * Time.deltaTime);
     }
 
     private void OnEnable()

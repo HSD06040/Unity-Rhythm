@@ -103,6 +103,8 @@ public class UI_ResultPanel : BaseUI
         while (asyncLoad.progress < 0.9f)
             yield return null;
 
+        yield return new WaitForSeconds(.5f);
+
         asyncLoad.allowSceneActivation = true;
 
         UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);

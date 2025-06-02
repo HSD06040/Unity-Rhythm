@@ -1,0 +1,53 @@
+{
+    "bgm": 1,
+    "notes": [
+        {
+            "keyPos": 3,
+            "noteType": 1,
+            "startTime": 100.0,
+            "endTime": 400.0,
+            "keySound": "",
+            "keySoundVolume": 1.0,
+            "isJudgeDone": false,
+            "isLongNoteStart": false,
+            "isLongNoteBody": false,
+            "isLongNoteEnd": false
+        },
+        {
+            "keyPos": 1,
+            "noteType": 0,
+            "startTime": 250.0,
+            "endTime": 0.0,
+            "keySound": "",
+            "keySoundVolume": 1.0,
+            "isJudgeDone": false,
+            "isLongNoteStart": false,
+            "isLongNoteBody": false,
+            "isLongNoteEnd": false
+        },
+        {
+            "keyPos": 2,
+            "noteType": 1,
+            "startTime": 500.0,
+            "endTime": 250.0,
+            "keySound": "",
+            "keySoundVolume": 1.0,
+            "isJudgeDone": false,
+            "isLongNoteStart": false,
+            "isLongNoteBody": false,
+            "isLongNoteEnd": false
+        },
+        {
+            "keyPos": 0,
+            "noteType": 0,
+            "startTime": 500.0,
+            "endTime": 0.0,
+            "keySound": "",
+            "keySoundVolume": 1.0,
+            "isJudgeDone": false,
+            "isLongNoteStart": false,
+            "isLongNoteBody": false,
+            "isLongNoteEnd": false
+        }
+    ]
+}
