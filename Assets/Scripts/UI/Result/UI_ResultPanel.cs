@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UI_ResultPanel : BaseUI
 {
     [SerializeField] private RankParticle rankParticle;
+    [SerializeField] private UI_Rank rank;
 
     [Header("Speed")]
     [SerializeField] private float speed;
@@ -204,6 +205,8 @@ public class UI_ResultPanel : BaseUI
 
         StartCoroutine(MoveRoutine(bestComboText.gameObject, bestComboTextEndTransform));
         StartCoroutine(UpdateTextRoutine(bestComboText, playData.maxCombo));
+
+        rank.PlayRankRoutine(playData.rank);
     }
 
     private IEnumerator MoveRoutine(GameObject target, Transform endTransform)

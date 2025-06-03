@@ -1323,24 +1323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ebb136cad6a2194ea3332d3f532d082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgms:
-  - type: 0
-    eventRef:
-      Guid:
-        Data1: 0
-        Data2: 0
-        Data3: 0
-        Data4: 0
-      Path: 
-  sfxs:
-  - type: 0
-    eventRef:
-      Guid:
-        Data1: 0
-        Data2: 0
-        Data3: 0
-        Data4: 0
-      Path: 
   masterVolume: 0
   sfxVolume: 0
   bgmVolume: 0
@@ -1654,6 +1636,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   judgeResult: 
+  comboState: 01000000020000000300000005000000
+  noteCount: 0
 --- !u!4 &1715446026
 Transform:
   m_ObjectHideFlags: 0

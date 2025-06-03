@@ -33,3 +33,8 @@ public enum FadeType
 {
     Defualt, Horizontal, Vertical
 }
+
+public enum ComboState
+{
+    MAX1 =1, MAX2 =2, MAX3 =3, MAX5 =5
+}

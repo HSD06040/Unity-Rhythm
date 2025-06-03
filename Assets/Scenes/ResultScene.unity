@@ -4506,7 +4506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bb5f85247ee14428a6da9683b304c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rankParticle: {fileID: 0}
+  rankParticle: {fileID: 1493638032}
+  rank: {fileID: 1455091333}
   speed: 7
   lerpDuration: 2
   delay: 0.5
@@ -5318,6 +5319,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7477498651ce72741829bdc1440680f3, type: 3}
+--- !u!114 &1493638032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1005949840778343045, guid: 7477498651ce72741829bdc1440680f3, type: 3}
+  m_PrefabInstance: {fileID: 1493638031}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9acb437918a327043bd88ec003aa6186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1494073632
 GameObject:
   m_ObjectHideFlags: 0

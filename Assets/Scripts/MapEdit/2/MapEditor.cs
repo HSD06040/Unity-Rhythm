@@ -48,7 +48,7 @@ public class MapEditor : MonoBehaviour
         bar = Instantiate(barPrefab, GameManager.Instance.judgeLine.position, Quaternion.identity).transform;
         bar.GetComponent<EditBar>().Init(endY, startY - endY);
 
-        for (int i = 1; i < 3000; i++)
+        for (int i = 1; i < 6000; i++)
         {
             spawnY = endY + (endRatio * i);
             GameObject line = Instantiate(linePrefab, new Vector3(GameManager.Instance.judgeLine.position.x, spawnY,0), Quaternion.identity, gridParent);

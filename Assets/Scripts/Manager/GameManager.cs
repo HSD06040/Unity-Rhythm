@@ -131,6 +131,7 @@ public class GameManager : Manager<GameManager>, ISavable
         noteSpawnList = Parser.LoadMap(bgm);
         AudioManager.Instance.PlayBGM(bgm, 1);
         UI_Manager.Instance.mvPlayer.PlayMusicVideo(currentMusicData.videoURL);
+        ScoreManager.Instance.noteCount = noteSpawnList.Count;
     }
 
     private IEnumerator GameClearRoutine()
