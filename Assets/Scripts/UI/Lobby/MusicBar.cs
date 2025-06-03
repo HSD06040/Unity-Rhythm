@@ -14,8 +14,13 @@ public class MusicBar : MonoBehaviour
 
     [SerializeField] private GameObject starPrefab;
     [SerializeField] private GameObject emptyStarPrefab;
+    private Animator anim;
+    private int max = 15;
 
-    private int max = 15;        
+    private void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();   
+    }    
 
     public void SetMusicBar(MusicData data)
     {
@@ -36,6 +41,14 @@ public class MusicBar : MonoBehaviour
 
     public void SetSelected(bool isSelected)
     {
-        barImage.color = isSelected ? Color.white : Color.clear;
+        if (isSelected)
+        {
+            anim.SetTrigger("In");
+        }
+        else
+        {
+            anim.SetTrigger("Out");
+
+        }
     }
 }

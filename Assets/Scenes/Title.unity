@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nonRigidbodyVelocity: 0
-  attenuationObject: {fileID: 0}
+  attenuationObject: {fileID: 1208037470}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,6 +1323,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ebb136cad6a2194ea3332d3f532d082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgms:
+  - type: 0
+    eventRef:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+  sfxs:
+  - type: 0
+    eventRef:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
   masterVolume: 0
   sfxVolume: 0
   bgmVolume: 0

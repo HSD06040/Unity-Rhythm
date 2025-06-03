@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
@@ -108,7 +109,7 @@ public class ScoreManager : Manager<ScoreManager>
             bgm = bgm,
             maxCombo = GetBestComboCount(),
             score = score.Value,
-            rank = Rank.S,
+            rank = GetRank(),
             rate = rate,
             resSpeed = GameManager.Instance.scrollSpeed,
 
@@ -130,14 +131,19 @@ public class ScoreManager : Manager<ScoreManager>
 
         if (oldMostPlayData == null || oldMostPlayData.score < score.Value)
         {
-            Parser.SavePlayData(playData);
-            GameManager.Instance.currnetPlayData = playData;            
-        }                
+            Parser.SavePlayData(playData);          
+        }
+
+        GameManager.Instance.currnetPlayData = playData;
     }
 
-    private void GetRank() // return Rank
+    private Rank GetRank()
     {
-        // TODO :: ·©Å© ±âÁØÀ¸·Î ·©Å© ¹ÝÈ¯
+        if (rate > 90) return Rank.S;
+        else if (rate > 70) return Rank.A;
+        else if (rate > 70) return Rank.B;
+        else if (rate > 50) return Rank.C;
+        else return Rank.D;
     }
 
     private int GetBestComboCount()

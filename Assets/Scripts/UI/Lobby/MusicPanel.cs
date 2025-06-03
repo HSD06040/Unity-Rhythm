@@ -25,6 +25,7 @@ public class MusicPanel : MonoBehaviour
     [Space]
 
     private int currentIdx;
+    private int lastIdx;
     private float timer;
     private bool isEnter;
     private Coroutine changeMusicData;
@@ -122,19 +123,17 @@ public class MusicPanel : MonoBehaviour
 
     private void ChangeSelection(int direction)
     {
-        int temIdx = currentIdx;
-        musicBars[currentIdx].SetSelected(false);
-
-        currentIdx += direction;
-        currentIdx = Mathf.Clamp(currentIdx, 0, musicBars.Count - 1);
-
-        musicBars[currentIdx].SetSelected(true);
-
-        if (temIdx == currentIdx)
+        if(currentIdx + direction > musicBars.Count - 1 || currentIdx + direction < 0)
         {
             AudioManager.Instance.PlaySFX(SFX.Error);
-            return;
+            return;            
         }
+
+        musicBars[currentIdx].SetSelected(false);
+
+        currentIdx += direction;        
+
+        musicBars[currentIdx].SetSelected(true);
 
         AudioManager.Instance.PlaySFX(SFX.MusicBarMove);
         ScrollToSelected();        
@@ -177,7 +176,10 @@ public class MusicPanel : MonoBehaviour
             yield return null;
         }
         
-        if (GameManager.Instance.isBusy) yield break;
+        if (GameManager.Instance.isBusy || lastIdx == currentIdx) 
+            yield break;
+
+        lastIdx = currentIdx;
 
         PlaySelectMusicVideo();
 

@@ -34,7 +34,7 @@ public class UI_ResultMusicData : BaseUI
     {
         md = GameManager.Instance.currentMusicData;
 
-        speedText.text = GameManager.Instance.scrollSpeed.ToString();
+        speedText.text = $"{GameManager.Instance.scrollSpeed.ToString()} Speed";
         musicNameText.text = md.musicName;
         artistNameText.text = md.artistName;
 

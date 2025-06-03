@@ -14,11 +14,8 @@ public class MapEditor : MonoBehaviour
     [SerializeField] private bool musicPlay;
 
     [Header("Music Data")]
-    [SerializeField] private Sprite icon;
-    [SerializeField] private BGM bgm;
-    [SerializeField] private int BPM;
-    [SerializeField] private string artist;
-    [SerializeField] private string videoURL;
+    [SerializeField] private float editTime;
+    [SerializeField] private BGM bgm;    
     [Space]
 
     [SerializeField] private float resSpeed = .75f;
@@ -374,7 +371,7 @@ public class MapEditor : MonoBehaviour
             { 
                 foreach(var note in line.noteList)
                 {
-                    note.startTime += 102100;
+                    note.startTime += editTime;
                 }
             }
         }

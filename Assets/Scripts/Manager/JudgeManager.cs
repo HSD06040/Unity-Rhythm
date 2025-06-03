@@ -59,7 +59,7 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
     {
         for (int i = 0; i < defaultJudgeMs.Length; i++)
         {
-            judgeMs[i] = defaultJudgeMs[i] / GameManager.Instance.scrollSpeed;
+            judgeMs[i] = defaultJudgeMs[i];
         }
     }
 

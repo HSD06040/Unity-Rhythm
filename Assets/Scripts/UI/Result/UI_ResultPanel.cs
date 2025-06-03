@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_ResultPanel : BaseUI
-{    
+{
+    [SerializeField] private RankParticle rankParticle;
+
     [Header("Speed")]
     [SerializeField] private float speed;
     [SerializeField] private float lerpDuration;
@@ -161,6 +163,9 @@ public class UI_ResultPanel : BaseUI
          _delay = new WaitForSeconds(delay);
 
         yield return new WaitForSeconds(1.3f);
+
+        if (playData.rank == Rank.S)
+            rankParticle.PlayParticle();
 
         StartCoroutine(MoveRoutine(rateText.gameObject, rateTextEndTransform));
         StartCoroutine(MoveRoutine(scoreObj.gameObject, scoreEndTransform));

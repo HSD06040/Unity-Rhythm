@@ -84,7 +84,6 @@ public class GameManager : Manager<GameManager>, ISavable
         bgm = data.bgm;
         BPM = data.BPM;
         currentMusicData = data;
-        startDelay = data.startDelay;
 
         StartCoroutine(GameStartRoutine());
     }
@@ -241,7 +240,7 @@ public class GameManager : Manager<GameManager>, ISavable
                 }
                 idx++;
             }
-            else if (idx >= noteSpawnList.Count && time >= (noteSpawnList[idx].startTime))
+            else if (idx >= noteSpawnList.Count)
             {
                 if(gameClearRoutine == null)
                     gameClearRoutine = StartCoroutine(GameClearRoutine());
