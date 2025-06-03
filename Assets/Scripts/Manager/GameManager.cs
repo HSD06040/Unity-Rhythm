@@ -1,4 +1,5 @@
 using FMOD;
+using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -83,6 +84,7 @@ public class GameManager : Manager<GameManager>, ISavable
         bgm = data.bgm;
         BPM = data.BPM;
         currentMusicData = data;
+        startDelay = data.startDelay;
 
         StartCoroutine(GameStartRoutine());
     }
@@ -120,13 +122,13 @@ public class GameManager : Manager<GameManager>, ISavable
         yield return new WaitForSeconds(2);
 
         SetGameStart();
-        isBusy = false;
+        isBusy = false;        
     }
 
     public void SetGameStart()
     {
-        InitPlayData();
         onMusicPlaying = true;
+        InitPlayData();
         noteSpawnList = Parser.LoadMap(bgm);
         AudioManager.Instance.PlayBGM(bgm, 1);
         UI_Manager.Instance.mvPlayer.PlayMusicVideo(currentMusicData.videoURL);
@@ -168,7 +170,7 @@ public class GameManager : Manager<GameManager>, ISavable
 
     public uint GetMusicMs()
     {
-        // 노래의 진행도를 반환
+        // 노래의 진행도를 반환      
         AudioManager.Instance.musicChannel.getPosition(out uint pos, FMOD.TIMEUNIT.MS);
         return pos;
     }
@@ -239,7 +241,7 @@ public class GameManager : Manager<GameManager>, ISavable
                 }
                 idx++;
             }
-            else if (idx >= noteSpawnList.Count)
+            else if (idx >= noteSpawnList.Count && time >= (noteSpawnList[idx].startTime))
             {
                 if(gameClearRoutine == null)
                     gameClearRoutine = StartCoroutine(GameClearRoutine());

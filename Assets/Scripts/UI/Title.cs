@@ -79,6 +79,8 @@ public class Title : MonoBehaviour
         while (asyncLoad.progress < 0.9f)
             yield return null;
 
+        yield return new WaitForSeconds(1f);
+
         asyncLoad.allowSceneActivation = true;
         UI_Manager.Instance.fadeScreen.ExitFade(FadeType.Defualt);
 

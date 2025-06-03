@@ -20,6 +20,8 @@ public class SettingPanel : MonoBehaviour
     {
         if (!canChanged) return;
 
+        AudioManager.Instance.PlaySFX(SFX.Open);
+
         gameObject.SetActive(true);
         anim.ResetTrigger(outHash);
         anim.SetTrigger(inHash);
@@ -28,6 +30,8 @@ public class SettingPanel : MonoBehaviour
     public void ClosePanel()
     {
         if (!canChanged) return;
+
+        AudioManager.Instance.PlaySFX(SFX.Close);
 
         anim.ResetTrigger(inHash);
         anim.SetTrigger(outHash);        

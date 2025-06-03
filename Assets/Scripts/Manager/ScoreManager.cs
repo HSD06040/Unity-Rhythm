@@ -128,15 +128,11 @@ public class ScoreManager : Manager<ScoreManager>
 
         PlayData oldMostPlayData = Parser.LoadPlayData(bgm);
 
-        if (oldMostPlayData == null || oldMostPlayData.score > score.Value)
-        {
-            GameManager.Instance.currnetPlayData = playData;
-        }
-        else
+        if (oldMostPlayData == null || oldMostPlayData.score < score.Value)
         {
             Parser.SavePlayData(playData);
-            GameManager.Instance.currnetPlayData = playData;
-        }            
+            GameManager.Instance.currnetPlayData = playData;            
+        }                
     }
 
     private void GetRank() // return Rank

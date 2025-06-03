@@ -1,9 +1,18 @@
+using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+
+[System.Serializable]
+public class BGMData
+{
+    public string name;
+    public EventReference eventRef;
+}
 
 public class AudioManager : Manager<AudioManager>, ISavable
 {
@@ -43,7 +52,7 @@ public class AudioManager : Manager<AudioManager>, ISavable
         for (int i = 0; i < count; i++)
         {
             string sfxFileName = System.Enum.GetName(typeof(SFX), i);
-            string audioType = "ogg";
+            string audioType = "WAV";
 
             FMODUnity.RuntimeManager.CoreSystem.createSound
                 (Path.Combine(Application.streamingAssetsPath, "SFXS", sfxFileName + "." + audioType),FMOD.MODE.CREATESAMPLE, out sfxs[i]);

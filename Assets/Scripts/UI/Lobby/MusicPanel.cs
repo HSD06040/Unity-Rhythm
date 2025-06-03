@@ -93,9 +93,13 @@ public class MusicPanel : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.RightArrow))
             ChangeDiff(0.1f);
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (isEnter)
+            StopCoroutine(changeMusicData);
+
+        if (Input.GetKeyDown(KeyCode.Return) && !GameManager.Instance.isBusy)
         {
             isEnter = true;
+            AudioManager.Instance.PlaySFX(SFX.MusicBarSelect);
             GameManager.Instance.GameStart(musicDatas[currentIdx]);
 
         }
@@ -115,19 +119,25 @@ public class MusicPanel : MonoBehaviour
             }
         }
     }
+
     private void ChangeSelection(int direction)
     {
+        int temIdx = currentIdx;
         musicBars[currentIdx].SetSelected(false);
 
-        int temIdx = currentIdx;
         currentIdx += direction;
         currentIdx = Mathf.Clamp(currentIdx, 0, musicBars.Count - 1);
 
         musicBars[currentIdx].SetSelected(true);
 
-        ScrollToSelected();
+        if (temIdx == currentIdx)
+        {
+            AudioManager.Instance.PlaySFX(SFX.Error);
+            return;
+        }
 
-        if (temIdx == currentIdx) return;
+        AudioManager.Instance.PlaySFX(SFX.MusicBarMove);
+        ScrollToSelected();        
 
         if(changeMusicData != null)
         {
@@ -166,8 +176,8 @@ public class MusicPanel : MonoBehaviour
 
             yield return null;
         }
-
-        if (isEnter) yield break;
+        
+        if (GameManager.Instance.isBusy) yield break;
 
         PlaySelectMusicVideo();
 
@@ -176,6 +186,7 @@ public class MusicPanel : MonoBehaviour
 
     private void PlaySelectMusicVideo()
     {
+        if (GameManager.Instance.isBusy) return;
 
         UI_Manager.Instance.mvPlayer.PlayMusicVideo(musicDatas[currentIdx].videoURL);
         AudioManager.Instance.PlayBGM(musicDatas[currentIdx].bgm);

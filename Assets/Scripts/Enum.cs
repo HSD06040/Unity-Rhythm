@@ -1,17 +1,12 @@
 public enum SFX
 {
-    ScrollSpeedChange,
-    HitSound,
-    Metronome,
-    Count,
-    MenuHit,
-    ButtonHover,
-    ButtonClick,
-    ClickShort,
-    Break,
-    Slider,
-    SceneOff,
-    SceneOn
+    Open,
+    Close,
+    Move,
+    Error,
+    Select,
+    MusicBarSelect,
+    MusicBarMove
 }
 public enum BGM
 {

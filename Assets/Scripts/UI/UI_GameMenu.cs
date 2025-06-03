@@ -119,10 +119,12 @@ public class UI_GameMenu : BaseUI
 
     private void SelectButton(int amount)
     {
-        if (currentIdx + amount < 0 || currentIdx + amount > buttons.Length - 1) return;
-
-        if (GameManager.Instance.onMusicPlaying && currentIdx + amount == 4)                    
-            return;        
+        if ((currentIdx + amount < 0 || currentIdx + amount > buttons.Length - 1)
+            || (GameManager.Instance.onMusicPlaying && currentIdx + amount == 4))
+        {
+            AudioManager.Instance.PlaySFX(SFX.Error);
+            return;
+        }
 
         imageAnimators[currentIdx].SetTrigger(outHash);
         textAnimators[currentIdx].SetTrigger(outHash);
@@ -137,7 +139,7 @@ public class UI_GameMenu : BaseUI
                 currentIdx = 0;
         }
 
-
+        AudioManager.Instance.PlaySFX(SFX.Move);
         UpdateCurrent();
     }
 
@@ -234,7 +236,7 @@ public class UI_GameMenu : BaseUI
             UI_Manager.Instance.mvPlayer.PauseVideo();
             AudioManager.Instance.StopBGM();
         }
-
+        AudioManager.Instance.PlaySFX(SFX.Open);
         gameObject.SetActive(true);
     }
 
@@ -245,6 +247,7 @@ public class UI_GameMenu : BaseUI
 
         isRestart = false;
 
+        AudioManager.Instance.PlaySFX(SFX.Close);
         gameObject.SetActive(false);
         UI_Manager.Instance.isMenu = false;
     }

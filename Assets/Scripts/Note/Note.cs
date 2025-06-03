@@ -62,8 +62,7 @@ public class Note : MonoBehaviour
 
     private Vector3 GetCurrentNotePos(NoteData data)
     {
-        double currentTime = GameManager.Instance.time;
-        double delta = currentTime - data.startTime;
+        double delta = GameManager.Instance.time - data.startTime;
 
         double progress = delta / GameManager.Instance.endTime;
 
