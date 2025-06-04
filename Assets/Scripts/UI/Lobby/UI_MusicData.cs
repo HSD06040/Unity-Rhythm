@@ -62,6 +62,7 @@ public class UI_MusicData : BaseUI
         if(musicPlayData != null)
         {
             musicIcon.sprite = data.icon;
+            rank.color = Color.white;
             rank.colorGradient = gradients[(int)musicPlayData.rank];
             rank.text = musicPlayData.rank.ToString();
             comboText.text = musicPlayData.maxCombo.ToString();

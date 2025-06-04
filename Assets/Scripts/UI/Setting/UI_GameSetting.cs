@@ -41,7 +41,7 @@ public class UI_GameSetting : BaseUI
         fpsRigthButton = GetUI<Button>("FpsLeftButton");
 
         UpdateFps();
-        UpdateResolution();
+        //UpdateResolution();
     }
 
     public void ResolutionChange(int amount)
@@ -50,8 +50,8 @@ public class UI_GameSetting : BaseUI
 
         currentResolutionIdx += amount;
         SettingManager.Instance.currentFpsSettingIdx = currentResolutionIdx;
-        Debug.Log("Resoul");
-        UpdateResolution();
+
+        //UpdateResolution();
     }
 
     private void UpdateResolution()
@@ -66,7 +66,7 @@ public class UI_GameSetting : BaseUI
 
         currentFpsIdx += amount;
         SettingManager.Instance.currentFpsSettingIdx = currentFpsIdx;
-        Debug.Log("Fps");
+ 
         UpdateFps();
     }
 

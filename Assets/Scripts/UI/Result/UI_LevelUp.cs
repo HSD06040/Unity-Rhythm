@@ -18,12 +18,9 @@ public class UI_LevelUp : BaseUI
         currentLevel = GetUI<TextMeshProUGUI>("Level");
         nextLevel = GetUI<TextMeshProUGUI>("NextLevel");
         anim = GetComponent<Animator>();
-    }
 
-    private void Start()
-    {
-        currentLevel.text = DataManager.Instance.level.Value.ToString();
-        nextLevel.text = (DataManager.Instance.level.Value + 1).ToString();
+        currentLevel.text = (DataManager.Instance.level.Value - 1).ToString();        
+        nextLevel.text = DataManager.Instance.level.Value.ToString();
     }
 
     private void Update()

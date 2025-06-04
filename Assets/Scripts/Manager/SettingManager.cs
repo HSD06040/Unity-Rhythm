@@ -11,6 +11,11 @@ public class SettingManager : Manager<SettingManager>, ISavable
     public Property<int> currentHeight;
     public int currentResolutionSettingIdx;
 
+    protected override void Awake()
+    {
+        Screen.SetResolution(1920, 1080, true);
+    }
+
     public void Load(GameData data)
     {
         currentResolutionSettingIdx = data.resIdx;
