@@ -21,6 +21,7 @@ public class MVPlayer : MonoBehaviour
     public void PlayMusicVideo(string url, bool isLine = true)
     {
         image.gameObject.SetActive(true);
+        rawImage.color = Color.black;
 
         foreach (var line in lines)
             line.SetActive(isLine);
@@ -40,7 +41,7 @@ public class MVPlayer : MonoBehaviour
         videoPlayer.Play();
         
         yield return delay;
-
+        rawImage.color = Color.white;
         image.gameObject.SetActive(false);
     }
 
@@ -54,6 +55,7 @@ public class MVPlayer : MonoBehaviour
     public void StopVideo()
     {
         videoPlayer.Stop();
+        rawImage.color = Color.black;
     }
 
     IEnumerator DelayMusicVideoPlay(string url, float delay)

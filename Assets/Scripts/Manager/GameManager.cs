@@ -61,13 +61,7 @@ public class GameManager : Manager<GameManager>, ISavable
 
     private void Update()
     {
-        SetNote();
-
-        if(!isEdit)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-                GameClear();
-        }        
+        SetNote();    
     }
 
     private void InitPlayData()

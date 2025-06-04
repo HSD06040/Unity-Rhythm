@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UI_ResultPanel : BaseUI
 {
     [SerializeField] private RankParticle rankParticle;
+    [SerializeField] private UI_Particular particular;
     [SerializeField] private UI_Rank rank;
 
     [Header("Speed")]
@@ -91,6 +92,11 @@ public class UI_ResultPanel : BaseUI
         {
             if(lobbyRoutine == null)
                 lobbyRoutine = StartCoroutine(LoadLobby());
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            particular.Change();
         }
     }
 
