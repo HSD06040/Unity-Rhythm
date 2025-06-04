@@ -52,7 +52,7 @@ public class ScoreManager : Manager<ScoreManager>
     private void AddScore(int amount)
     {
         comboCount.Value += (int)currentState;      
-        float multiplier = 1 + comboCount.Value / 1000;
+        float multiplier = 1 + comboCount.Value / 3000;
         score.Value += Mathf.RoundToInt(amount * multiplier);
     }
 
