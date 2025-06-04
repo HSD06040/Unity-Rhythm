@@ -7,18 +7,20 @@ using UnityEngine.Video;
 public class MVPlayer : MonoBehaviour
 {
     private VideoPlayer videoPlayer;
-    private RawImage rawImage;
+    [SerializeField] private RawImage rawImage;
+    [SerializeField] private Image image;
     [SerializeField] private GameObject[] lines;
+
+    private readonly YieldInstruction delay = new WaitForSeconds(.5f);
 
     private void Awake()
     {
         videoPlayer = GetComponent<VideoPlayer>();    
-        rawImage = GetComponent<RawImage>();
     }
 
     public void PlayMusicVideo(string url, bool isLine = true)
     {
-        rawImage.color = Color.black;
+        image.gameObject.SetActive(true);
 
         foreach (var line in lines)
             line.SetActive(isLine);
@@ -30,16 +32,16 @@ public class MVPlayer : MonoBehaviour
 
         videoPlayer.url = url;
 
-        videoPlayer.Prepare();
-        videoPlayer.prepareCompleted += OnVideoPrepared;
+        StartCoroutine(MVPlayRoutine());
     }
 
-    private void OnVideoPrepared(VideoPlayer source)
+    private IEnumerator MVPlayRoutine()
     {
         videoPlayer.Play();
-        rawImage.color = Color.white;
+        
+        yield return delay;
 
-        videoPlayer.prepareCompleted -= OnVideoPrepared;
+        image.gameObject.SetActive(false);
     }
 
     public void PlayMusicVideo(string url, float delay)
@@ -52,18 +54,15 @@ public class MVPlayer : MonoBehaviour
     public void StopVideo()
     {
         videoPlayer.Stop();
-        rawImage.color = Color.black;
     }
 
     IEnumerator DelayMusicVideoPlay(string url, float delay)
     {        
-
         if (videoPlayer.isPlaying)
             videoPlayer.Stop();
 
         videoPlayer.url = url;
         yield return new WaitForSeconds(delay);
-        videoPlayer.Play();
-        rawImage.color = Color.white;         
+        videoPlayer.Play();     
     }
 }
