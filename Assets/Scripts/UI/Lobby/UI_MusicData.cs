@@ -6,12 +6,13 @@ using UnityEngine.UI;
 
 public class UI_MusicData : BaseUI
 {
+    [SerializeField] private VertexGradient[] gradients;
     [SerializeField] private Image musicIcon;
     [SerializeField] private float musicIconSpeed;
     private PlayData musicPlayData;
 
     [Header("PlayData_UI")]
-    private Image rankImage;
+    private TMP_Text rank;
     private TMP_Text comboText;
     private TMP_Text scoreText;
     private TMP_Text rateText;
@@ -25,7 +26,7 @@ public class UI_MusicData : BaseUI
     {
         base.Awake();
 
-        rankImage = GetUI<Image>("Rank");
+        rank = GetUI<TextMeshProUGUI>("Rank");
 
         musicDifficultySpeedText = GetUI<TextMeshProUGUI>("MusicSpeed");
         comboText = GetUI<TextMeshProUGUI>("Combo");
@@ -61,8 +62,8 @@ public class UI_MusicData : BaseUI
         if(musicPlayData != null)
         {
             musicIcon.sprite = data.icon;
-            rankImage.color = Color.white;
-            rankImage.sprite = data.icon; // 랭크 이미지로 추후 교체
+            rank.colorGradient = gradients[(int)musicPlayData.rank];
+            rank.text = musicPlayData.rank.ToString();
             comboText.text = musicPlayData.maxCombo.ToString();
             scoreText.text = musicPlayData.score.ToString();
             rateText.text = musicPlayData.rate.ToString();
@@ -76,7 +77,7 @@ public class UI_MusicData : BaseUI
         else
         {
             musicIcon.sprite = data.icon;
-            rankImage.color = Color.clear;
+            rank.color = Color.clear;
             comboText.text = "0";
             scoreText.text = "0";
             rateText.text = "0";

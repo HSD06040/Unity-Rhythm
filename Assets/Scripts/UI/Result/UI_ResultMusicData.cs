@@ -27,7 +27,7 @@ public class UI_ResultMusicData : BaseUI
         musicNameText = GetUI<TextMeshProUGUI>("MusicName");
         artistNameText = GetUI<TextMeshProUGUI>("ArtistName");
         musicIcon = GetUI<Image>("MusicIcon");
-        startParent = GetUI<Transform>("Stars");
+        startParent = GetUI<RectTransform>("Stars");
     }
 
     private void Start()

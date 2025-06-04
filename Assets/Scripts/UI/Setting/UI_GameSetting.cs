@@ -44,31 +44,13 @@ public class UI_GameSetting : BaseUI
         UpdateResolution();
     }
 
-    private void OnEnable()
+    public void ResolutionChange(int amount)
     {
-        resLeftButton.onClick.AddListener(() => ResolutionChange(-1));
-        resRigthButton.onClick.AddListener(() => ResolutionChange(1));
-
-        fpsLeftButton.onClick.AddListener(() => FpsChange(-1));
-        fpsRigthButton.onClick.AddListener(() => FpsChange(1));
-    }
-
-    private void OnDisable()
-    {
-        resLeftButton.onClick.RemoveListener(() => ResolutionChange(-1));
-        resRigthButton.onClick.RemoveListener(() => ResolutionChange(1));
-
-        fpsLeftButton.onClick.RemoveListener(() => FpsChange(-1));
-        fpsRigthButton.onClick.RemoveListener(() => FpsChange(1));
-    }
-
-    private void ResolutionChange(int amount)
-    {
-        if (currentResolutionIdx == 0 || currentResolutionIdx == resolutions.Length - 1) return;
+        if (currentResolutionIdx + amount < 0 || currentResolutionIdx + amount > resolutions.Length - 1) return;
 
         currentResolutionIdx += amount;
         SettingManager.Instance.currentFpsSettingIdx = currentResolutionIdx;
-
+        Debug.Log("Resoul");
         UpdateResolution();
     }
 
@@ -77,14 +59,14 @@ public class UI_GameSetting : BaseUI
         Screen.SetResolution(widths[currentResolutionIdx], heights[currentResolutionIdx], FullScreenMode.Windowed);
         resolutionText.text = resolutions[currentResolutionIdx];
     }
-    
-    private void FpsChange(int amount)
+
+    public void FpsChange(int amount)
     {
-        if (currentFpsIdx == 0 || currentFpsIdx == refreshRates.Length - 1) return;
+        if (currentFpsIdx + amount < 0 || currentFpsIdx + amount > refreshRates.Length - 1) return;
 
         currentFpsIdx += amount;
         SettingManager.Instance.currentFpsSettingIdx = currentFpsIdx;
-
+        Debug.Log("Fps");
         UpdateFps();
     }
 

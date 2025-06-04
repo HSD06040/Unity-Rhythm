@@ -130,9 +130,10 @@ public class GameManager : Manager<GameManager>, ISavable
         onMusicPlaying = true;
         InitPlayData();
         noteSpawnList = Parser.LoadMap(bgm);
+        JudgeManager.Instance.InitLanes();
         AudioManager.Instance.PlayBGM(bgm, 1);
         UI_Manager.Instance.mvPlayer.PlayMusicVideo(currentMusicData.videoURL);        
-        ScoreManager.Instance.noteCount = noteSpawnList.Count;
+        ScoreManager.Instance.noteCount = noteSpawnList.Count;       
         onGameStart.Invoke();
     }
 

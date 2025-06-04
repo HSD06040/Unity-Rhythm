@@ -18,30 +18,28 @@ public class MVPlayer : MonoBehaviour
 
     public void PlayMusicVideo(string url, bool isLine = true)
     {
-        if(isLine)
-        {
-            foreach(var line in lines)
-            {
-                line.SetActive(true);
-            }
-        }
-        else
-        {
-            foreach (var line in lines)
-            {
-                line.SetActive(false);
-            }
-        }
+        rawImage.color = Color.black;
 
-        if(videoPlayer.isPlaying)
+        foreach (var line in lines)
+            line.SetActive(isLine);
+
+        if (videoPlayer.isPlaying)
             videoPlayer.Stop();
 
         videoPlayer.targetTexture.Release();
 
         videoPlayer.url = url;
-        videoPlayer.Play();
 
-        rawImage.color = Color.white;        
+        videoPlayer.Prepare();
+        videoPlayer.prepareCompleted += OnVideoPrepared;
+    }
+
+    private void OnVideoPrepared(VideoPlayer source)
+    {
+        videoPlayer.Play();
+        rawImage.color = Color.white;
+
+        videoPlayer.prepareCompleted -= OnVideoPrepared;
     }
 
     public void PlayMusicVideo(string url, float delay)

@@ -63,6 +63,14 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
         }
     }
 
+    public void InitLanes()
+    {
+        foreach (var noteLane in noteLanes)
+        {
+            noteLane.Clear();
+        }
+    }
+
     private void Judgement(int idx)
     {
         if (lanes[idx].WasPressedThisFrame())

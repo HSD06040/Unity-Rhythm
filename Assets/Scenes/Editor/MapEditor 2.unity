@@ -490,6 +490,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   judgeResult: 
+  comboState: 
+  noteCount: 0
 --- !u!1 &208681447
 GameObject:
   m_ObjectHideFlags: 0
@@ -3323,7 +3325,7 @@ MonoBehaviour:
   musicPlay: 0
   editTime: 1650
   bgm: 1
-  resSpeed: 0.75
+  resSpeed: 0.5
   keySound: 
   currentTimeText: {fileID: 1767584749}
   linePrefab: {fileID: 5618520380787201816, guid: d08d27d956df33046aed22c21058b4f7, type: 3}

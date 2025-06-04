@@ -48,7 +48,6 @@ public class MusicBar : MonoBehaviour
         else
         {
             anim.SetTrigger("Out");
-
         }
     }
 }

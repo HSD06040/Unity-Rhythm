@@ -2635,7 +2635,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6cb73bc65bd066e458b171bcddc48124, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 958150c2230c63949b1b271f4dc6d9a9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4631,7 +4631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1359047117
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6080,6 +6080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1606526389}
   - component: {fileID: 1606526390}
+  - component: {fileID: 1606526392}
   m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
@@ -6104,8 +6105,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000076293945, y: 165}
-  m_SizeDelta: {x: 197.1689, y: 197.16888}
+  m_AnchoredPosition: {x: -0.0000019073486, y: 187}
+  m_SizeDelta: {x: 259.1807, y: 259.1807}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1606526390
 MonoBehaviour:
@@ -6121,6 +6122,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
+--- !u!222 &1606526392
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606526388}
+  m_CullTransparentMesh: 1
 --- !u!1 &1608654228
 GameObject:
   m_ObjectHideFlags: 0

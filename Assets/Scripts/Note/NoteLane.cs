@@ -7,13 +7,10 @@ using UnityEngine;
 public class NoteLane
 {
     private Queue<Note> notes = new Queue<Note>();
-    [SerializeField]
-    private List<Note> debugNotes = new(); // 인스펙터에서 보기 위한 리스트
 
     public void AddNote(Note note)
     {
         notes.Enqueue(note);
-        debugNotes.Add(note);
     }
 
     public Note GetNote()
@@ -36,7 +33,6 @@ public class NoteLane
         }
 
         notes.TryDequeue(out Note note);
-        debugNotes.Remove(note);
         return note;
     }
 
@@ -50,5 +46,10 @@ public class NoteLane
             }
         }
         return null;
+    }
+
+    public void Clear()
+    {
+        notes.Clear();
     }
 }

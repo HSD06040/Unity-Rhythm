@@ -11,6 +11,7 @@ public enum SFX
 public enum BGM
 {
     NOPAIN,
+    The_Raindrop_Flower,
     ASGORE,
     Title,
     Length

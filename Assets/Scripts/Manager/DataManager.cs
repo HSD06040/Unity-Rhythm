@@ -84,6 +84,8 @@ public class DataManager : Manager<DataManager>, ISavable
             if(!musicDataDic.ContainsKey(data.bgm))
             {
                 musicDataDic.Add(data.bgm, data);
+                Debug.Log(data.bgm);
+                Debug.Log(data.musicName);
             }
             else
             {

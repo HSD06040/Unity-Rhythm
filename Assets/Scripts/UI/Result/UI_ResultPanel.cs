@@ -79,7 +79,7 @@ public class UI_ResultPanel : BaseUI
 
     private void Start()
     {
-        //playData = GameManager.Instance.currnetPlayData;
+        playData = GameManager.Instance.currnetPlayData;
         StartCoroutine(ResultRoutine());
     }
 

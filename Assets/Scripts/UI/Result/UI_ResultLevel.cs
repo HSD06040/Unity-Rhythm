@@ -48,70 +48,63 @@ public class UI_ResultLevel : BaseUI
         textString = (expSlider1.value * 100).ToString("F0");
         expText.text = $"{textString}%";
 
-        DataManager.Instance.AddExp(GameManager.Instance.currnetPlayData.score / 300);
+        DataManager.Instance.AddExp(GameManager.Instance.currnetPlayData.score / 500);
 
         StartCoroutine(ExpSliderNextRoutine());
     }
 
     private IEnumerator ExpSliderNextRoutine()
     {
+        float oldLevelProportion = DataManager.Instance.GetLevelProportion();
+        int oldLevel = DataManager.Instance.level.Value;
+
+
+        float newLevelProportion = DataManager.Instance.GetLevelProportion();
+        int newLevel = DataManager.Instance.level.Value;
+
+        expSlider2.value = oldLevelProportion;
+
+        float t = 0f;
+        string textString;
+
         while (true)
         {
-            float oldLevelProportion = DataManager.Instance.GetLevelProportion();
-            int oldLevel = DataManager.Instance.level.Value;
+            t += Time.deltaTime * 2.5f;
+            expSlider2.value = Mathf.Lerp(expSlider2.value, newLevelProportion, t);
 
-            DataManager.Instance.AddExp(GameManager.Instance.currnetPlayData.score / 300);
+            textString = (expSlider2.value * 100).ToString("F0");
+            expText.text = $"{textString}%";
 
-            float newLevelProportion = DataManager.Instance.GetLevelProportion();
-            int newLevel = DataManager.Instance.level.Value;
-
-            expSlider2.value = oldLevelProportion;
-
-            float t = 0f;
-            string textString;
-
-            while (true)
+            if (DataManager.Instance.isLevelUp)
             {
-                t += Time.deltaTime * 2.5f;
-                expSlider2.value = Mathf.Lerp(expSlider2.value, newLevelProportion, t);
+                levelUp.SetActive(true);
+                DataManager.Instance.isLevelUp = false;
 
-                textString = (expSlider2.value * 100).ToString("F0");
-                expText.text = $"{textString}%";
+                expSlider2.value = 1f;
 
-                if (DataManager.Instance.isLevelUp)
-                {
-                    levelUp.SetActive(true);
-                    DataManager.Instance.isLevelUp = false;
+                yield return new WaitForSeconds(0.2f);
 
-                    expSlider2.value = 1f;
+                level.text = DataManager.Instance.level.Value.ToString();
 
-                    yield return new WaitForSeconds(0.2f);
+                expSlider1.value = 0f;
+                expSlider2.value = 0f;
 
-                    level.text = DataManager.Instance.level.Value.ToString();
+                yield return new WaitForSeconds(0.2f);
 
-                    expSlider1.value = 0f;
-                    expSlider2.value = 0f;
-
-                    yield return new WaitForSeconds(0.2f);
-
-                    break;
-                }
-
-                if (Mathf.Abs(expSlider2.value - newLevelProportion) < 0.01f)
-                {
-                    expSlider2.value = newLevelProportion;
-                    break;
-                }
-
-                yield return null;
+                StartCoroutine(ExpSliderNextRoutine());
+                yield break;
             }
 
-            if (!DataManager.Instance.isLevelUp)
+            if (Mathf.Abs(expSlider2.value - newLevelProportion) < 0.01f)
+            {
+                expSlider2.value = newLevelProportion;
                 break;
+            }
 
             yield return null;
         }
 
-        expText.text = $"{(DataManager.Instance.GetLevelProportion() * 100).ToString("F0")}%";
+        expText.text = $"{(newLevelProportion * 100).ToString("F0")}%";
     }
+
 }
