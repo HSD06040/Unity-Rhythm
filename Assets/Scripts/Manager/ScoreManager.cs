@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
@@ -44,6 +45,7 @@ public class ScoreManager : Manager<ScoreManager>
         totalRate = 0;
         score.Value = 0;
         comboCount.Value = 0;
+        comboGauge.Value = 0;
         judgeResult = new int[(int)Judge.Miss + 1];
     }
 
@@ -136,19 +138,19 @@ public class ScoreManager : Manager<ScoreManager>
         onJudged?.Invoke(judge);
     }
 
-    public bool UpgradeState()
+    public void UpgradeState()
     {
         if (stateIdx == 3)
         {
             comboCount.Value += 20;
-            return false;
+            return;
         }
         stateIdx++;
 
         currentState = comboState[stateIdx];
         onComboStateChanged?.Invoke(currentState);
 
-        return true;
+        return;
     }
 
     public void ResetComboCount()
@@ -156,6 +158,7 @@ public class ScoreManager : Manager<ScoreManager>
         comboList.Add(comboCount.Value);
         comboCount.Value = 0;
         stateIdx = 0;
+        comboGauge.Value = 0;
         currentState = ComboState.MAX1;
         onComboStateChanged?.Invoke(currentState);
     }

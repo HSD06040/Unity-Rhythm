@@ -47,7 +47,7 @@ public class JudgeManager : Manager<JudgeManager>, ISavable
 
     private void Update()
     {
-        if (UI_Manager.Instance.isPause) return;
+        if (UI_Manager.Instance.isPause || UI_Manager.Instance.isMenu) return;
 
         Judgement(0);
         Judgement(1);

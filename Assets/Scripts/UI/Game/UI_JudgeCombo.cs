@@ -24,6 +24,7 @@ public class UI_JudgeCombo : BaseUI
         "MAX50%", "MAX40%", "MAX30%", "MAX20%", "MAX10%",
         "MAX1%", "Miss"
     };
+
     protected override void Awake()
     {
         base.Awake();
@@ -45,6 +46,7 @@ public class UI_JudgeCombo : BaseUI
         ScoreManager.Instance.onJudged += JudgeUpdate;
         ScoreManager.Instance.comboCount.AddEvent(ComboUpdate);
         ScoreManager.Instance.score.AddEvent(ScoreUpdate);
+        GameManager.Instance.onGameStart += ResetTexts;
     }
 
     private void OnDisable()
@@ -52,6 +54,7 @@ public class UI_JudgeCombo : BaseUI
         ScoreManager.Instance.onJudged -= JudgeUpdate;
         ScoreManager.Instance.comboCount.RemoveEvent(ComboUpdate);
         ScoreManager.Instance.score.RemoveEvent(ScoreUpdate);
+        GameManager.Instance.onGameStart -= ResetTexts;
     }
 
     private void JudgeUpdate(Judge judge)
@@ -79,5 +82,13 @@ public class UI_JudgeCombo : BaseUI
     private void ScoreUpdate(int amount)
     {
         scoreText.text = amount.ToString();
+    }
+
+    private void ResetTexts()
+    {
+        judgeText.text = "";
+        comboText.text = "0";
+        rateText.text = "00.00";
+        scoreText.text = "";                
     }
 }

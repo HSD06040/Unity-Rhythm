@@ -47,6 +47,7 @@ public class GameManager : Manager<GameManager>, ISavable
     public Transform judgeLine;
 
     public event Action<float> onScrollSpeedChanged;
+    public event Action onGameStart;
 
     private Coroutine gameClearRoutine;
     private int idx;
@@ -130,8 +131,9 @@ public class GameManager : Manager<GameManager>, ISavable
         InitPlayData();
         noteSpawnList = Parser.LoadMap(bgm);
         AudioManager.Instance.PlayBGM(bgm, 1);
-        UI_Manager.Instance.mvPlayer.PlayMusicVideo(currentMusicData.videoURL);
+        UI_Manager.Instance.mvPlayer.PlayMusicVideo(currentMusicData.videoURL);        
         ScoreManager.Instance.noteCount = noteSpawnList.Count;
+        onGameStart.Invoke();
     }
 
     private IEnumerator GameClearRoutine()

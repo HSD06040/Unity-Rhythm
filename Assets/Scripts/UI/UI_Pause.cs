@@ -40,6 +40,7 @@ public class UI_Pause : MonoBehaviour
 
     public void StartPauseAnim()
     {
+        UI_Manager.Instance.isPause = true;
         gameObject.SetActive(true);
         Init();
     }

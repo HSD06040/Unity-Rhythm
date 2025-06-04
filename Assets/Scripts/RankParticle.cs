@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 public class RankParticle : MonoBehaviour
@@ -9,27 +8,39 @@ public class RankParticle : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
 
     private List<int> idxs = new();
-    private readonly YieldInstruction delay = new WaitForSeconds(.5f);
+    private bool isPlaying;
+    private float timer;
+
+    private readonly YieldInstruction loopDelay = new WaitForSeconds(1.5f);
+    private readonly YieldInstruction particleDelay = new WaitForSeconds(.8f);
 
     public void PlayParticle()
     {
-        foreach (var particle in particles)
-        {
-            particle.gameObject.SetActive(true);
-        }
+        if (isPlaying) return;
 
-        StartCoroutine(ParticleRoutine());
+        StartCoroutine(ParticleLoop());
     }
 
-    private IEnumerator ParticleRoutine()
+    private IEnumerator ParticleLoop()
     {
-        idxs.Clear();
-
-        for (int i = 0; i < 5; i++)
+        while (true)
         {
-            CreateParticle();
-            yield return delay;
-        }        
+            idxs.Clear();
+
+            for (int i = 0; i < 4; i++)
+            {
+                foreach (var particle in particles)
+                {
+                    if (!particle.gameObject.activeSelf)
+                        particle.gameObject.SetActive(true);
+                }
+
+                CreateParticle();
+                yield return particleDelay;
+            }
+
+            yield return loopDelay;
+        }
     }
 
     private void CreateParticle()

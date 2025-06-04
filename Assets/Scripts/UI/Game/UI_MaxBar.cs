@@ -35,9 +35,7 @@ public class UI_MaxBar : BaseUI
     private void MaxbarFull()
     {        
         ScoreManager.Instance.comboGauge.Value = 0;
-
-        if(ScoreManager.Instance.UpgradeState())
-            anim.SetTrigger("In");
+        ScoreManager.Instance.UpgradeState();      
     }
 
     private void ChangeState(ComboState comboState)
@@ -55,6 +53,8 @@ public class UI_MaxBar : BaseUI
             case ComboState.MAX5:
                 i = 3; break;
         }
+
+        anim.SetTrigger("In");
 
         stateText.colorGradient = gradients[i];
         stateText.text = comboState.ToString();

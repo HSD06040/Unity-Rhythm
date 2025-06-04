@@ -94,8 +94,8 @@ public class MusicPanel : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.RightArrow))
             ChangeDiff(0.1f);
 
-        if (isEnter)
-            StopCoroutine(changeMusicData);
+        if (isEnter && changeMusicData != null)
+            StopCoroutine(changeMusicData); 
 
         if (Input.GetKeyDown(KeyCode.Return) && !GameManager.Instance.isBusy)
         {

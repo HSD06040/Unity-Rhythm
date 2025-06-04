@@ -155,8 +155,7 @@ public class UI_GameMenu : BaseUI
     }
 
     public void Continue()
-    {
-        UI_Manager.Instance.isPause = true;
+    {     
         ClosePanel();
     }
 

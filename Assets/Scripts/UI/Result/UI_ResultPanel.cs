@@ -79,7 +79,7 @@ public class UI_ResultPanel : BaseUI
 
     private void Start()
     {
-        playData = GameManager.Instance.currnetPlayData;
+        //playData = GameManager.Instance.currnetPlayData;
         StartCoroutine(ResultRoutine());
     }
 
@@ -157,8 +157,6 @@ public class UI_ResultPanel : BaseUI
         text.text = $"{targetIdx.ToString("F2")}%";
     }
 
-    #region Move
-
     private IEnumerator ResultRoutine()
     {
          _delay = new WaitForSeconds(delay);
@@ -218,6 +216,4 @@ public class UI_ResultPanel : BaseUI
             yield return null;
         }        
     }
-
-#endregion
 }

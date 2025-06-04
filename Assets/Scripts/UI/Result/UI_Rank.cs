@@ -33,15 +33,21 @@ public class UI_Rank : BaseUI
 
     private IEnumerator SRankRoutine()
     {
+        Debug.Log("Start SRankRoutine");
+
         yield return new WaitForSeconds(1f);
+        Debug.Log("Before Rank In");
         rankAnim.SetTrigger("In");
 
         yield return new WaitForSeconds(.5f);
+        Debug.Log("Before Crown In");
         crownAnim.SetTrigger("In");
 
         yield return new WaitForSeconds(.5f);
-
+        Debug.Log("Before Rotate");
         crownAnim.SetTrigger("Rotate");
+
+        Debug.Log("End SRankRoutine");
     }
 
     private IEnumerator RankRoutine()
