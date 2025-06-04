@@ -8,7 +8,8 @@ using UnityEngine;
 public class FileHandler
 {
     private string fullPath;
-    private bool isEncrype;
+    private bool isEncrype = true;
+    private string codeWord = "HSD";
 
     public FileHandler(string dataPath, string dataFileName)
     {
@@ -22,6 +23,9 @@ public class FileHandler
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
 
             string dataToSave = JsonUtility.ToJson(data, true);
+
+            if(isEncrype)
+                dataToSave = EncryptDecrypt(dataToSave);
 
             using (FileStream stream = new FileStream(fullPath, FileMode.Create))
             {
@@ -56,6 +60,9 @@ public class FileHandler
                     }
                 }
 
+                if(isEncrype)
+                    dataToLoad = EncryptDecrypt(dataToLoad);
+
                 data = JsonUtility.FromJson<GameData>(dataToLoad);
             }
             catch(Exception e)
@@ -70,5 +77,17 @@ public class FileHandler
     public void DeleteFile()
     {
         File.Delete(fullPath);
+    }
+
+    private string EncryptDecrypt(string data)
+    {
+        string modifedData = "";
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            modifedData += (char)(data[i] ^ codeWord[i % codeWord.Length]);
+        }
+
+        return modifedData;
     }
 }
