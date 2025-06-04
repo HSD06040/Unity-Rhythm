@@ -91,9 +91,6 @@ public class UI_GameSetting : BaseUI
             heights[i] = _resolutions[i].height;
             resolutions[i] = $"{widths[i]} x {heights[i]}";
 
-            Debug.Log(resolutions[i]);
-            Debug.Log(refreshRates[i].value);
-
             refreshRates[i] = _resolutions[i].refreshRateRatio;
         }
     }
